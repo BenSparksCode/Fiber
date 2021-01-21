@@ -1,11 +1,10 @@
 
 import { FlashLoanFeed } from './components/FlashLoanFeed'
-import { DashboardLayout } from './layouts/DashboardLayout'
 
 function App() {
   return (
     <div className="App">
-        <h1>🎉 Fibre 🎉</h1>
+        <h1>🎉 Fiber 🎉</h1>
 
         <br />
 

@@ -1,4 +1,6 @@
 import React from 'react'
+import { Table } from 'antd';
+
 import { ContentPanel } from './StyledComponents'
 
 
@@ -10,7 +12,8 @@ export const FlashLoanFeed = () => {
     return (
         <div>
             <ContentPanel>
-                Hello
+                <h1>Flash Loans</h1>
+                <Table />
             </ContentPanel>
         </div>
     )
