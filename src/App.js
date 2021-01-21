@@ -1,9 +1,12 @@
 
+import {DashboardLayout} from './layouts/DashboardLayout'
 
 function App() {
   return (
     <div className="App">
-        Fiber
+        <DashboardLayout >
+          Fibre 🎉
+        </DashboardLayout>
     </div>
   );
 }
