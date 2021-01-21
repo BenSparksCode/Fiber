@@ -1,12 +1,15 @@
 
-import {DashboardLayout} from './layouts/DashboardLayout'
+import { FlashLoanFeed } from './components/FlashLoanFeed'
+import { DashboardLayout } from './layouts/DashboardLayout'
 
 function App() {
   return (
     <div className="App">
-        <DashboardLayout >
-          Fibre 🎉
-        </DashboardLayout>
+        <h1>🎉 Fibre 🎉</h1>
+
+        <br />
+
+        <FlashLoanFeed />
     </div>
   );
 }
