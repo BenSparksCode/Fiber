@@ -5,9 +5,10 @@ export const AppContext = createContext()
 const dummyTxs = [
     {
         txID: "0x305a83574cb8e4c51acf6db9fd38ec39e6ef73ffe25cbf1845e8d8f68a5f1696",
+        txFee: 0.066619, //in ETH
         blockNum: 11711726,
         date: new Date(),
-        amountUSD: 14258,
+        amountBorrowedUSD: 14258,
         tokenBorrowed: "WBTC",
         from: "0x87245c288fcC858BF7225Dc3Ab97D0aD94730757",
         providers: ["AAVE"],
@@ -21,9 +22,10 @@ const dummyTxs = [
     },
     {
         txID: "0x305a83574cb8e4c51acf6db9fd38ec39e6ef73ffe25cbf1845e8d8f68a5f1696",
+        txFee: 0.066619, //in ETH
         blockNum: 11711726,
         date: new Date(),
-        amountUSD: 9000000,
+        amountBorrowedUSD: 9000000,
         tokenBorrowed: "ETH",
         from: "0x87245c288fcC858BF7225Dc3Ab97D0aD94730757",
         providers: ["AAVE"],
