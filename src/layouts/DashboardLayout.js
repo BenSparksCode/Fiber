@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
+import {
+    Link
+} from "react-router-dom";
 import { Layout, Menu } from 'antd';
 import {
     DesktopOutlined,
     SettingOutlined,
+    ExperimentOutlined
 } from '@ant-design/icons';
+
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -22,10 +27,13 @@ export const DashboardLayout = (props) => {
                 {/* <div className="logo" />  */}
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                     <Menu.Item key="1" icon={<DesktopOutlined />}>
-                        Live Flash Loans
+                        <Link to="/">Live Flash Loans</Link>
                     </Menu.Item>
                     <Menu.Item key="2" icon={<SettingOutlined />}>
-                        Settings
+                        <Link to="/settings">Settings</Link>
+                    </Menu.Item>
+                    <Menu.Item key="3" icon={<ExperimentOutlined />}>
+                        <Link to="/stream">Data Stream Test</Link>
                     </Menu.Item>
                 </Menu>
             </Sider>

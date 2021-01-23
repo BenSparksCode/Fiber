@@ -4,8 +4,7 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  Redirect,
-  Link
+  Redirect
 } from "react-router-dom";
 
 import AppContextProvider from './contexts/AppContext'
