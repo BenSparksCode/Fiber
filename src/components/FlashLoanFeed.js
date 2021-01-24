@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Table } from 'antd';
+
+import { AppContext } from '../contexts/AppContext'
 
 import { ContentPanel } from './StyledComponents'
 import { FlashLoanListItem } from './FlashLoanListItem'
@@ -7,15 +9,16 @@ import { FlashLoanListItem } from './FlashLoanListItem'
 
 export const FlashLoanFeed = () => {
 
+    const { FLs } = useContext(AppContext)
+
     return (
         <div >
             <ContentPanel>
-                
-                <h1 className = 'FL'>Flash Loans</h1>
-                <FlashLoanListItem name = '24 Jan 2021' blockNumber = '123456789'/>
-                <FlashLoanListItem/>
-            
-              
+
+                <h1 className='FL'>Flash Loans</h1>
+
+                {FLs.map(FL => <FlashLoanListItem data={FL}/>)}
+
             </ContentPanel>
         </div>
     )
