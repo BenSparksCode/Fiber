@@ -89,6 +89,7 @@ code {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+  /* flex-direction: row; */
 
 }
 
@@ -109,12 +110,18 @@ code {
 .two{
   display: flex;
   flex-direction: row;
-  flex-grow: 2 ;
+  flex-grow: 1 ;
   /* flex-wrap: wrap ; */
-
 }
 
 .three{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1 ;
+
+}
+
+.four{
   display: flex;
   flex-direction: column;
   flex-grow: 1 ;
