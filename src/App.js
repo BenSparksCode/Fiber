@@ -4,7 +4,7 @@ import { FlashLoanFeed } from './components/FlashLoanFeed'
 function App() {
   return (
     <div className="App">
-        <h1 className = 'Heading1'> FIBER </h1>
+        <h1 className = 'AppTitle'> FIBER </h1>
 
         <br />
         <FlashLoanFeed />

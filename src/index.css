@@ -20,124 +20,26 @@ code {
   flex-direction: column;
 }
 
-.Heading1{ 
+.AppTitle{ 
   font-size: 40px;
-
 }
 
 .FL{
   font-size: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 
 .FlashLoanListItem{
   display: flex;
   flex-direction: row;
-  flex-basis: 100;
-  padding: 10px;
-  /* border: 10px; */
-  /* justify-content:last baseline; */
-  /* align-items: center; */
-  min-height: 100px;
-  /* background: linear-gradient(45deg, #ffaf00,#bb02ff); */
-  background: rgba(255, 255, 255, 0.842);
-  /* background-attachment: fixed; */
-  /* border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 15px 25px rgba(0,0,0,0.2); */
 }
 
 .Third{
-  border: 2px solid black;
-  flex-grow: 1 ;
-  font-weight: 450;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
-  /* flex-direction: row; */
-
+  border: 1px solid black;
+  flex-grow: 1;
+  width: 33.33%;
 }
 
-.date{
-  text-decoration: solid;
+.CoinIcon{
+  height: 40px;
 }
-
-.one{
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1 ;
-  flex-wrap: wrap ;
-  align-items: baseline;
-  
-
-}
-
-.two{
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1 ;
-  /* flex-wrap: wrap ; */
-}
-
-.three{
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1 ;
-
-}
-
-.four{
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1 ;
-  flex-wrap: wrap ;
-
-}
-
-.arrow {
-  border: solid black;
-  border-width: 0 2px 2px 0;
-  display: inline-block;
-  padding: 2px;
-}
-
-.right {
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
-
