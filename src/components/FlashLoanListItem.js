@@ -1,39 +1,74 @@
 import React from 'react'
 
+import { getCoinIconURL } from '../images/CoinIcons'
+
+const currency = require('currency.js')
+
+
 export const FlashLoanListItem = (props) => {
-    console.log(props)
+    const { data } = props
+
+    const shortenDate = (date) => {
+        if (!date) return "DATE NOT FOUND"
+        // TODO
+        return date.toString()
+    }
+
+    const shortenTX = (TX) => {
+        if (!TX) return "TX NOT FOUND"
+        return TX.substring(0, 6) + " . . . " + TX.substring(60)
+    }
+
+    const formatBlockNum = (blockNum) => {
+        if (!blockNum) return "BLOCK NUM NOT FOUND"
+        return currency(blockNum, { symbol: "", separator: " ", precision: 0 }).format()
+    }
+
+    const currencyFormat = (amount) => {
+        if (!amount) return "$------"
+        return currency(amount, { symbol: "$", separator: " ", precision: 0 }).format()
+    }
+
+    const getIconArray = (iconArray) => {
+        // iconArray => e.g. ["ETH", "AAVE", "SUSHI", "YFI"]
+        return iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
+    }
+
     return (
-        
 
         <div className='FlashLoanListItem'>
             <div className='Third Third1'>
-                
-                <div className= 'one date' >Date: new Date()  </div>
-                <div className= 'one Providers'>Providers: AAVE <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/7278.png" height="32" width="32" alt="AAVE"></img> </div>
-                <div className= 'one TxSize'>Transaction Size $: 14258 </div>
-                <div className= 'one BlockNum' >Block Number: {props.blockNumber} </div>
-
-               
+                <div className='FLDateContainer' >
+                    <p>{shortenDate(data.date)}</p>
+                </div>
+                <div className='FLTxContainer'>
+                    <p>TX: <a href={"https://etherscan.io/tx/" + data.tx}>{shortenTX(data.tx)}</a></p>
+                </div>
+                <div className='FLBlockContainer' >
+                    <p>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{formatBlockNum(data.blockNum)}</a></p>
+                </div>
             </div>
 
             <div className='Third Third2'>
-                
-                <div className = 'two Interactions'>Interactions: [WBTC,UNISWAP USDC aWBTC aUSDC  </div>
-                {/* <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png" height="32" width="32" alt="ETH"></img>
-                <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png"></img> */}
-                <div className = 'three LOGOS1'> <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/3717.png" height="32" width="32" alt="WBTC"></img> </div> 
-                <div className = 'three LOGOS2'> <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/7083.png" height="32" width="32" alt="UNI"></img> </div> 
-                <div className = 'three LOGOS3'> <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png" height="32" width="32" alt="USDC"></img> </div> 
-                <div className = 'three LOGOS4'> <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/6038.png" height="32" width="32" alt="AWBTC"></img> </div> 
-                <div className = 'three LOGOS5'> <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/5760.png" height="32" width="32" alt="AUSDC"></img></div> 
-                                    
-                              
+                <div className='FLLoanAmountContainer'>
+                    <h2>{currencyFormat(data.amountBorrowedUSD, "USD")}</h2>
+                </div>
+                <div className='FLTextContainer'>
+                    <p>borrowed in</p>
+                </div>
+                <div className='FLBorrowedTokensContainer'>
+                    {getIconArray(data.tokensBorrowed)}
+                </div>
             </div>
 
-                <div className='Third Third3'>
-                <div className = 'four TxHash'>Tx Hash Link: "0x305a83574cb8e4c51acf6db9fd38ec39e6ef73ffe25cbf1845e8d8f68a5f1696"</div>
-                <div className = 'four Address'>FROM Address: "0x87245c288fcC858BF7225Dc3Ab97D0aD94730757" </div>
+            <div className='Third Third3'>
+                <div className='FLFromAddrContainer' >
+                    <p>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{data.blockNum}</a></p>
+                </div>
 
+                <div className='FLBlockContainer' >
+                    <p>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{data.blockNum}</a></p>
+                </div>
             </div>
 
         </div>
