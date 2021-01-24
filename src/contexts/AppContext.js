@@ -14,7 +14,7 @@ const dummyTxs = [
         providers: ["AAVE"],
         interactions: [
             {entity: "WBTC"},
-            {entity: "UNISWAP"},
+            {entity: "UNI"},
             {entity: "USDC"},
             {entity: "aWBTC"},
             {entity: "aUSDC"},
@@ -31,7 +31,7 @@ const dummyTxs = [
         providers: ["AAVE"],
         interactions: [
             {entity: "ETH"},
-            {entity: "UNISWAP"},
+            {entity: "UNI"},
             {entity: "USDC"},
             {entity: "aETH"},
             {entity: "aUSDC"},

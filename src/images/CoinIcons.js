@@ -1,10 +1,12 @@
 
 export const getCoinIconURL = (coinTicker) => {
     const coinIconMap = {
-        "???": "https://i.pinimg.com/originals/0e/a9/7e/0ea97e89712c98fa1d7127d81f07bc4a.png",
+        "???": "https://www.freepnglogos.com/uploads/thinking-png/thinking-speaking-emoji-draper-inc-blog-site-4.png",
         "ETH": "https://ethereum.org/static/a183661dd70e0e5c70689a0ec95ef0ba/16c7d/eth-diamond-purple.png",
+        "aETH": "https://aave.com/static/media/aETH.6f2c0bbe.svg",
         "WETH": "https://aave.com/static/media/weth.3502a1ea.svg",
         "USDC": "https://aave.com/static/media/usdc.8dd9681c.svg",
+        "aUSDC": "https://aave.com/static/media/aUSDC.e260d492.svg",
         "USDT": "https://aave.com/static/media/usdt.49e25172.svg",
         "TUSD": "",
         "sUSD": "",
