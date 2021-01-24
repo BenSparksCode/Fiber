@@ -14,9 +14,9 @@ export const FlashLoanListItem = (props) => {
         return date.toString()
     }
 
-    const shortenTX = (TX) => {
-        if (!TX) return "TX NOT FOUND"
-        return TX.substring(0, 6) + " . . . " + TX.substring(60)
+    const shortenHash = (hash) => {
+        if (!hash) return "HASH NOT FOUND"
+        return hash.substring(0, 6) + " . . . " + hash.substring(hash.length-6)
     }
 
     const formatBlockNum = (blockNum) => {
@@ -42,7 +42,7 @@ export const FlashLoanListItem = (props) => {
                     <p>{shortenDate(data.date)}</p>
                 </div>
                 <div className='FLTxContainer'>
-                    <p>TX: <a href={"https://etherscan.io/tx/" + data.tx}>{shortenTX(data.tx)}</a></p>
+                    <p>TX: <a href={"https://etherscan.io/tx/" + data.tx}>{shortenHash(data.tx)}</a></p>
                 </div>
                 <div className='FLBlockContainer' >
                     <p>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{formatBlockNum(data.blockNum)}</a></p>
@@ -63,11 +63,13 @@ export const FlashLoanListItem = (props) => {
 
             <div className='Third Third3'>
                 <div className='FLFromAddrContainer' >
-                    <p>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{data.blockNum}</a></p>
+                    <p>From: <a href={"https://etherscan.io/address/" + data.from}>{shortenHash(data.from)}</a></p>
                 </div>
-
-                <div className='FLBlockContainer' >
-                    <p>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{data.blockNum}</a></p>
+                <div className='FLTextContainer'>
+                    <p>Interactions:</p>
+                </div>
+                <div className='FLBorrowedTokensContainer'>
+                    {getIconArray(data.interactions.map(i=>i.entity))}
                 </div>
             </div>
 
