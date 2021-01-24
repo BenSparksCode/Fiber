@@ -53,3 +53,13 @@ code {
     transform: rotate(360deg);
   }
 }
+
+.FlashLoanListItem{
+  display: flex;
+  flex-direction: row;
+}
+
+.Third{
+  border: 2px solid black;
+  flex-grow: 1;
+}
