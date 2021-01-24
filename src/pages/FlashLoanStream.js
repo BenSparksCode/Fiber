@@ -24,7 +24,7 @@ export const FlashLoanStream = () => {
     const [eventData, setEventData] = useState("Nothing yet...")
 
     useEffect(() => {
-        console.log(Web3.utils.soliditySha3("flashLoan(address,address[],uint256[],uint256[],address,bytes,uint16)"));
+        // console.log(Web3.utils.soliditySha3("flashLoan(address,address[],uint256[],uint256[],address,bytes,uint16)"));
 
         web3.current = createAlchemyWeb3(
             "wss://eth-mainnet.ws.alchemyapi.io/ws/" + API_KEY,
@@ -49,8 +49,6 @@ export const FlashLoanStream = () => {
             address: '0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9',
             fromBlock: 11713028,
             toBlock: 11713030,
-            topics: []
-
         }, function (error, result) {
             if (!error) {
                 console.log(result);
