@@ -1,19 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 
-const Web3 = require('web3')
-
-// import { ethers } from 'ethers'
+// const Web3 = require('web3')
+// console.log(Web3.utils.soliditySha3("flashLoan(address,address[],uint256[],uint256[],address,bytes,uint16)"));
 
 const API_KEY = process.env.REACT_APP_ALCHEMY_API
-
-// flashLoan(address, address[], uint256[], uint256[], address, bytes, uint16)
-// a9211949fd2308838f1ccb7302610549a55a8d65696f91a6bd7e3513e4620ed3
-// FlashLoan(address,address[],uint256[],uint256[],address,bytes,uint16)
-// 59d096263b64c6802ec4bb4b97e113d8d866b19f68bf80bd2d6a6b98179efbad
-
-// FlashLoan(address,address,uint256[],uint256[],bytes,uint16)
-// 0x9ba3329ab34c01d59f4cec1094a242209d2aae4cbea5126b45516efccfcfc5cc
 
 export const FlashLoanStream = () => {
 
@@ -24,7 +15,6 @@ export const FlashLoanStream = () => {
     const [eventData, setEventData] = useState("Nothing yet...")
 
     useEffect(() => {
-        // console.log(Web3.utils.soliditySha3("flashLoan(address,address[],uint256[],uint256[],address,bytes,uint16)"));
 
         web3.current = createAlchemyWeb3(
             "wss://eth-mainnet.ws.alchemyapi.io/ws/" + API_KEY,
