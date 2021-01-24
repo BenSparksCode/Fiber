@@ -11,12 +11,17 @@ export const FlashLoanListItem = (props) => {
     const shortenDate = (date) => {
         if (!date) return "DATE NOT FOUND"
         // TODO
-        return date.toString()
+        const options = {
+            year: 'numeric', month: 'numeric', day: 'numeric',
+            hour: 'numeric', minute: 'numeric',
+            hour12: false,
+        }
+        return Intl.DateTimeFormat(navigator?.languages[0] ?? 'en-US', options).format(date)
     }
 
     const shortenHash = (hash) => {
         if (!hash) return "HASH NOT FOUND"
-        return hash.substring(0, 6) + " . . . " + hash.substring(hash.length-6)
+        return hash.substring(0, 6) + " . . . " + hash.substring(hash.length - 6)
     }
 
     const formatBlockNum = (blockNum) => {
@@ -69,7 +74,7 @@ export const FlashLoanListItem = (props) => {
                     <p>Interactions:</p>
                 </div>
                 <div className='FLBorrowedTokensContainer'>
-                    {getIconArray(data.interactions.map(i=>i.entity))}
+                    {getIconArray(data.interactions.map(i => i.entity))}
                 </div>
             </div>
 
