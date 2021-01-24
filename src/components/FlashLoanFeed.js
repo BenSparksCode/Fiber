@@ -8,10 +8,14 @@ import { FlashLoanListItem } from './FlashLoanListItem'
 export const FlashLoanFeed = () => {
 
     return (
-        <div>
+        <div >
             <ContentPanel>
-                <h1>Flash Loans</h1>
-                <FlashLoanListItem />
+                
+                <h1 className = 'FL'>Flash Loans</h1>
+                <FlashLoanListItem name = '24 Jan 2021' blockNumber = '123456789'/>
+                <FlashLoanListItem/>
+            
+              
             </ContentPanel>
         </div>
     )
