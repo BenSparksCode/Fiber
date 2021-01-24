@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 code {
@@ -17,6 +18,15 @@ code {
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.Heading1{ 
+  font-size: 40px;
+
+}
+
+.FL{
+  font-size: 20px;
 }
 
 .App-logo {
@@ -54,12 +64,80 @@ code {
   }
 }
 
+
 .FlashLoanListItem{
   display: flex;
   flex-direction: row;
+  flex-basis: 100;
+  padding: 10px;
+  /* border: 10px; */
+  /* justify-content:last baseline; */
+  /* align-items: center; */
+  min-height: 100px;
+  /* background: linear-gradient(45deg, #ffaf00,#bb02ff); */
+  background: rgba(255, 255, 255, 0.842);
+  /* background-attachment: fixed; */
+  /* border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2); */
 }
 
 .Third{
   border: 2px solid black;
-  flex-grow: 1;
+  flex-grow: 1 ;
+  font-weight: 450;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+  /* flex-direction: row; */
+
 }
+
+.date{
+  text-decoration: solid;
+}
+
+.one{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1 ;
+  flex-wrap: wrap ;
+  align-items: baseline;
+  
+
+}
+
+.two{
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1 ;
+  /* flex-wrap: wrap ; */
+}
+
+.three{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1 ;
+
+}
+
+.four{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1 ;
+  flex-wrap: wrap ;
+
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 2px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
