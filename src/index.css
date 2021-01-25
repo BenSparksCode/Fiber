@@ -24,10 +24,9 @@ code {
   font-size: 40px;
 }
 
-.FL{
+.FLTableTitle{
   font-size: 20px;
 }
-
 
 .FlashLoanListItem{
   display: flex;
@@ -43,3 +42,5 @@ code {
 .CoinIcon{
   height: 40px;
 }
+
+

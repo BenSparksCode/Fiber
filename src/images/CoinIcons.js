@@ -16,6 +16,7 @@ export const getCoinIconURL = (coinTicker) => {
         "AAVE": "https://aave.com/static/media/aave.aadf289d.svg",
         "UNI": "https://aave.com/static/media/uni.aacd4d79.svg",
         "YFI": "https://aave.com/static/media/yfi.1c24d18a.svg",
+        "aYFI": "https://aave.com/static/media/aYFI.15777dd9.svg",
         "BAT": "",
         "REN": "",
         "ENJ": "",

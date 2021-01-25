@@ -10,7 +10,6 @@ export const FlashLoanListItem = (props) => {
 
     const shortenDate = (date) => {
         if (!date) return "DATE NOT FOUND"
-        // TODO
         const options = {
             year: 'numeric', month: 'numeric', day: 'numeric',
             hour: 'numeric', minute: 'numeric',
@@ -36,6 +35,10 @@ export const FlashLoanListItem = (props) => {
 
     const getIconArray = (iconArray) => {
         // iconArray => e.g. ["ETH", "AAVE", "SUSHI", "YFI"]
+
+        //style as circle to match icons
+        // <div >+{cnt}</div> 
+
         return iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
     }
 
