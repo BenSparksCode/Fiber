@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { getCoinIconURL } from '../images/CoinIcons'
+
 
 const currency = require('currency.js')
 
@@ -10,6 +10,7 @@ export const FlashLoanListItem = (props) => {
 
     const shortenDate = (date) => {
         if (!date) return "DATE NOT FOUND"
+        // TODO
         const options = {
             year: 'numeric', month: 'numeric', day: 'numeric',
             hour: 'numeric', minute: 'numeric',
@@ -33,12 +34,22 @@ export const FlashLoanListItem = (props) => {
         return currency(amount, { symbol: "$", separator: " ", precision: 0 }).format()
     }
 
+    // const getIconArray = (iconArray) => {
+    //     // iconArray => e.g. ["ETH", "AAVE", "SUSHI", "YFI"]
+    //     console.log(iconArray.length)
+    //     return iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
+    // }
+
+
     const getIconArray = (iconArray) => {
         // iconArray => e.g. ["ETH", "AAVE", "SUSHI", "YFI"]
-
-        //style as circle to match icons
-        // <div >+{cnt}</div> 
-
+        console.log(iconArray.length)
+        if(iconArray.length > 5){
+        let icons = iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
+        let circle = <div className = 'Interaction numberCircle'>{iconArray.length-5}</div>
+        let plus = <div className = 'Interaction CirclePlus'> {'+'} </div>
+        return [icons[0],icons[1],icons[2],icons[3],icons[4], plus ,circle]
+        }else 
         return iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
     }
 
@@ -76,7 +87,7 @@ export const FlashLoanListItem = (props) => {
                 <div className='FLTextContainer'>
                     <p>Interactions:</p>
                 </div>
-                <div className='FLBorrowedTokensContainer'>
+                <div className='Interaction FLBorrowedTokensContainer'>
                     {getIconArray(data.interactions.map(i => i.entity))}
                 </div>
             </div>
