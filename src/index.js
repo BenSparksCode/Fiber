@@ -12,7 +12,7 @@ import { DashboardLayout } from './layouts/DashboardLayout'
 
 import {Settings} from './pages/Settings'
 import {FlashLoanStream} from './pages/FlashLoanStream'
-import App from './App';
+import App from './pages/App';
 
 import './index.css';
 import 'antd/dist/antd.css';
