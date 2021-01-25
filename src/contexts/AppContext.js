@@ -21,8 +21,6 @@ const dummyTxs = [
             {entity: "TUSD"},
             {entity: "CRV"},
             {entity: "SUSHI"},
-            {entity: "DIGG"},
-            {entity: "FLO"},
         ]
     },
     {
@@ -40,6 +38,7 @@ const dummyTxs = [
             {entity: "USDC"},
             {entity: "aETH"},
             {entity: "aUSDC"},
+            {entity: "CRV"},
         ]
     }
 ]

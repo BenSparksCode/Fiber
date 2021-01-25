@@ -34,23 +34,17 @@ export const FlashLoanListItem = (props) => {
         return currency(amount, { symbol: "$", separator: " ", precision: 0 }).format()
     }
 
-    // const getIconArray = (iconArray) => {
-    //     // iconArray => e.g. ["ETH", "AAVE", "SUSHI", "YFI"]
-    //     console.log(iconArray.length)
-    //     return iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
-    // }
-
-
     const getIconArray = (iconArray) => {
         // iconArray => e.g. ["ETH", "AAVE", "SUSHI", "YFI"]
-        console.log(iconArray.length)
-        if(iconArray.length > 5){
-        let icons = iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
-        let circle = <div className = 'Interaction numberCircle'>{iconArray.length-5}</div>
-        let plus = <div className = 'Interaction CirclePlus'> {'+'} </div>
-        return [icons[0],icons[1],icons[2],icons[3],icons[4], plus ,circle]
-        }else 
-        return iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
+        if (iconArray.length > 5) {
+            let icons = iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
+            let circle = <div className='CoinIcon additionalInteractionsIcon'>
+                <p className='CoinIconText'>{"+" + Math.min(iconArray.length - 5, 999)}</p>
+            </div>
+
+            return [...icons.slice(0, 5), circle]
+        } else
+            return iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
     }
 
     return (
@@ -87,7 +81,7 @@ export const FlashLoanListItem = (props) => {
                 <div className='FLTextContainer'>
                     <p>Interactions:</p>
                 </div>
-                <div className='Interaction FLBorrowedTokensContainer'>
+                <div className='FLBorrowedTokensContainer'>
                     {getIconArray(data.interactions.map(i => i.entity))}
                 </div>
             </div>
