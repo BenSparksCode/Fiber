@@ -18,6 +18,11 @@ const dummyTxs = [
             {entity: "USDC"},
             {entity: "aWBTC"},
             {entity: "aUSDC"},
+            {entity: "TUSD"},
+            {entity: "CRV"},
+            {entity: "SUSHI"},
+            {entity: "DIGG"},
+            {entity: "FLO"},
         ]
     },
     {
