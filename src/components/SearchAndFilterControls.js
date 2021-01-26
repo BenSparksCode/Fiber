@@ -1,10 +1,10 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import { AppContext } from '../contexts/AppContext'
 import { FlashLoanListItem } from './FlashLoanListItem'
 import { ContentPanel } from './StyledComponents'
 
 import { Menu, Dropdown, Button, message, Space } from 'antd';
-import { DownOutlined} from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 
 function handleButtonClick(e) {
   message.info('Click on left button.');
@@ -34,28 +34,25 @@ const menu = (
 
 export const SearchAndFilterControls = () => {
 
-    const { FLs } = useContext(AppContext)
-    
-    return (
+  const { FLs } = useContext(AppContext)
+
+  return (
+    <div>
+      <ContentPanel>
         <div>
-        <ContentPanel>
+          <Space wrap>
+            <Dropdown overlay={menu}>
+              <Button>
+                All Filters <DownOutlined />
+              </Button>
+            </Dropdown>
+          </Space>
 
-            <h1 className='FLTableTitle'>Search and Filter Controls</h1>
-             <div>
-            <Space wrap>                    
-                <Dropdown overlay={menu}>
-                <Button>
-                    All Filters <DownOutlined />
-                </Button>
-                </Dropdown>
-            </Space>
+          <input type="text" placeholder="Search..." />
 
-            <input type="text" placeholder = "Search..."/>
-                
-            </div>
-
-        </ContentPanel>
         </div>
-    )
+      </ContentPanel>
+    </div>
+  )
 }
 
