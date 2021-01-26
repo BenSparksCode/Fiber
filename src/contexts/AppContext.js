@@ -54,21 +54,21 @@ class AppContextProvider extends Component {
         selectedFL: null
     }
 
-    componentDidMount(){
-        console.log("Context mounted");
-        // Set up newBlockListener
-        const sub = web3.subscribeToNewBlocks({}, (err, res) => {
-            console.log("From blocks callback", err, res);
-            if(err) return
-            this.setState({
-                connectedToMainnet: true,
-                latestBlockNum: res.number
-            })
-        })
-        this.setState({
-            newBlocksSub: sub
-        })
-    }
+    // componentDidMount(){
+    //     console.log("Context mounted");
+    //     // Set up newBlockListener
+    //     const sub = web3.subscribeToNewBlocks({}, (err, res) => {
+    //         console.log("From blocks callback", err, res);
+    //         if(err) return
+    //         this.setState({
+    //             connectedToMainnet: true,
+    //             latestBlockNum: res.number
+    //         })
+    //     })
+    //     this.setState({
+    //         newBlocksSub: sub
+    //     })
+    // }
 
     killNewBlocksSub = () => {
         console.log("Unsubscribing from new blocks...");
