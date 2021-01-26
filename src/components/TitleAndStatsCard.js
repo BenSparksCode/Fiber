@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
+import { formatBlockNum } from '../utils/utils'
+
 import { ContentPanel } from './StyledComponents'
 
+import { AppContext } from '../contexts/AppContext'
+
 export const TitleAndStatsCard = () => {
+    const { latestBlockNum } = useContext(AppContext)
+
     return (
         <ContentPanel>
             <div className='TitleAndStatsContainer'>
@@ -9,7 +16,8 @@ export const TitleAndStatsCard = () => {
                     <h1 className='AppTitle'> FIBER </h1>
                 </div>
                 <div className='StatsContainer'>
-                    <p>Current block: { }</p>
+                    <p>Connected: </p>
+                    <p>Current block: <a href={"https://etherscan.io/block/" + latestBlockNum}>{formatBlockNum(latestBlockNum)}</a></p>
                 </div>
             </div>
         </ContentPanel>
