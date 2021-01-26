@@ -49,6 +49,7 @@ class AppContextProvider extends Component {
     state = {
         newBlocksSub: null,
         latestBlockNum: null,
+        connectedToMainnet: false,
         FLs: dummyTxs,
         selectedFL: null
     }
@@ -60,6 +61,7 @@ class AppContextProvider extends Component {
             console.log("From blocks callback", err, res);
             if(err) return
             this.setState({
+                connectedToMainnet: true,
                 latestBlockNum: res.number
             })
         })
