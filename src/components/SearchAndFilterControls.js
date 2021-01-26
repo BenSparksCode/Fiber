@@ -1,65 +1,51 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../contexts/AppContext'
 import { ContentPanel } from './StyledComponents'
-
 import { Menu, Dropdown, Button, message, Space, Input } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 
+const FILTER_OPTIONS = ["Sender Address","TX Hash"]
 
 export const SearchAndFilterControls = () => {
 
-  const { Search } = Input;
+  const [chosenFilter, setChosenFilter] = useState("Sender Address")
+  
+  const [defaultSearch, setdefaultSearch] = useState("Sender Address / Txn Hash")
 
+  
+  const { Search } = Input;
   const onSearch = (value) => {
     // TODO - search logic here
+    console.log(defaultSearch)
     console.log(value);
   }
 
+  // const handleMenuSearch= (e) => {  
+  //   if (!e.key) return
+  //   console.log(e);
+  //   setdefaultSearch("")
+  // }
 
-  function handleButtonClick(e) {
-    message.info('Click on left button.');
-    console.log('click left button', e);
+
+  const handleMenuClick = (e) => {  
+    if (!e.key) return
+    setChosenFilter(FILTER_OPTIONS[e.key-1])
   }
-
-  // const [menuItems,setMenuItems] = useState([
-  //   {Menu: 'BlockNumber', id : 1},
-  //   {Menu: 'Address', id : 2},
-  //   {Menu: 'Hash', id : 3}
-
-  // ])
-
-  // {menuItems.map(item => {
-  //   return( <li key = {item.id}> {item.Menu}</li>)
-  // })}
-
-  const handleMenuClick = (e) => {   
-    
-    message.info('Click on menu item.');
-    console.log('click', e);
-  }
-
-
 
 
   const menu = (
     <div className = 'allFilter'>
       <Menu onClick={handleMenuClick}>
         <Menu.Item key="1" >
-          Block Number
-      </Menu.Item>
-        <Menu.Item key="2" >
           Sender Address
       </Menu.Item>
-        <Menu.Item key="3" >
+        <Menu.Item key="2" >
           Tx Hash
       </Menu.Item>
       </Menu>
     </div>
   );
-
-
-
 
 
      return (
@@ -68,9 +54,9 @@ export const SearchAndFilterControls = () => {
         <div className=' filterBar'>
           <Space wrap>
             <Dropdown placeholder="Search" overlay={menu} trigger={['click']} size= {'large'}  >
-              <Button  onClick={handleMenuClick}> 
+              <Button  onClick={handleMenuClick} size="medium" style={{ width: 140 }}> 
 
-              All Filters
+                {chosenFilter}
 
                 <DownOutlined />
               </Button>
@@ -80,7 +66,7 @@ export const SearchAndFilterControls = () => {
 
         <div className='searchBar'>
           <Space direction="vertical">
-            <Search placeholder="Search by Block Number / Address / Txn Hash" onSearch={onSearch} enterButton />
+            <Search placeholder= {defaultSearch} style={{ width: 1000 }} allowClear onSearch={onSearch}  enterButton />
           </Space>
         </div>
       </div>
@@ -89,3 +75,5 @@ export const SearchAndFilterControls = () => {
 }
 
 
+
+// onChange={(e) => {allowClear} =true }
