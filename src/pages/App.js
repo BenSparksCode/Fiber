@@ -1,12 +1,13 @@
 
-import { FlashLoanFeed } from '../components/FlashLoanFeed'
+import { TitleAndStatsCard } from '../components/TitleAndStatsCard';
 import { SearchAndFilterControls } from '../components/SearchAndFilterControls';
+import { FlashLoanFeed } from '../components/FlashLoanFeed'
+
 
 function App() {
   return (
     <div className="App">
-      <h1 className='AppTitle'> FIBER </h1>
-
+      <TitleAndStatsCard />
 
       <br />
 
