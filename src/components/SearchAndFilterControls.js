@@ -5,15 +5,15 @@ import { Menu, Dropdown, Button, message, Space, Input } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 
-const FILTER_OPTIONS = ["Sender Address","TX Hash"]
+const FILTER_OPTIONS = ["Sender Address", "TX Hash"]
 
 export const SearchAndFilterControls = () => {
 
   const [chosenFilter, setChosenFilter] = useState("Sender Address")
-  
+
   const [defaultSearch, setdefaultSearch] = useState("Sender Address / Txn Hash")
 
-  
+
   const { Search } = Input;
   const onSearch = (value) => {
     // TODO - search logic here
@@ -28,14 +28,14 @@ export const SearchAndFilterControls = () => {
   // }
 
 
-  const handleMenuClick = (e) => {  
+  const handleMenuClick = (e) => {
     if (!e.key) return
-    setChosenFilter(FILTER_OPTIONS[e.key-1])
+    setChosenFilter(FILTER_OPTIONS[e.key - 1])
   }
 
 
   const menu = (
-    <div className = 'allFilter'>
+    <div className='allFilter'>
       <Menu onClick={handleMenuClick}>
         <Menu.Item key="1" >
           Sender Address
@@ -48,13 +48,13 @@ export const SearchAndFilterControls = () => {
   );
 
 
-     return (
+  return (
     <ContentPanel>
-      <div className='search'>
-        <div className=' filterBar'>
+      <div className='Search'>
+        <div className='SearchDropdownContainer filterBar'>
           <Space wrap>
-            <Dropdown placeholder="Search" overlay={menu} trigger={['click']} size= {'large'}  >
-              <Button  onClick={handleMenuClick} size="medium" style={{ width: 140 }}> 
+            <Dropdown placeholder="Search" overlay={menu} trigger={['click']} size={'large'}  >
+              <Button onClick={handleMenuClick} size="medium" style={{ width: "140px"}}>
 
                 {chosenFilter}
 
@@ -64,10 +64,8 @@ export const SearchAndFilterControls = () => {
           </Space>
         </div>
 
-        <div className='searchBar'>
-          <Space direction="vertical">
-            <Search placeholder= {defaultSearch} style={{ width: 1000 }} allowClear onSearch={onSearch}  enterButton />
-          </Space>
+        <div className='SearchBarContainer'>
+          <Search placeholder={defaultSearch} style={{ width: "100%" }} allowClear onSearch={onSearch} enterButton />
         </div>
       </div>
     </ContentPanel>
