@@ -7,3 +7,17 @@ export const Settings = () => {
         </div>
     )
 }
+
+
+
+export const BookList = () => {
+    return(
+        <section>
+            <Book/>
+        </section>
+    )
+}
+
+const Book = () =>{
+    return <article>This is a car</article>
+}
