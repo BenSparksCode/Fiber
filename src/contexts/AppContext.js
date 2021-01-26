@@ -1,5 +1,7 @@
 import React, { Component, createContext } from 'react'
 
+import web3 from '../data/Web3Connection'
+
 export const AppContext = createContext()
 
 const dummyTxs = [
@@ -45,8 +47,33 @@ const dummyTxs = [
 
 class AppContextProvider extends Component {
     state = {
+        newBlocksSub: null,
+        latestBlockNum: null,
         FLs: dummyTxs,
         selectedFL: null
+    }
+
+    componentDidMount(){
+        console.log("Context mounted");
+        // Set up newBlockListener
+        const sub = web3.subscribeToNewBlocks({}, (err, res) => {
+            console.log("From blocks callback", err, res);
+            if(err) return
+            this.setState({
+                latestBlockNum: res.number
+            })
+        })
+        this.setState({
+            newBlocksSub: sub
+        })
+    }
+
+    killNewBlocksSub = () => {
+        console.log("Unsubscribing from new blocks...");
+        web3.unsubscribeFromSub(this.state.newBlocksSub)
+        this.setState({
+            newBlocksSub: null
+        })
     }
 
     setSelectedFL = (FL) => {
@@ -60,6 +87,7 @@ class AppContextProvider extends Component {
             <AppContext.Provider value={{
                 ...this.state,
                 setSelectedFL: this.setSelectedFL,
+                killNewBlocksSub: this.killNewBlocksSub,
             }}>
                 { this.props.children}
             </AppContext.Provider >
