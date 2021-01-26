@@ -1,4 +1,7 @@
 import React from 'react'
+import { Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+
 import { getCoinIconURL } from '../images/CoinIcons'
 import { formatBlockNum, shortenHash, shortenDate, currencyFormat } from '../utils/utils'
 
@@ -18,11 +21,15 @@ export const FlashLoanListItem = (props) => {
             return iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
     }
 
+    const openFlashLoanView = () => {
+        console.log("Opening FL:", data.tx);
+    }
+
     return (
 
         <div className='FlashLoanListItem'>
 
-            <div className = 'Third Third0'>
+            <div className='Third Third0'>
                 <div className='FLDateContainer' >
                     <p>{shortenDate(data.date)}</p>
                 </div>
@@ -43,7 +50,7 @@ export const FlashLoanListItem = (props) => {
                     <h2>{currencyFormat(data.amountBorrowedUSD, "USD")}</h2>
                 </div>
                 <div className='FLTextContainer'>
-                     <p>borrowed in: </p>
+                    <p>borrowed in: </p>
                 </div>
             </div>
 
@@ -51,7 +58,7 @@ export const FlashLoanListItem = (props) => {
             <div>
 
                 <div className='FLBorrowedTokensContainer'>
-                     {getIconArray(data.tokensBorrowed)}
+                    {getIconArray(data.tokensBorrowed)}
                 </div>
             </div>
 
@@ -68,13 +75,11 @@ export const FlashLoanListItem = (props) => {
                 </div>
             </div>
 
-            <div className = 'FlashLoanViewButton'>
-                <button type = "Button" >
-                    VIEW
-                </button>
-
+            <div className='FlashLoanViewButton'>
+                <Button onClick={()=>openFlashLoanView()} type="primary" shape="circle">
+                    <PlusOutlined />
+                </Button>
             </div>
-
         </div>
     )
 }

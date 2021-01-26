@@ -54,7 +54,7 @@ export const SearchAndFilterControls = () => {
         <div className='SearchDropdownContainer filterBar'>
           <Space wrap>
             <Dropdown placeholder="Search" overlay={menu} trigger={['click']} size={'large'}  >
-              <Button onClick={handleMenuClick} size="medium" style={{ width: "140px"}}>
+              <Button onClick={handleMenuClick} size="medium" style={{ width: "140px" }}>
 
                 {chosenFilter}
 
