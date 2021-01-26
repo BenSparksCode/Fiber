@@ -12,7 +12,6 @@ export const FlashLoanFeed = () => {
     const { FLs } = useContext(AppContext)
 
     return (
-        <div >
             <ContentPanel>
 
                 <h1 className='FLTableTitle'>Flash Loans</h1>
@@ -20,7 +19,6 @@ export const FlashLoanFeed = () => {
                 {FLs.map(FL => <FlashLoanListItem data={FL}/>)}
 
             </ContentPanel>
-        </div>
     )
 }
 

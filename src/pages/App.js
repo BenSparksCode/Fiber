@@ -9,13 +9,9 @@ function App() {
     <div className="App">
       <TitleAndStatsCard />
 
-      <br />
-
       <SearchAndFilterControls />
 
-      <br />
       <FlashLoanFeed />
-
     </div>
   );
 }
