@@ -1,38 +1,9 @@
 import React from 'react'
 import { getCoinIconURL } from '../images/CoinIcons'
-
-
-const currency = require('currency.js')
-
+import { formatBlockNum, shortenHash, shortenDate, currencyFormat } from '../utils/utils'
 
 export const FlashLoanListItem = (props) => {
     const { data } = props
-
-    const shortenDate = (date) => {
-        if (!date) return "DATE NOT FOUND"
-        // TODO
-        const options = {
-            year: 'numeric', month: 'numeric', day: 'numeric',
-            hour: 'numeric', minute: 'numeric',
-            hour12: false,
-        }
-        return Intl.DateTimeFormat(navigator?.languages[0] ?? 'en-US', options).format(date)
-    }
-
-    const shortenHash = (hash) => {
-        if (!hash) return "HASH NOT FOUND"
-        return hash.substring(0, 6) + " . . . " + hash.substring(hash.length - 6)
-    }
-
-    const formatBlockNum = (blockNum) => {
-        if (!blockNum) return "BLOCK NUM NOT FOUND"
-        return currency(blockNum, { symbol: "", separator: " ", precision: 0 }).format()
-    }
-
-    const currencyFormat = (amount) => {
-        if (!amount) return "$------"
-        return currency(amount, { symbol: "$", separator: " ", precision: 0 }).format()
-    }
 
     const getIconArray = (iconArray) => {
         // iconArray => e.g. ["ETH", "AAVE", "SUSHI", "YFI"]
