@@ -13,7 +13,8 @@ export const FlashLoanListItem = (props) => {
         if (iconArray.length > 5) {
             let icons = iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
             let circle = <div className='CoinIcon additionalInteractionsIcon'>
-                <p className='CoinIconText'>{"+" + Math.min(iconArray.length - 5, 999)}</p>
+                <p className='CoinIconText'>{"+" + Math.min(iconArray.length - 5, 99)}</p>
+
             </div>
 
             return [...icons.slice(0, 5), circle]
