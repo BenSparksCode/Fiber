@@ -22,7 +22,7 @@ export const TitleAndStatsCard = () => {
                         <p className='StatsText'>Connected to Mainnet: </p>
                         {
                             connectedToMainnet ?
-                                <CheckCircleTwoTone style={{ fontSize: '22px', margin: "0px", padding: "0px", alignSelf: "center" }} className='StatsIndicator' twoToneColor="#52c41a" /> :
+                                <CheckCircleTwoTone style={{ fontSize: '24px', margin: "0px", padding: "0px", alignSelf: "center" }} className='StatsIndicator' twoToneColor="#1890ff" /> :
                                 <Spin className='StatsIndicator' indicator={antIcon} />
                         }
                     </div>
