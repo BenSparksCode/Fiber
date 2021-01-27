@@ -3,9 +3,7 @@ import { Spin } from 'antd';
 import { LoadingOutlined, CheckCircleTwoTone } from '@ant-design/icons';
 
 import { formatBlockNum } from '../utils/utils'
-
 import { ContentPanel } from './StyledComponents'
-
 import { AppContext } from '../contexts/AppContext'
 
 export const TitleAndStatsCard = () => {
@@ -24,7 +22,7 @@ export const TitleAndStatsCard = () => {
                         <p className='StatsText'>Connected to Mainnet: </p>
                         {
                             connectedToMainnet ?
-                                <CheckCircleTwoTone style={{fontSize: '22px', margin: "0px", padding: "0px", alignSelf: "center"}} className='StatsIndicator' twoToneColor="#52c41a" /> :
+                                <CheckCircleTwoTone style={{ fontSize: '22px', margin: "0px", padding: "0px", alignSelf: "center" }} className='StatsIndicator' twoToneColor="#52c41a" /> :
                                 <Spin className='StatsIndicator' indicator={antIcon} />
                         }
                     </div>
@@ -38,10 +36,8 @@ export const TitleAndStatsCard = () => {
                                 </a> :
                                 <Spin className='StatsIndicator' indicator={antIcon} />
                         }
-
                     </div>
                     <div style={{ clear: "both" }}></div>
-
                 </div>
             </div>
         </ContentPanel>

@@ -13,7 +13,7 @@ import {
 const { Header, Content, Footer, Sider } = Layout;
 
 export const DashboardLayout = (props) => {
-    const [collapsed, setCollapsed] = useState(false)
+    const [collapsed, setCollapsed] = useState(true)
 
     const onCollapse = collapsed => {
         console.log(collapsed);

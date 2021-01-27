@@ -14,8 +14,6 @@ export const FlashLoanFeed = () => {
     return (
             <ContentPanel>
 
-                <h1 className='FLTableTitle'>Flash Loans</h1>
-
                 {FLs.map(FL => <FlashLoanListItem data={FL}/>)}
 
             </ContentPanel>
