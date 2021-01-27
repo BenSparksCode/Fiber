@@ -21,6 +21,8 @@ code {
   text-align: left;
   font-size: 40px;
   margin-bottom: 0px;
+  position: relative;
+  
 }
 
 .TitleAndStatsContainer {
@@ -31,6 +33,7 @@ code {
 .TitleContainer {
   flex-grow: 1;
   min-width: 120px;
+  
 }
 
 .StatsContainer {
@@ -72,16 +75,24 @@ code {
 }
 
 .FlashLoanListItem {
+  position: relative;
   display: flex;
   flex-direction: row;
   margin-top: 20px;
-  /* Calum' card styling: */
+    /* Calum' card styling: */
   max-width: 100%;
-  max-height: 100px;
+  max-height: 105px;
   box-shadow: 3px 4px 8px 2px rgba(0, 0, 0, 0.2);
   /* ------ */
   /* border: 1px solid rgb(85, 82, 82); */
   border-radius: 4px;
+  
+}
+
+.FLDateContainer{
+  font-size: 18px
+  /* box-sizing: border-box;
+  padding: ; */
 }
 
 .FlashLoanListItem:hover {
@@ -93,11 +104,15 @@ code {
   /* width: 20.33%; */
   flex-direction: column;
   display: flex;
+  padding: 20px;
 }
 
 .Third {
   /* border: 1px solid black; */
   flex-grow: 1;
+  padding: 1%;
+  font-size: 16px;
+  font-weight: 500;
   /* width: 33.33%; */
 }
 
@@ -107,21 +122,36 @@ code {
   height: 10%;
   flex-direction: column;
   display: flex;
+  padding: 5px;
 }
 
 .FLBorrowedTokensContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
-
+  padding-bottom: 10%;
+  
+  /* display: inline-block;
+  position: absolute;
+  left:0px;
+  top:30%;
+  padding-top:  50%; 
+  padding-right: 100%;
   width: 10%;
-  height: 80%;
+  height: 80%; */
+}
+
+.FLFromAddrContainer{
+  line-height: 20px;
 }
 
 .InteractionsContainer {
-  display: flex;
+  /* display: flex; */
+  display: inline-flex;
   flex-direction: row;
   justify-content: center;
+  /* padding-bottom: 3%; */
+  white-space: nowrap;
 }
 
 .CoinIcon {
@@ -172,3 +202,10 @@ code {
   margin-right: -10px;
   margin-top: -10px;
 }
+
+.footer{
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+
+}
+
