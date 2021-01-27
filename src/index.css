@@ -22,7 +22,6 @@ code {
   font-size: 40px;
   margin-bottom: 0px;
   position: relative;
-  
 }
 
 .TitleAndStatsContainer {
@@ -33,7 +32,6 @@ code {
 .TitleContainer {
   flex-grow: 1;
   min-width: 120px;
-  
 }
 
 .StatsContainer {
@@ -79,78 +77,79 @@ code {
   display: flex;
   flex-direction: row;
   margin-top: 20px;
-    /* Calum' card styling: */
+  /* Calum' card styling: */
   max-width: 100%;
-  max-height: 105px;
+  min-height: 96px;
+  max-height: 96px;
   box-shadow: 3px 4px 8px 2px rgba(0, 0, 0, 0.2);
   /* ------ */
   /* border: 1px solid rgb(85, 82, 82); */
   border-radius: 4px;
-  
-}
-
-.FLDateContainer{
-  font-size: 18px
-  /* box-sizing: border-box;
-  padding: ; */
 }
 
 .FlashLoanListItem:hover {
   box-shadow: 3px 8px 16px 3px rgba(0, 0, 0, 0.2);
   transition: 0.3s;
 }
-.Third2 {
-  flex-grow: 1;
-  /* width: 20.33%; */
-  flex-direction: column;
-  display: flex;
-  padding: 20px;
-}
 
-.Third {
-  /* border: 1px solid black; */
+.FLCardSubcontainer {
   flex-grow: 1;
-  padding: 1%;
   font-size: 16px;
   font-weight: 500;
-  /* width: 33.33%; */
+  justify-content: flex-start;
 }
 
-.Third3 {
-  flex-grow: 1;
-  width: 20.33%;
-  height: 10%;
-  flex-direction: column;
-  display: flex;
-  padding: 5px;
+.FLCardSubcontainer1{
+  /* Date container fixed width to not resize others */
+  min-width: 120px;
+  max-width: 15%;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.FLCardSubcontainer2 {
+  /* This contains the Loan USD amount - will change size based on this*/
+  min-width: 185px;
+  max-width: 22%;
+  padding-top: 6px;
+}
+
+.FLCardSubcontainer3, .FLCardSubcontainer4{
+  padding-top: 10px;
+}
+
+.FLDollarText{
+  width: max-content;
+  margin:0;
+
+padding:0;
+  white-space: nowrap;
+}
+
+.FLLoanAmountContainer{
+  min-width: 185px;
+  max-width: 185px;
+}
+
+.FLCardTextLeft {
+  text-align: left;
 }
 
 .FLBorrowedTokensContainer {
+  padding-top: 5px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  padding-bottom: 10%;
-  
-  /* display: inline-block;
-  position: absolute;
-  left:0px;
-  top:30%;
-  padding-top:  50%; 
-  padding-right: 100%;
-  width: 10%;
-  height: 80%; */
+  justify-content: flex-start;
 }
 
-.FLFromAddrContainer{
+.FLFromAddrContainer {
   line-height: 20px;
 }
 
 .InteractionsContainer {
-  /* display: flex; */
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
-  justify-content: center;
-  /* padding-bottom: 3%; */
+  justify-content: flex-start;
   white-space: nowrap;
 }
 
@@ -193,19 +192,17 @@ code {
   justify-content: center;
 }
 
-.SearchBarContainer{
+.SearchBarContainer {
   width: calc(100% - 140px);
 }
 
-.FlashLoanViewButton{
+.FlashLoanViewButton {
   top: 0;
   margin-right: -10px;
   margin-top: -10px;
 }
 
-.footer{
+.footer {
   background: rgba(0, 0, 0, 0.2);
   padding: 10px;
-
 }
-

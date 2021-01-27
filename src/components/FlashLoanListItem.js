@@ -3,21 +3,23 @@ import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
 import { getCoinIconURL } from '../images/CoinIcons'
-import { formatBlockNum, shortenHash, shortenDate, currencyFormat } from '../utils/utils'
+import { formatBlockNum, shortenHash, getCardDate, getCardTime, currencyFormat } from '../utils/utils'
+
+
 
 export const FlashLoanListItem = (props) => {
     const { data } = props
 
     const getIconArray = (iconArray) => {
-        // iconArray => e.g. ["ETH", "AAVE", "SUSHI", "YFI"]
-        if (iconArray.length > 5) {
+        const MAX_ICONS_SHOWN = 4
+
+        if (iconArray.length > MAX_ICONS_SHOWN) {
             let icons = iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
             let circle = <div className='CoinIcon additionalInteractionsIcon'>
-                <p className='CoinIconText'>{"+" + Math.min(iconArray.length - 5, 99)}</p>
-
+                <p className='CoinIconText'>{"+" + Math.min(iconArray.length - MAX_ICONS_SHOWN, 99)}</p>
             </div>
 
-            return [...icons.slice(0, 5), circle]
+            return [...icons.slice(0, MAX_ICONS_SHOWN), circle]
         } else
             return iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
     }
@@ -30,39 +32,32 @@ export const FlashLoanListItem = (props) => {
 
         <div className='FlashLoanListItem'>
 
-            <div className='Third Third0'>
-                <div className='FLDateContainer' >
-                    <p>{shortenDate(data.date)}</p>
+            <div className='FLCardSubcontainer FLCardSubcontainer1' >
+                <p className='FLCardTextLeft'>{getCardTime(data.date)}</p>
+                <p className='FLCardTextLeft'>{getCardDate(data.date)}</p>
+            </div>
+
+            <div className='FLCardSubcontainer FLCardSubcontainer2'>
+                <div className='FLLoanAmountContainer'>
+                    <h2 className='FLDollarText FLCardTextLeft'>{currencyFormat(data.amountBorrowedUSD, "USD")}</h2>
+                </div>
+                <div className='FLBorrowedTokensContainer'>
+                    <p className='FLCardTextLeft'> in {getIconArray(data.tokensBorrowed)} </p>
                 </div>
             </div>
 
-            <div className='Third Third1'>
-
+            <div className='FLCardSubcontainer FLCardSubcontainer3'>
                 <div className='FLTxContainer'>
-                    <p>TX: <a href={"https://etherscan.io/tx/" + data.tx}>{shortenHash(data.tx)}</a></p>
+                    <p className='FLCardTextLeft'>TX: <a href={"https://etherscan.io/tx/" + data.tx}>{shortenHash(data.tx)}</a></p>
                 </div>
                 <div className='FLBlockContainer' >
-                    <p>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{formatBlockNum(data.blockNum)}</a></p>
+                    <p className='FLCardTextLeft'>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{formatBlockNum(data.blockNum)}</a></p>
                 </div>
             </div>
 
-            <div className='Third Third2'>
-                <div className='FLLoanAmountContainer'>
-                    <h2>{currencyFormat(data.amountBorrowedUSD, "USD")}</h2>
-                    
-                </div>
-
-                <div className='FLBorrowedTokensContainer'>
-                   <p> in:  {getIconArray(data.tokensBorrowed)} </p>
-                </div>
-            </div>
-
-
-
-            <div className='Third Third3'>
+            <div className='FLCardSubcontainer FLCardSubcontainer4'>
                 <div className='FLFromAddrContainer' >
-                    <p>From:<a href={"https://etherscan.io/address/" + data.from}> {shortenHash(data.from)} </a> <p>Interactions:</p></p>
-                
+                    <p className='FLCardTextLeft'>From:<a href={"https://etherscan.io/address/" + data.from}> {shortenHash(data.from)} </a></p>
                 </div>
                 <div className='InteractionsContainer'>
                     {getIconArray(data.interactions.map(i => i.entity))}
@@ -70,7 +65,7 @@ export const FlashLoanListItem = (props) => {
             </div>
 
             <div className='FlashLoanViewButton'>
-                <Button onClick={()=>openFlashLoanView()} type="primary" shape="circle">
+                <Button onClick={() => openFlashLoanView()} type="primary" shape="circle">
                     <PlusOutlined />
                 </Button>
             </div>
