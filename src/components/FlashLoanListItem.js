@@ -48,27 +48,20 @@ export const FlashLoanListItem = (props) => {
             <div className='Third Third2'>
                 <div className='FLLoanAmountContainer'>
                     <h2>{currencyFormat(data.amountBorrowedUSD, "USD")}</h2>
+                    
                 </div>
-                <div className='FLTextContainer'>
-                    <p>borrowed in: </p>
-                </div>
-            </div>
-
-
-            <div>
 
                 <div className='FLBorrowedTokensContainer'>
-                    {getIconArray(data.tokensBorrowed)}
+                   <p> in:  {getIconArray(data.tokensBorrowed)} </p>
                 </div>
             </div>
+
 
 
             <div className='Third Third3'>
                 <div className='FLFromAddrContainer' >
-                    <p>From: <a href={"https://etherscan.io/address/" + data.from}>{shortenHash(data.from)}</a></p>
-                </div>
-                <div className='FLTextContainer'>
-                    <p>Interactions:</p>
+                    <p>From:<a href={"https://etherscan.io/address/" + data.from}> {shortenHash(data.from)} </a> <p>Interactions:</p></p>
+                
                 </div>
                 <div className='InteractionsContainer'>
                     {getIconArray(data.interactions.map(i => i.entity))}
