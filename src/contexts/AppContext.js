@@ -57,24 +57,24 @@ class AppContextProvider extends Component {
         selectedFL: null
     }
 
-    componentDidMount(){
-        console.log("Context mounted");
-        // Set up newBlockListener
-        const sub = web3.subscribeToNewBlocks({}, (err, res) => {
-            if(err) return
-            this.setState({
-                connectedToMainnet: true,
-                latestBlockNum: res.number
-            })
-        })
-        // Set up FL event listeners
-        const eventSubs = web3.subscribeToFLLogs()
-        // Save subs to state for unsubbing later
-        this.setState({
-            newBlocksSub: sub,
-            FLEventSubs: eventSubs
-        })
-    }
+    // componentDidMount(){
+    //     console.log("Context mounted");
+    //     // Set up newBlockListener
+    //     const sub = web3.subscribeToNewBlocks({}, (err, res) => {
+    //         if(err) return
+    //         this.setState({
+    //             connectedToMainnet: true,
+    //             latestBlockNum: res.number
+    //         })
+    //     })
+    //     // Set up FL event listeners
+    //     const eventSubs = web3.subscribeToFLLogs()
+    //     // Save subs to state for unsubbing later
+    //     this.setState({
+    //         newBlocksSub: sub,
+    //         FLEventSubs: eventSubs
+    //     })
+    // }
 
     componentDidUpdate(prevProps, prevState) {
         if(prevState.latestBlockNum != this.state.latestBlockNum){
@@ -96,15 +96,6 @@ class AppContextProvider extends Component {
             newBlocksSub: null
         })
     }
-
-    // DELETE SOON SER
-    // buildNewFlashLoanCards = () => {
-    //     if(web3.flashLoans?.length > 0){
-    //         for(const FL in web3.flashLoans){
-
-    //         }
-    //     }
-    // }
 
     setSelectedFL = (FL) => {
         this.setState({
