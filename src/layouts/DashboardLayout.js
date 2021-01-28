@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import {
     Link
 } from "react-router-dom";
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Dropdown } from 'antd';
 import {
     DesktopOutlined,
     SettingOutlined,
-    ExperimentOutlined
+    ExperimentOutlined,
+    UserOutlined,
+    DownOutlined
 } from '@ant-design/icons';
+
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -20,23 +23,23 @@ export const DashboardLayout = (props) => {
         setCollapsed(collapsed)
     };
 
+    const handleUserIconClick = (e) => {
+        console.log(e);
+    }
+
     return (
         <Layout style={{ minHeight: '100vh' }}>
-            <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
-                {/* TODO: Add Logo Here */}
-                {/* <div className="logo" />  */}
-                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                    <Menu.Item key="1" icon={<DesktopOutlined />}>
-                        <Link to="/">Live Flash Loans</Link>
-                    </Menu.Item>
-                    <Menu.Item key="2" icon={<SettingOutlined />}>
-                        <Link to="/settings">Settings</Link>
-                    </Menu.Item>
-                    <Menu.Item key="3" icon={<ExperimentOutlined />}>
-                        <Link to="/stream">Data Stream Test</Link>
-                    </Menu.Item>
-                </Menu>
-            </Sider>
+            <Menu theme="dark" defaultSelectedKeys={['1']} mode="horizontal">
+                <Menu.Item key="1" icon={<DesktopOutlined />}>
+                    <Link to="/">Live Flash Loans</Link>
+                </Menu.Item>
+                <Menu.Item key="2" icon={<SettingOutlined />}>
+                    <Link to="/settings">Settings</Link>
+                </Menu.Item>
+                {/* <Menu.Item key="3" icon={<ExperimentOutlined />}>
+                    <Link to="/stream">Data Stream Test</Link>
+                </Menu.Item> */}
+            </Menu>
             <Layout className="site-layout">
                 <Content style={{ margin: '0 16px' }}>
                     <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
