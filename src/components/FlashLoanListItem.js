@@ -29,10 +29,7 @@ export const FlashLoanListItem = (props) => {
     }
 
     const AaveVersion = (version) => {
-        if (version == 1){
-            return "V1"
-            }else{
-            return "V2"}
+        return "V"+version
     }
     
 
