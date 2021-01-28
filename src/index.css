@@ -207,3 +207,11 @@ padding:0;
   background: rgba(0, 0, 0, 0.2);
   padding: 10px;
 }
+
+
+.FlashLoanVersionTag {
+  top: 0;
+  margin-left: -6px;
+  margin-top: -6px;
+  font-weight: 800;
+}
