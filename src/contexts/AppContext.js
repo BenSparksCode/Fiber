@@ -60,7 +60,7 @@ class AppContextProvider extends Component {
     componentDidMount(){
         console.log("Context mounted");
         // Set up newBlockListener
-        const sub = web3.subscribeToNewBlocks({}, (err, res) => {
+        const sub = web3.subscribeToNewBlocks((err, res) => {
             if(err) return
             this.setState({
                 connectedToMainnet: true,
