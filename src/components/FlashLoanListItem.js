@@ -28,9 +28,23 @@ export const FlashLoanListItem = (props) => {
         console.log("Opening FL:", data.tx);
     }
 
+    const AaveVersion = (version) => {
+        if (version == 1){
+            return "V1"
+            }else{
+            return "V2"}
+    }
+    
+
     return (
 
         <div className='FlashLoanListItem'>
+
+            <div className='FlashLoanVersionTag'>
+                <Button shape="circle"  type = "secondary">
+                    {AaveVersion(data.version)}
+                </Button>
+            </div>
 
             <div className='FLCardSubcontainer FLCardSubcontainer1' >
                 <p className='FLCardTextLeft'>{getCardTime(data.date)}</p>
@@ -69,6 +83,7 @@ export const FlashLoanListItem = (props) => {
                     <PlusOutlined />
                 </Button>
             </div>
+
         </div>
     )
 }

@@ -14,6 +14,7 @@ const dummyTxs = [
         tokensBorrowed: ["WBTC"],
         from: "0x87245c288fcC858BF7225Dc3Ab97D0aD94730757",
         providers: ["AAVE"],
+        version: 1,
         interactions: [
             {entity: "WBTC"},
             {entity: "UNI"},
@@ -34,6 +35,7 @@ const dummyTxs = [
         tokensBorrowed: ["ETH", "AAVE"],
         from: "0x87245c288fcC858BF7225Dc3Ab97D0aD94730757",
         providers: ["AAVE"],
+        version: 2,
         interactions: [
             {entity: "ETH"},
             {entity: "UNI"},
