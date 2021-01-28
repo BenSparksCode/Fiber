@@ -48,26 +48,44 @@ const dummyTxs = [
 class AppContextProvider extends Component {
     state = {
         newBlocksSub: null,
+        FLEventSubs: null,
         latestBlockNum: null,
         connectedToMainnet: false,
         FLs: dummyTxs,
         selectedFL: null
     }
 
-    // componentDidMount(){
-    //     console.log("Context mounted");
-    //     // Set up newBlockListener
-    //     const sub = web3.subscribeToNewBlocks({}, (err, res) => {
-    //         if(err) return
-    //         this.setState({
-    //             connectedToMainnet: true,
-    //             latestBlockNum: res.number
-    //         })
-    //     })
-    //     this.setState({
-    //         newBlocksSub: sub
-    //     })
-    // }
+    componentDidMount(){
+        console.log("Context mounted");
+        // Set up newBlockListener
+        const sub = web3.subscribeToNewBlocks({}, (err, res) => {
+            if(err) return
+            this.setState({
+                connectedToMainnet: true,
+                latestBlockNum: res.number
+            })
+        })
+        // Set up FL event listeners
+        const eventSubs = web3.subscribeToFLLogs()
+        // Save subs to state for unsubbing later
+        this.setState({
+            newBlocksSub: sub,
+            FLEventSubs: eventSubs
+        })
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.latestBlockNum != this.state.latestBlockNum){
+            if(web3.flashLoans.length === 0) return
+
+            const newFLs = web3.flashLoans.map(fl => web3.convertFLToCardFormat(fl))
+            web3.clearFLs()
+
+            this.setState({
+                FLs: [...newFLs, ...this.state.FLs]
+            })
+        }
+    }
 
     killNewBlocksSub = () => {
         console.log("Unsubscribing from new blocks...");
@@ -76,6 +94,15 @@ class AppContextProvider extends Component {
             newBlocksSub: null
         })
     }
+
+    // DELETE SOON SER
+    // buildNewFlashLoanCards = () => {
+    //     if(web3.flashLoans?.length > 0){
+    //         for(const FL in web3.flashLoans){
+
+    //         }
+    //     }
+    // }
 
     setSelectedFL = (FL) => {
         this.setState({
