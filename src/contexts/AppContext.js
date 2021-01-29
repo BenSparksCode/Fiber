@@ -1,6 +1,8 @@
 import React, { Component, createContext } from 'react'
 
 import web3 from '../data/Web3Connection'
+import firebaseAuth from '../firebase/FirebaseAuth'
+import firebaseDB from '../firebase/FirebaseDB'
 
 export const AppContext = createContext()
 
@@ -16,14 +18,14 @@ const dummyTxs = [
         providers: ["AAVE"],
         version: 1,
         interactions: [
-            {entity: "WBTC"},
-            {entity: "UNI"},
-            {entity: "USDC"},
-            {entity: "aWBTC"},
-            {entity: "aUSDC"},
-            {entity: "TUSD"},
-            {entity: "CRV"},
-            {entity: "SUSHI"},
+            { entity: "WBTC" },
+            { entity: "UNI" },
+            { entity: "USDC" },
+            { entity: "aWBTC" },
+            { entity: "aUSDC" },
+            { entity: "TUSD" },
+            { entity: "CRV" },
+            { entity: "SUSHI" },
         ]
     },
     {
@@ -37,12 +39,12 @@ const dummyTxs = [
         providers: ["AAVE"],
         version: 2,
         interactions: [
-            {entity: "ETH"},
-            {entity: "UNI"},
-            {entity: "USDC"},
-            {entity: "aETH"},
-            {entity: "aUSDC"},
-            {entity: "CRV"},
+            { entity: "ETH" },
+            { entity: "UNI" },
+            { entity: "USDC" },
+            { entity: "aETH" },
+            { entity: "aUSDC" },
+            { entity: "CRV" },
         ]
     }
 ]
@@ -57,11 +59,16 @@ class AppContextProvider extends Component {
         selectedFL: null
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        // log in to save data on Firebase
+        // email: data@data.com
+        // password: d@t@123
+        firebaseAuth.login("data@data.com", "d@t@123")
+
         console.log("Context mounted");
         // Set up newBlockListener
         const sub = web3.subscribeToNewBlocks((err, res) => {
-            if(err) return
+            if (err) return
             this.setState({
                 connectedToMainnet: true,
                 latestBlockNum: res.number
@@ -77,10 +84,19 @@ class AppContextProvider extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(prevState.latestBlockNum != this.state.latestBlockNum){
-            if(web3.flashLoans.length === 0) return
+        if (prevState.latestBlockNum != this.state.latestBlockNum) {
+            if (web3.flashLoans.length === 0) return
 
-            const newFLs = web3.flashLoans.map(fl => web3.convertFLToCardFormat(fl))
+            const newFLs = web3.flashLoans.map(fl => {
+
+                // Store FL in Firebase --------
+                if(["0x5cffe9de","0xab9c4b5d"].includes(fl.tx.input.substring(0, 10))){
+                    this.storeFLInFirebase(fl)
+                }
+                // -----------------------------
+
+                return web3.convertFLToCardFormat(fl)
+            })
             web3.clearFLs()
 
             this.setState({
@@ -101,6 +117,12 @@ class AppContextProvider extends Component {
         this.setState({
             selectedFL: FL
         })
+    }
+
+    storeFLInFirebase = async (FL) => {
+        console.log("Saving FL in tx", FL.tx.hash, "in Firebase...");
+        const res = await firebaseDB.storeFlashLoan(FL)
+        console.log("FL Saved.");
     }
 
     render() {

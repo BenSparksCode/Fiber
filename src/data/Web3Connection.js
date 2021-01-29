@@ -148,6 +148,7 @@ class Web3Connection {
                     console.log("SIG:", res?.input.substring(0, 10), res, FL_SIGS);
                     if (FL_SIGS.includes(res?.input.substring(0, 10))) {
                         this.txEvents[eventData.transactionHash].tx = res
+                        this.txEvents[eventData.transactionHash].version = 2
                         this.txEvents[eventData.transactionHash].decodedTX = this.decodeTx(res, src)
                         this.txEvents[eventData.transactionHash].isFL = true
                         this.txEvents[eventData.transactionHash].block = res.blockNumber

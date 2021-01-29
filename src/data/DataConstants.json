@@ -5,10 +5,7 @@
             "version": 1,
             "contract": "0x398eC7346DcD622eDc5ae82352F02bE94C62d119",
             "FLSigs": [
-                "0x5cffe9de",
-                "0xd2d0e066",
-                "0x5ceae9c4",
-                "0xdb006a75"
+                "0x5cffe9de"
             ]
         },
         {
@@ -16,11 +13,7 @@
             "version": 2,
             "contract": "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9",
             "FLSigs": [
-                "0xab9c4b5d",
-                "0xe8eda9df",
-                "0xa415bcad",
-                "0x90411a32",
-                "0x36118b52"
+                "0xab9c4b5d"
             ],
             "DELET": [
                 "0xab9c4b5d",
