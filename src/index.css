@@ -22,13 +22,16 @@ code {
   align-content: flex-start;
   font-size: 40px;
   margin-bottom: 0px;
-  margin-top: -12px;
+  margin-top: -10px;
   padding-top: 0px;
   position: relative;
   text-shadow: 2px 2px 4px rgb(9, 109, 217, 0.5);
 }
 
 .TitleAndStatsContainer {
+  min-width: 380px;
+  min-height: 46px;
+  max-height: 46px;
   display: flex;
   flex-direction: row;
   max-height: 40px;
@@ -40,7 +43,7 @@ code {
 }
 
 .StatsContainer {
-  margin-top: -6px;
+  margin-top: -4px;
   flex-grow: 1;
   max-width: 250px;
   flex-direction: column;
@@ -89,10 +92,6 @@ code {
 .FLFeedContainer::-webkit-scrollbar {
   width: 3px;
   border-radius: 2px;
-}
- 
-.FLFeedContainer::-webkit-scrollbar-track {
-  /* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
 }
  
 .FLFeedContainer::-webkit-scrollbar-thumb {
