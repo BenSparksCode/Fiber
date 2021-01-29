@@ -22,7 +22,7 @@ code {
   align-content: flex-start;
   font-size: 40px;
   margin-bottom: 0px;
-  margin-top: 0px;
+  margin-top: -12px;
   padding-top: 0px;
   position: relative;
   text-shadow: 2px 2px 4px rgb(9, 109, 217, 0.5);
@@ -31,6 +31,7 @@ code {
 .TitleAndStatsContainer {
   display: flex;
   flex-direction: row;
+  max-height: 40px;
 }
 
 .TitleContainer {
@@ -39,6 +40,7 @@ code {
 }
 
 .StatsContainer {
+  margin-top: -6px;
   flex-grow: 1;
   max-width: 250px;
   flex-direction: column;

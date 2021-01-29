@@ -37,11 +37,11 @@ export const FlashLoanListItem = (props) => {
         <div className='FlashLoanListItem'
         id={data.tx}>
 
-            <div className='FlashLoanVersionTag'>
+            {/* <div className='FlashLoanVersionTag'>
                 <Button shape="circle" type="secondary">
                     {AaveVersion(data.version)}
                 </Button>
-            </div>
+            </div> */}
 
             <div className='FLCardSubcontainer FLCardSubcontainer1' >
                 <p className='FLCardTextLeft'>{getCardTime(data.date)}</p>
