@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
@@ -29,16 +29,16 @@ export const FlashLoanListItem = (props) => {
     }
 
     const AaveVersion = (version) => {
-        return "V"+version
+        return "V" + version
     }
     
 
     return (
-
-        <div className='FlashLoanListItem'>
+        <div className='FlashLoanListItem'
+        id={data.tx}>
 
             <div className='FlashLoanVersionTag'>
-                <Button shape="circle"  type = "secondary">
+                <Button shape="circle" type="secondary">
                     {AaveVersion(data.version)}
                 </Button>
             </div>

@@ -7,8 +7,7 @@ export const ContentPanel = styled(Card)`
     border-radius: 8px;
     align-self: center;
     box-shadow: 0 2px 8px 0 rgb(9, 109, 217, 0.3);
-    // border: 1px solid #1890ff;
-    margin-bottom: 40px;
+    margin-bottom: 26px;
   `
 
 export const BlueContentPanel = styled(Card)`

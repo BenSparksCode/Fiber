@@ -27,7 +27,7 @@ const dummyTxs = [
         ]
     },
     {
-        tx: "0x305a83574cb8e4c51acf6db9fd38ec39e6ef73ffe25cbf1845e8d8f68a5f1696",
+        tx: "0x305a83574cb8e4c51acf6db9fd38ec39e6ef73ffe25cbf1845e8d8f68a5f1695",
         networkFee: 0.066619, //in ETH
         blockNum: 11711726,
         date: new Date(),

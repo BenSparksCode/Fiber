@@ -3,8 +3,6 @@ import { AppContext } from '../contexts/AppContext'
 
 import web3 from '../data/Web3Connection'
 
-const API_KEY = process.env.REACT_APP_ALCHEMY_API
-
 export const FlashLoanStream = () => {
 
     const { killNewBlocksSub } = useContext(AppContext)
