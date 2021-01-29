@@ -62,43 +62,49 @@ export const getTokenData = (address) => {
         },
         "0X80FB784B7ED66730E8B1DBD9820AFD29931AAB03": {
             ticker: "LEND",
-            decimals: 8,
+            decimals: 18,
         },
         "0X7D2D3688DF45CE7C552E19C27E007673DA9204B8": {
             ticker: "aLEND",
-            decimals: 8,
+            decimals: 18,
         },
         "0X1F9840A85D5AF5BF1D1762F925BDADDC4201F984": {
             ticker: "UNI",
-            decimals: 8,
+            decimals: 18,
         },
         "0X0BC529C00C6401AEF6D220BE8C6EA1667F6AD93E": {
             ticker: "YFI",
-            decimals: 8,
+            decimals: 18,
         },
         "0X12E51E77DAAA58AA0E9247DB7510EA4B46F9BEAD": {
             ticker: "aYFI",
-            decimals: 8,
+            decimals: 18,
         },
         "0X0D8775F648430679A709E98D2B0CB6250D2887EF": {
             ticker: "BAT",
-            decimals: 8,
+            decimals: 18,
         },
         "0X514910771AF9CA656AF840DFF83E8264ECF986CA": {
             ticker: "LINK",
-            decimals: 8,
+            decimals: 18,
         },
         "0XA64BD6C70CB9051F6A9BA1F163FDC07E0DFB5F84": {
             ticker: "aLINK",
-            decimals: 8,
+            decimals: 18,
+            version: 1,
+        },
+        "0XA06BC25B5805D5F8D82847D191CB4AF5A3E873E0": {
+            ticker: "aLINK",
+            decimals: 18,
+            version: 2,
         },
         "0X6B3595068778DD592E39A122F4F5A5CF09C90FE2": {
             ticker: "SUSHI",
-            decimals: 8,
+            decimals: 18,
         },
         "0XD533A949740BB3306D119CC777FA900BA034CD52": {
             ticker: "CRV",
-            decimals: 8,
+            decimals: 18,
         },
         "0X2260FAC5E5542A773AA44FBCFEDF7C193BC2C599": {
             ticker: "WBTC",
@@ -106,19 +112,25 @@ export const getTokenData = (address) => {
         },
         "0X408E41876CCCDC0F92210600EF50372656052A38": {
             ticker: "REN",
-            decimals: 8,
+            decimals: 18,
         },
         "0X69948CC03F478B95283F7DBF1CE764D0FC7EC54C": {
             ticker: "aREN",
-            decimals: 8,
+            decimals: 18,
+            version: 1,
+        },
+        "0XCC12ABE4FF81C9378D670DE1B57F8E0DD228D77A": {
+            ticker: "aREN",
+            decimals: 18,
+            version: 2,
         },
         "0XC011A73EE8576FB46F5E1C5751CA3B9FE0AF2A6F": {
             ticker: "SNX",
-            decimals: 8,
+            decimals: 18,
         },
         "0X328C4C80BC7ACA0834DB37E6600A6C49E12DA4DE": {
             ticker: "aSNX",
-            decimals: 8,
+            decimals: 18,
         },
         // "":"ENJ",
         // "":"KNC",
