@@ -3,7 +3,7 @@ import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 import { ethers } from 'ethers'
 
 import DataConstants from './DataConstants.json'
-import { getTickerByAddress } from './CoinAddresses'
+import { getTokenData } from './TokenData'
 import { LENDING_POOL_V1, LENDING_POOL_V2 } from './ABIs'
 
 
@@ -153,6 +153,13 @@ class Web3Connection {
         }
     }
 
+    borrowData = {
+        "0x000": {
+            ticker: "ETH",
+            borrowedUSD: 420,
+        }
+    }
+
     clearFLs = () => {
         this.flashLoans = []
     }
@@ -164,10 +171,18 @@ class Web3Connection {
         if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return 1
 
         let borrowed = 0
-        data.decodedTX.amounts.forEach(amount => {
-            borrowed += ethers.BigNumber.from(amount).toNumber()
-        });
-        console.log("BORROWED:", borrowed);
+
+        for(let i = 0; i < data.decodedTX.args.amounts; i++){
+            const amount = data.decodedTX.args.amounts[i]
+            const address = ethers.BigNumber.from(data.decodedTX.args.assets[i]).toHexString()
+            const decimals = getTokenData(address).decimals
+            const borrowedUSD = ethers.BigNumber.from(amount).div(Math.pow(10, decimals)).toNumber()
+
+            console.log(amount, address, decimals, borrowedUSD);
+
+            borrowed += borrowedUSD
+        }
+
         return borrowed
     }
 
@@ -177,8 +192,8 @@ class Web3Connection {
         // delet ser
         if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return ["USDT"]
 
-        return data.decodedTX.assets.map(
-            asset => getTickerByAddress(ethers.BigNumber.from(asset).toHexString())
+        return data.decodedTX.args.assets.map(
+            asset => getTokenData(ethers.BigNumber.from(asset).toHexString()).ticker
         );
     }
 
