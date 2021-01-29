@@ -25,6 +25,37 @@ class Web3Connection {
         );
         this.LP1Interface = new ethers.utils.Interface(LENDING_POOL_V1)
         this.LP2Interface = new ethers.utils.Interface(LENDING_POOL_V2)
+
+        // TESTING RIG
+
+        // const assets = [
+        //     "0x4Fabb145d64652a948d72533023f6E7A623C7C53",
+        //     "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+        //     "0x0000000000085d4780B73119b644AE5ecd22b376",
+        //     "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+        // ]
+
+        // const amounts = [
+        //     "0x768573e29f7ec98c1b00",
+        //     "0x06a533478f296de16800",
+        //     "0x043d766e646d644aab80",
+        //     "0x4fc9727df8",
+        // ]
+
+        // const data = {
+        //     decodedTX: {
+        //         args: {
+        //             amounts,
+        //             assets
+        //         }
+        //     },   
+        //     tx: {
+        //         input: "0xab9c4b5d"
+        //     }
+        // }
+
+        // console.log(this.getBorrowedValue(data));
+        // console.log(this.getTokensBorrowedFromTx(data));
     }
 
     subscribeToNewBlocks = (callback) => {
@@ -50,10 +81,10 @@ class Web3Connection {
         return FLSources.map(src => {
             this.websocket.eth.subscribe(
                 'logs',
-                { 
+                {
                     address: src.contract,
                     //  fromBlock: 11746847
-                    },
+                },
                 (err, eventRes) => {
                     if (!err) {
                         console.log("Event from", src.provider + " " + src.version);
@@ -153,13 +184,6 @@ class Web3Connection {
         }
     }
 
-    borrowData = {
-        "0x000": {
-            ticker: "ETH",
-            borrowedUSD: 420,
-        }
-    }
-
     clearFLs = () => {
         this.flashLoans = []
     }
@@ -167,27 +191,34 @@ class Web3Connection {
     getBorrowedValue = (data) => {
         if (!data?.decodedTX) return 0
 
+        // TODO - add V1 FLs logic
+
         // delet ser
         if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return 1
 
         let borrowed = 0
 
-        for(let i = 0; i < data.decodedTX.args.amounts; i++){
-            const amount = data.decodedTX.args.amounts[i]
-            const address = ethers.BigNumber.from(data.decodedTX.args.assets[i]).toHexString()
-            const decimals = getTokenData(address).decimals
-            const borrowedUSD = ethers.BigNumber.from(amount).div(Math.pow(10, decimals)).toNumber()
-
-            console.log(amount, address, decimals, borrowedUSD);
-
-            borrowed += borrowedUSD
+        for (let i = 0; i < data.decodedTX.args.amounts.length; i++) {
+            try{
+                const amount = data.decodedTX.args.amounts[i]
+                const address = ethers.BigNumber.from(data.decodedTX.args.assets[i]).toHexString()
+                const decimals = getTokenData(address).decimals
+                const borrowedUSD = ethers.BigNumber.from(amount).div(ethers.BigNumber.from(10).pow(decimals)).toNumber()
+    
+                console.log("from getBorrowedValue:", amount, address, decimals, borrowedUSD);
+    
+                borrowed += borrowedUSD
+            } catch(err) {
+                console.log("getBorrowedValue Error at func input", i, err);
+            }
         }
-
         return borrowed
     }
 
     getTokensBorrowedFromTx = (data) => {
         if (!data?.decodedTX) return []
+
+        // TODO - add V1 FLs logic
 
         // delet ser
         if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return ["USDT"]
@@ -206,8 +237,6 @@ class Web3Connection {
             { entity: "CRV" }
         ]
     }
-
-
 }
 
 export default new Web3Connection()

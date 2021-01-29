@@ -32,7 +32,7 @@ export const getTokenData = (address) => {
             ticker: "aUSDT",
             decimals: 6,
         },
-        "0X0000000000085D4780B73119B644AE5ECD22B376": {
+        "0X085D4780B73119B644AE5ECD22B376": {
             ticker: "TUSD",
             decimals: 18,
         },
@@ -152,5 +152,5 @@ export const getTokenData = (address) => {
         // "":"FRAX",
     }
 
-    return addressMap.hasOwnProperty(address) ? addressMap[address] : "???"
+    return addressMap.hasOwnProperty(address) ? addressMap[address] : { ticker: "???", decimals: 18 }
 }

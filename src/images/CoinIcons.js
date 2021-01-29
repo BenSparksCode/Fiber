@@ -28,7 +28,6 @@ export const getCoinIconURL = (coinTicker) => {
         "WBTC": "https://aave.com/static/media/wbtc.f524516c.svg",
         "ZRX": "https://aave.com/static/media/zrx.3cffa8ed.svg",
         "CRV": "https://aave.com/static/media/crv.afc0d649.svg",
-
         "COMP": "https://s2.coinmarketcap.com/static/img/coins/64x64/5692.png",
         "SUSHI": "https://s2.coinmarketcap.com/static/img/coins/64x64/6758.png",
         "1INCH": "https://s2.coinmarketcap.com/static/img/coins/64x64/8104.png",
@@ -51,7 +50,6 @@ export const getCoinIconURL = (coinTicker) => {
         "SFI": "https://s2.coinmarketcap.com/static/img/coins/64x64/7617.png",
         "AKRO": "https://s2.coinmarketcap.com/static/img/coins/64x64/4134.png",
         "BOND": "https://s2.coinmarketcap.com/static/img/coins/64x64/7440.png",
-
         "GRT": "https://s2.coinmarketcap.com/static/img/coins/64x64/6719.png",
         "ESD": "https://s2.coinmarketcap.com/static/img/coins/64x64/7033.png",
         "DSD": "https://s2.coinmarketcap.com/static/img/coins/64x64/8106.png",
