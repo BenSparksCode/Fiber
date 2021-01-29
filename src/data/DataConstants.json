@@ -5,8 +5,10 @@
             "version": 1,
             "contract": "0x398eC7346DcD622eDc5ae82352F02bE94C62d119",
             "FLSigs": [
-                "0x5cffe9de"
-
+                "0x5cffe9de",
+                "0xd2d0e066",
+                "0x5ceae9c4",
+                "0xdb006a75"
             ]
         },
         {
@@ -17,7 +19,8 @@
                 "0xab9c4b5d",
                 "0xe8eda9df",
                 "0xa415bcad",
-                "0x90411a32"
+                "0x90411a32",
+                "0x36118b52"
             ],
             "DELET": [
                 "0xab9c4b5d",
