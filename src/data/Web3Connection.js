@@ -157,6 +157,10 @@ class Web3Connection {
         this.flashLoans = []
     }
 
+// BN: "0x07c1c60649"
+// BN: "0x0c1a4fedb47a3b355700"
+// from: 0xa32a769f0f115b0632940f08788d6f49e4ee38f7c4fd6ace093e582a254f7475
+
     getBorrowedValue = (data) => {
         if (!data?.decodedTX) return 0
 
@@ -164,7 +168,7 @@ class Web3Connection {
         if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return 1
 
         let borrowed = 0
-        data.decodedTX.amounts.forEach(amount => {
+        data.decodedTX.args.amounts.forEach(amount => {
             borrowed += ethers.BigNumber.from(amount).toNumber()
         });
         console.log("BORROWED:", borrowed);
@@ -177,7 +181,7 @@ class Web3Connection {
         // delet ser
         if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return ["USDT"]
 
-        return data.decodedTX.assets.map(
+        return data.decodedTX.args.assets.map(
             asset => getTickerByAddress(ethers.BigNumber.from(asset).toHexString())
         );
     }
