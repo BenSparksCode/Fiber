@@ -2,13 +2,10 @@ import React, { useState } from 'react'
 import {
     Link
 } from "react-router-dom";
-import { Layout, Menu, Dropdown } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
     DesktopOutlined,
     SettingOutlined,
-    ExperimentOutlined,
-    UserOutlined,
-    DownOutlined
 } from '@ant-design/icons';
 
 

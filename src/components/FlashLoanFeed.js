@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import { AppContext } from '../contexts/AppContext'
 
@@ -8,10 +10,24 @@ import { FlashLoanListItem } from './FlashLoanListItem'
 export const FlashLoanFeed = () => {
     const { FLs } = useContext(AppContext)
 
+    const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
     return (
         <ContentPanel className='FLFeedContainer'>
 
-            {FLs.map(FL => <FlashLoanListItem data={FL} />)}
+            {
+                FLs?.length > 0
+                    ?
+                    FLs.map(FL => <FlashLoanListItem data={FL} />)
+                    :
+                    <div className='FLFeedLoadingContainer'>
+                        <p>Listening for flash loans...</p>
+                        <Spin className='StatsIndicator' indicator={antIcon} />
+                    </div>
+                    
+            }
+
+
 
         </ContentPanel>
     )

@@ -55,7 +55,7 @@ class AppContextProvider extends Component {
         FLEventSubs: null,
         latestBlockNum: null,
         connectedToMainnet: false,
-        FLs: dummyTxs,
+        FLs: [],
         selectedFL: null
     }
 
