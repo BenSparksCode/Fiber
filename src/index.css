@@ -11,9 +11,11 @@ code {
 }
 
 .App {
+  /* padding-top: 80px; */
+  min-height: 85vh;
   text-align: center;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
 }
 
@@ -83,8 +85,8 @@ code {
 }
 
 .FLFeedContainer {
-  min-height: 40em;
-  max-height: 40em;
+  min-height: fill;
+  max-height: fill;
   overflow: scroll;
   overflow-x: hidden;
 }

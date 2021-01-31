@@ -46,7 +46,7 @@ export const DashboardLayout = (props) => {
                         {props.children}
                     </div>
                 </Content>
-                <Footer theme='dark' style={{ textAlign: 'center' }}>Fiber &copy;{new Date().getFullYear()} </Footer>
+                {/* <Footer theme='dark' style={{ textAlign: 'center' }}>Fiber &copy;{new Date().getFullYear()} </Footer> */}
             </Layout>
         </Layout>
     );

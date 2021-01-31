@@ -23,17 +23,13 @@ export const FlashLoanFeed = () => {
 
     }, [])
 
-
-
-
-
     return (
         <ContentPanel className='FLFeedContainer'
-            style={{
-                height: FLFeedContainerHeight,
-                minHeight: FLFeedContainerHeight,
-                maxHeight: FLFeedContainerHeight,
-            }}
+            // style={{
+            //     height: FLFeedContainerHeight,
+            //     minHeight: FLFeedContainerHeight,
+            //     maxHeight: FLFeedContainerHeight,
+            // }}
         >
 
             {FLs.map(FL => <FlashLoanListItem data={FL} />)}
