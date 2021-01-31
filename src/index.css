@@ -85,8 +85,10 @@ code {
 }
 
 .FLFeedContainer {
-  min-height: fill;
-  max-height: fill;
+  flex-grow: 1;
+  height: auto;
+  min-height: 100% !important;
+  /* max-height: fill; */
   overflow: scroll;
   overflow-x: hidden;
 }
