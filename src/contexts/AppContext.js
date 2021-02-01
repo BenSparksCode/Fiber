@@ -46,7 +46,7 @@ const dummyTxs = [
             { entity: "aUSDC" },
             { entity: "CRV" },
         ]
-    }
+    },
 ]
 
 class AppContextProvider extends Component {

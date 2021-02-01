@@ -11,7 +11,8 @@ code {
 }
 
 .App {
-  min-height: 85vh;
+  max-height: 86vh;
+  min-height: 86vh;
   text-align: center;
   display: flex;
   justify-content: flex-start;
@@ -85,8 +86,9 @@ code {
 
 .FLFeedContainer {
   flex-grow: 1;
-  height: auto;
+  height: 100% !important;
   min-height: 100% !important;
+  max-height: 100% !important;
   overflow: scroll;
   overflow-x: hidden;
 }
