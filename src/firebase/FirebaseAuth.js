@@ -18,8 +18,8 @@ class Firebase {
         this.db = firebase.firestore()
     }
 
-    login(email, password) {
-        return this.auth.signInWithEmailAndPassword(email, password)
+    async login (email, password) {
+        return await this.auth.signInWithEmailAndPassword(email, password)
     }
 
     logout() {
@@ -46,7 +46,8 @@ class Firebase {
 
     //Use to check if user signed in
     isUserSignedIn() { 
-        return this.auth.currentUser && this.auth.currentUser.displayName
+        return this.auth.currentUser
+        // && this.auth.currentUser.displayName
     }
 
     getCurrentUserId(){

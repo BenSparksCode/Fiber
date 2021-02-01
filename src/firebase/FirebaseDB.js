@@ -26,6 +26,28 @@ class FirebaseDB {
             return null
         }
     }
+
+    async getAllFlashLoans() {
+        console.log("in getAllFlashLoans");
+        if (!auth.isUserSignedIn()) return null
+        let FLs = []
+        const colRef = auth.db.collection('flashLoans')
+
+        return colRef.get()
+            .then(snapshot => {
+                snapshot.forEach(doc => {
+                    const flObj = { ...doc.data(), ...{ id: doc.id } }
+                    console.log(flObj);
+                    FLs.push(flObj)
+                })
+            })
+            .then(() => {
+                return FLs
+            })
+            .catch(err => {
+                console.log("ERROR in FIREBASE DB: Error in getAllFlashLoans", err);
+            })
+    }
 }
 
 export default new FirebaseDB()
