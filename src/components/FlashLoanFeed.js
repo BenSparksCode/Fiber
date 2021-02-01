@@ -18,13 +18,16 @@ export const FlashLoanFeed = () => {
             {
                 FLs?.length > 0
                     ?
-                    FLs.map(FL => <FlashLoanListItem data={FL} />)
+                    FLs.map(FL => <FlashLoanListItem
+                        data={FL}
+                        key={FL.txHash}
+                    />)
                     :
                     <div className='FLFeedLoadingContainer'>
                         <p>Listening for flash loans...</p>
                         <Spin className='StatsIndicator' indicator={antIcon} />
                     </div>
-                    
+
             }
 
 

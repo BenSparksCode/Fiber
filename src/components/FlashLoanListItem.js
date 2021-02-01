@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Button } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 
@@ -31,11 +31,11 @@ export const FlashLoanListItem = (props) => {
     const AaveVersion = (version) => {
         return "V" + version
     }
-    
+
 
     return (
         <div className='FlashLoanListItem'
-        id={data.tx}>
+            id={data.txHash}>
 
             {/* <div className='FlashLoanVersionTag'>
                 <Button shape="circle" type="secondary">
@@ -59,7 +59,7 @@ export const FlashLoanListItem = (props) => {
 
             <div className='FLCardSubcontainer FLCardSubcontainer3'>
                 <div className='FLTxContainer'>
-                    <p className='FLCardTextLeft'>TX: <a href={"https://etherscan.io/tx/" + data.tx}>{shortenHash(data.tx)}</a></p>
+                    <p className='FLCardTextLeft'>TX: <a href={"https://etherscan.io/tx/" + data.txHash}>{shortenHash(data.txHash)}</a></p>
                 </div>
                 <div className='FLBlockContainer' >
                     <p className='FLCardTextLeft'>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{formatBlockNum(data.blockNum)}</a></p>
