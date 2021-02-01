@@ -174,9 +174,22 @@ class Web3Connection {
 
     convertFLToCardFormat = (data) => {
         return {
-            tx: data.tx.hash,
+            txHash: data.tx.hash,
             blockNum: data.block,
             date: new Date(),
+            amountBorrowedUSD: this.getBorrowedValue(data),
+            tokensBorrowed: this.getTokensBorrowedFromTx(data),
+            from: data.tx.from,
+            version: data.src.version,
+            interactions: this.getInteractionsFromTx(data) //todo
+        }
+    }
+
+    convertFirebaseFLToCardFormat = (data) => {
+        return {
+            txHash: data.tx.hash,
+            blockNum: data.block,
+            date: data.dateCreated.toDate(),
             amountBorrowedUSD: this.getBorrowedValue(data),
             tokensBorrowed: this.getTokensBorrowedFromTx(data),
             from: data.tx.from,
@@ -189,10 +202,6 @@ class Web3Connection {
         this.flashLoans = []
     }
 
-// BN: "0x07c1c60649"
-// BN: "0x0c1a4fedb47a3b355700"
-// from: 0xa32a769f0f115b0632940f08788d6f49e4ee38f7c4fd6ace093e582a254f7475
-
     getBorrowedValue = (data) => {
         if (!data?.decodedTX) return 0
 
@@ -203,10 +212,10 @@ class Web3Connection {
 
         let borrowed = 0
 
-        for (let i = 0; i < data.decodedTX.args.amounts.length; i++) {
+        for (let i = 0; i < data.decodedTX.args[2].length; i++) {
             try{
-                const amount = data.decodedTX.args.amounts[i]
-                const address = ethers.BigNumber.from(data.decodedTX.args.assets[i]).toHexString()
+                const amount = data.decodedTX.args[2][i]
+                const address = ethers.BigNumber.from(data.decodedTX.args[1][i]).toHexString()
                 const decimals = getTokenData(address).decimals
                 const borrowedUSD = ethers.BigNumber.from(amount).div(ethers.BigNumber.from(10).pow(decimals)).toNumber()
     
@@ -228,7 +237,7 @@ class Web3Connection {
         // delet ser
         if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return ["USDT"]
 
-        return data.decodedTX.args.assets.map(
+        return data.decodedTX.args[1].map(
             asset => getTokenData(ethers.BigNumber.from(asset).toHexString()).ticker
         );
     }

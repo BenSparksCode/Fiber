@@ -59,28 +59,34 @@ class AppContextProvider extends Component {
         selectedFL: null
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         // log in to save data on Firebase
         // email: data@data.com
         // password: d@t@123
-        firebaseAuth.login("data@data.com", "d@t@123")
+        await firebaseAuth.login("data@data.com", "d@t@123")
+        // FIREBASE DATA
+        this.loadFLsFromFirebase()
 
-        console.log("Context mounted");
+
+
+        // WEB3 LISTENERS
         // Set up newBlockListener
-        const sub = web3.subscribeToNewBlocks((err, res) => {
-            if (err) return
-            this.setState({
-                connectedToMainnet: true,
-                latestBlockNum: res.number
-            })
-        })
-        // Set up FL event listeners
-        const eventSubs = web3.subscribeToFLLogs()
-        // Save subs to state for unsubbing later
-        this.setState({
-            newBlocksSub: sub,
-            FLEventSubs: eventSubs
-        })
+        // const sub = web3.subscribeToNewBlocks((err, res) => {
+        //     if (err) return
+        //     this.setState({
+        //         connectedToMainnet: true,
+        //         latestBlockNum: res.number
+        //     })
+        // })
+        // // Set up FL event listeners
+        // const eventSubs = web3.subscribeToFLLogs()
+        // // Save subs to state for unsubbing later
+        // this.setState({
+        //     newBlocksSub: sub,
+        //     FLEventSubs: eventSubs
+        // })
+
+
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -90,8 +96,9 @@ class AppContextProvider extends Component {
             const newFLs = web3.flashLoans.map(fl => {
 
                 // Store FL in Firebase --------
-                if(["0x5cffe9de","0xab9c4b5d"].includes(fl.tx.input.substring(0, 10))){
-                    this.storeFLInFirebase(fl)
+                if (["0x5cffe9de", "0xab9c4b5d"].includes(fl.tx.input.substring(0, 10))) {
+                    // this.storeFLInFirebase(fl)
+                    console.log("DISABLED - WOULD HAVE SAVED TO DB HERE");
                 }
                 // -----------------------------
 
@@ -123,6 +130,25 @@ class AppContextProvider extends Component {
         console.log("Saving FL in tx", FL.tx.hash, "in Firebase...");
         const res = await firebaseDB.storeFlashLoan(FL)
         console.log("FL Saved.");
+    }
+
+    loadFLsFromFirebase = async () => {
+        // Get raw FLs - still stringified
+        const rawFLs = await firebaseDB.getAllFlashLoans()
+        // Process raw FLs into card format
+        const processedFLs = rawFLs.map(fl => {
+            fl.decodedTX = JSON.parse(fl.decodedTX)
+            fl.events = JSON.parse(fl.events)
+            fl.tx = JSON.parse(fl.tx)
+            fl.src = { version: fl.version }
+            return web3.convertFirebaseFLToCardFormat(fl)
+        })
+            // sort FLs with latest at top
+            .sort((a, b) => (a.date > b.date) ? -1 : 1)
+
+        this.setState({
+            FLs: processedFLs,
+        })
     }
 
     render() {
