@@ -6,49 +6,6 @@ import firebaseDB from '../firebase/FirebaseDB'
 
 export const AppContext = createContext()
 
-const dummyTxs = [
-    {
-        tx: "0x305a83574cb8e4c51acf6db9fd38ec39e6ef73ffe25cbf1845e8d8f68a5f1696",
-        networkFee: 0.066619, //in ETH
-        blockNum: 11711726,
-        date: new Date(),
-        amountBorrowedUSD: 69420,
-        tokensBorrowed: ["WBTC"],
-        from: "0x87245c288fcC858BF7225Dc3Ab97D0aD94730757",
-        providers: ["AAVE"],
-        version: 1,
-        interactions: [
-            { entity: "WBTC" },
-            { entity: "UNI" },
-            { entity: "USDC" },
-            { entity: "aWBTC" },
-            { entity: "aUSDC" },
-            { entity: "TUSD" },
-            { entity: "CRV" },
-            { entity: "SUSHI" },
-        ]
-    },
-    {
-        tx: "0x305a83574cb8e4c51acf6db9fd38ec39e6ef73ffe25cbf1845e8d8f68a5f1695",
-        networkFee: 0.066619, //in ETH
-        blockNum: 11711726,
-        date: new Date(),
-        amountBorrowedUSD: 9000000,
-        tokensBorrowed: ["ETH", "AAVE"],
-        from: "0x87245c288fcC858BF7225Dc3Ab97D0aD94730757",
-        providers: ["AAVE"],
-        version: 2,
-        interactions: [
-            { entity: "ETH" },
-            { entity: "UNI" },
-            { entity: "USDC" },
-            { entity: "aETH" },
-            { entity: "aUSDC" },
-            { entity: "CRV" },
-        ]
-    },
-]
-
 class AppContextProvider extends Component {
     state = {
         newBlocksSub: null,
@@ -69,20 +26,20 @@ class AppContextProvider extends Component {
 
         // WEB3 LISTENERS
         // Set up newBlockListener
-        const sub = web3.subscribeToNewBlocks((err, res) => {
-            if (err) return
-            this.setState({
-                connectedToMainnet: true,
-                latestBlockNum: res.number
-            })
-        })
-        // Set up FL event listeners
-        const eventSubs = web3.subscribeToFLLogs()
-        // Save subs to state for unsubbing later
-        this.setState({
-            newBlocksSub: sub,
-            FLEventSubs: eventSubs
-        })
+        // const sub = web3.subscribeToNewBlocks((err, res) => {
+        //     if (err) return
+        //     this.setState({
+        //         connectedToMainnet: true,
+        //         latestBlockNum: res.number
+        //     })
+        // })
+        // // Set up FL event listeners
+        // const eventSubs = web3.subscribeToFLLogs()
+        // // Save subs to state for unsubbing later
+        // this.setState({
+        //     newBlocksSub: sub,
+        //     FLEventSubs: eventSubs
+        // })
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -97,27 +54,13 @@ class AppContextProvider extends Component {
 
                 // Store FL in Firebase --------
                 if (["0x5cffe9de", "0xab9c4b5d"].includes(tempFL.tx.input.substring(0, 10))) {
-                    this.storeFLInFirebase(tempFL)
-                    // console.log("DISABLED - WOULD HAVE SAVED TO DB HERE");
+                    // this.storeFLInFirebase(tempFL)
+                    console.log("DISABLED - WOULD HAVE SAVED TO DB HERE");
                 }
                 // -----------------------------
 
                 newFLs.push(tempFL)
             }
-
-            // const newFLs = await web3.flashLoans.map(async fl => {
-
-            //     fl = await web3.formatFLData(fl)
-
-            //     // Store FL in Firebase --------
-            //     if (["0x5cffe9de", "0xab9c4b5d"].includes(fl.tx.input.substring(0, 10))) {
-            //         // this.storeFLInFirebase(fl)
-            //         console.log("DISABLED - WOULD HAVE SAVED TO DB HERE");
-            //     }
-            //     // -----------------------------
-
-            //     return fl
-            // })
 
             web3.clearFLs()
 
