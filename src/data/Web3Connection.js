@@ -1,4 +1,3 @@
-// ALCHEMY VERSION
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 import { ethers } from 'ethers'
 
@@ -7,7 +6,6 @@ import { getTokenData } from './TokenData'
 import { LENDING_POOL_V1, LENDING_POOL_V2 } from './ABIs'
 
 const axios = require('axios');
-
 
 const API_KEY = process.env.REACT_APP_ALCHEMY_API
 
@@ -27,37 +25,6 @@ class Web3Connection {
         );
         this.LP1Interface = new ethers.utils.Interface(LENDING_POOL_V1)
         this.LP2Interface = new ethers.utils.Interface(LENDING_POOL_V2)
-
-        // TESTING RIG
-
-        // const assets = [
-        //     "0x4Fabb145d64652a948d72533023f6E7A623C7C53",
-        //     "0x6B175474E89094C44Da98b954EedeAC495271d0F",
-        //     "0x0000000000085d4780B73119b644AE5ecd22b376",
-        //     "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
-        // ]
-
-        // const amounts = [
-        //     "0x768573e29f7ec98c1b00",
-        //     "0x06a533478f296de16800",
-        //     "0x043d766e646d644aab80",
-        //     "0x4fc9727df8",
-        // ]
-
-        // const data = {
-        //     decodedTX: {
-        //         args: {
-        //             amounts,
-        //             assets
-        //         }
-        //     },   
-        //     tx: {
-        //         input: "0xab9c4b5d"
-        //     }
-        // }
-
-        // console.log(this.getBorrowedValue(data));
-        // console.log(this.getTokensBorrowedFromTx(data));
     }
 
     subscribeToNewBlocks = (callback) => {
@@ -69,7 +36,6 @@ class Web3Connection {
                 if (!err) {
 
                     this.handleNewBlock(res.number)
-
                     return callback(err, res)
                 }
             })
@@ -195,34 +161,6 @@ class Web3Connection {
         }
     }
 
-    // convertFLToCardFormat = (data) => {
-    //     return {
-    //         txHash: data.tx.hash,
-    //         blockNum: data.block,
-    //         date: new Date(),
-    //         amountBorrowedUSD: this.getBorrowedValue(data),
-    //         // borrowedData: this.getBorrowedData(data),
-    //         tokensBorrowed: this.getTokensBorrowedFromTx(data),
-    //         from: data.tx.from,
-    //         version: data.src.version,
-    //         interactions: this.getInteractionsFromTx(data) //todo
-    //     }
-    // }
-
-    // convertFirebaseFLToCardFormat = (data) => {
-    //     return {
-    //         txHash: data.tx.hash,
-    //         blockNum: data.block,
-    //         date: data.dateCreated.toDate(),
-    //         amountBorrowedUSD: this.getBorrowedValue(data),
-    //         // borrowedData: this.getBorrowedData(data),
-    //         tokensBorrowed: this.getTokensBorrowedFromTx(data),
-    //         from: data.tx.from,
-    //         version: data.src.version,
-    //         interactions: this.getInteractionsFromTx(data) //todo
-    //     }
-    // }
-
     clearFLs = () => {
         this.flashLoans = []
     }
@@ -270,46 +208,6 @@ class Web3Connection {
         console.log("Borrow Data:", borrowData);
         return borrowData
     }
-
-    // getBorrowedValue = (data) => {
-    //     if (!data?.decodedTX) return 0
-
-    //     // TODO - add V1 FLs logic
-
-    //     // delet ser
-    //     if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return 1
-
-    //     let borrowed = 0
-
-    //     for (let i = 0; i < data.decodedTX.args[2].length; i++) {
-    //         try {
-    //             const amount = data.decodedTX.args[2][i]
-    //             const address = ethers.BigNumber.from(data.decodedTX.args[1][i]).toHexString()
-    //             const decimals = getTokenData(address).decimals
-    //             const borrowedUSD = ethers.BigNumber.from(amount).div(ethers.BigNumber.from(10).pow(decimals)).toNumber()
-
-    //             console.log("from getBorrowedValue:", amount, address, decimals, borrowedUSD);
-
-    //             borrowed += borrowedUSD
-    //         } catch (err) {
-    //             console.log("getBorrowedValue Error at func input", i, err);
-    //         }
-    //     }
-    //     return borrowed
-    // }
-
-    // getTokensBorrowedFromTx = (data) => {
-    //     if (!data?.decodedTX) return []
-
-    //     // TODO - add V1 FLs logic
-
-    //     // delet ser
-    //     if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return ["USDT"]
-
-    //     return data.decodedTX.args[1].map(
-    //         asset => getTokenData(ethers.BigNumber.from(asset).toHexString()).ticker
-    //     );
-    // }
 
     getInteractionsFromTx = (data) => {
         // TODO
