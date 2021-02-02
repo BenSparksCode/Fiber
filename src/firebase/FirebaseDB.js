@@ -35,7 +35,31 @@ class FirebaseDB {
         const colRef = auth.db.collection('flashLoans')
 
         return colRef
-            .orderBy('dateCreated', 'desc').limit(10)
+            .orderBy('dateCreated', 'desc')
+            // .limit(10)
+            .get()
+            .then(snapshot => {
+                snapshot.forEach(doc => {
+                    const flObj = { ...doc.data(), ...{ id: doc.id } }
+                    FLs.push(flObj)
+                })
+            })
+            .then(() => {
+                return FLs
+            })
+            .catch(err => {
+                console.log("ERROR in FIREBASE DB: Error in getAllFlashLoans", err);
+            })
+    }
+
+    async getAllFlashLoans() {
+        if (!auth.isUserSignedIn()) return null
+        let FLs = []
+        const colRef = auth.db.collection('flashLoans')
+
+        return colRef
+            .orderBy('dateCreated', 'desc')
+            // .limit(10)
             .get()
             .then(snapshot => {
                 snapshot.forEach(doc => {
@@ -54,41 +78,45 @@ class FirebaseDB {
 
     // USE FUNCTION BELOW TO TRANSFER ITEMS BETWEEN FIREBASE COLLECTIONS
 
-    // async moveFLToNewCollection() {
-    //     const from = 'flashLoans'
-    //     const to = 'flashLoans2'
+    async moveFLToNewCollection() {
+        const from = 'flashLoans'
+        const to = 'flashLoans2'
 
-    //     if (!auth.isUserSignedIn()) return null
-    //     let FLs = []
-    //     const colRef = auth.db.collection(from)
+        if (!auth.isUserSignedIn()) return null
+        let FLs = []
+        const colRef = auth.db.collection(from)
 
-    //     return colRef
-    //         // .orderBy('dateCreated', 'desc').limit(2)
-    //         .get()
-    //         .then(snapshot => {
-    //             snapshot.forEach(doc => {
-    //                 const flObj = { ...doc.data() }
-    //                 FLs.push(flObj)
-    //             })
-    //         })
-    //         .then(async () => {
-    //             const collectionRef = await auth.db.collection(to)
-    //             try {
-    //                 for (let i = 0; i < FLs.length; i++) {
-    //                     console.log("Trying to add", FLs[i]);
-    //                     collectionRef.add(FLs[i])
-    //                 }
-    //                 console.log("SUCCESS: Moved all items from " + from + " to " + to);
-    //                 return true
-    //             } catch (err) {
-    //                 console.log("ERROR in FIREBASE DB: Error in moveFLToNewCollection", err);
-    //                 return null
-    //             }
-    //         })
-    //         .catch(err => {
-    //             console.log("ERROR in FIREBASE DB: Error in moveFLToNewCollection", err);
-    //         })
-    // }
+        return colRef
+            // .orderBy('dateCreated', 'desc').limit(2)
+            .get()
+            .then(snapshot => {
+                snapshot.forEach(doc => {
+                    const flObj = { ...doc.data() }
+                    FLs.push(flObj)
+                })
+            })
+            // MUTATE FLs before re-uploading
+            .then(() => {
+                
+            })
+            .then(async () => {
+                const collectionRef = await auth.db.collection(to)
+                try {
+                    for (let i = 0; i < FLs.length; i++) {
+                        console.log("Trying to add", FLs[i]);
+                        collectionRef.add(FLs[i])
+                    }
+                    console.log("SUCCESS: Moved all items from " + from + " to " + to);
+                    return true
+                } catch (err) {
+                    console.log("ERROR in FIREBASE DB: Error in moveFLToNewCollection", err);
+                    return null
+                }
+            })
+            .catch(err => {
+                console.log("ERROR in FIREBASE DB: Error in moveFLToNewCollection", err);
+            })
+    }
 
     // async getFlashLoans() {
     //     if (!auth.isUserSignedIn()) return null
