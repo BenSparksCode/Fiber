@@ -6,6 +6,7 @@ import { Layout, Menu } from 'antd';
 import {
     DesktopOutlined,
     SettingOutlined,
+    ExperimentOutlined
 } from '@ant-design/icons';
 
 

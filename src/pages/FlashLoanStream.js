@@ -1,42 +1,64 @@
 import React, { useState, useContext, useRef } from 'react'
 import { AppContext } from '../contexts/AppContext'
-
+import firebaseDB from '../firebase/FirebaseDB'
 import web3 from '../data/Web3Connection'
 
 export const FlashLoanStream = () => {
 
-    const { killNewBlocksSub } = useContext(AppContext)
+    const { setTempFLs, tempFLs, setTempFLIndex, tempLogs } = useContext(AppContext)
 
-    // const web3 = useRef(null)
-    const subscription = useRef(null)
 
-    const [blockNum, setBlockNum] = useState(-1)
-    const [eventData, setEventData] = useState("Nothing yet...")
 
-    const getTxData = (txHash) => {
-        web3.current.eth.getTransaction(txHash, (err, res) => {
-            if (!err) {
-                console.log("TX DATA");
-                console.log(res);
-                console.log(res.input.substring(0,10));
-            }
-        })
+    const handle1 = async () => {
+        const res = await firebaseDB.getFlashLoans()
+        setTempFLs(res)
+        console.log("Handle 1 done", res);
     }
 
-    const handleSubscribe = () => {
+    const handle2 = async () => {
+
+        let logFLs = []
+
+        for (let i = 0; i < tempFLs.length; i++) {
+            let fl = { ...tempFLs[i] };
+            delete fl.events
+            web3.getTxLogs(fl.txHash, (lgs) => {
+                // const out = JSON.stringify(lgs)
+
+                fl.logs = JSON.stringify(lgs)
+
+                setTempFLIndex(fl, i)
+
+                // setTempLogs([...tempLogs, ...[out]])
+                console.log(i, fl);
+            })
+            // setTimeout(() => {
+            //     console.log("tick", i);
+            //     fl.logs = JSON.stringify(logs)
+            //     logFLs.push(fl)
+
+            // }, 1000);
+
+        }
+
+
+        console.log("Handle 2 done");
+
     }
 
-    const handleUnsubscribe = () => {
-        web3.unsubscribeFromSub(subscription.current)
+    const handle3 = () => {
+        firebaseDB.uploadFlashLoans(tempFLs)
+        console.log('Handle 3 done.');
     }
 
     return (
         <div>
-            <button onClick={handleSubscribe}>Subscribe to Events</button>
-            <button onClick={handleUnsubscribe}>Unsubscribe to Events</button>
-            <button onClick={killNewBlocksSub}>Unsub from New Blocks</button>
-            <h2>Data from block: {blockNum}</h2>
-            <p>{eventData}</p>
+            <button onClick={handle1}>Get FLs</button>
+            <button onClick={handle2}>Update FLs to LOG</button>
+            <button onClick={handle3}>Upload FLs</button>
+            <button onClick={() => {
+                console.log(tempFLs,tempLogs)
+            }}>Check Data</button>
         </div>
     )
 }
