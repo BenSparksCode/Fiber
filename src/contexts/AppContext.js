@@ -27,20 +27,20 @@ class AppContextProvider extends Component {
 
         // WEB3 LISTENERS
         // Set up newBlockListener
-        // const sub = web3.subscribeToNewBlocks((err, res) => {
-        //     if (err) return
-        //     this.setState({
-        //         connectedToMainnet: true,
-        //         latestBlockNum: res.number
-        //     })
-        // })
-        // // Set up FL event listeners
-        // const eventSubs = web3.subscribeToFLLogs()
-        // // Save subs to state for unsubbing later
-        // this.setState({
-        //     newBlocksSub: sub,
-        //     FLEventSubs: eventSubs
-        // })
+        const sub = web3.subscribeToNewBlocks((err, res) => {
+            if (err) return
+            this.setState({
+                connectedToMainnet: true,
+                latestBlockNum: res.number
+            })
+        })
+        // Set up FL event listeners
+        const eventSubs = web3.subscribeToFLLogs()
+        // Save subs to state for unsubbing later
+        this.setState({
+            newBlocksSub: sub,
+            FLEventSubs: eventSubs
+        })
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -55,8 +55,8 @@ class AppContextProvider extends Component {
 
                 // Store FL in Firebase --------
                 if (["0x5cffe9de", "0xab9c4b5d"].includes(tempFL.tx.input.substring(0, 10))) {
-                    // this.storeFLInFirebase(tempFL)
-                    console.log("DISABLED - WOULD HAVE SAVED TO DB HERE");
+                    this.storeFLInFirebase(tempFL)
+                    // console.log("DISABLED - WOULD HAVE SAVED TO DB HERE");
                 }
                 // -----------------------------
 

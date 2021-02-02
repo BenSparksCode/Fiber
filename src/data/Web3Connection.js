@@ -155,8 +155,8 @@ class Web3Connection {
                 asset: e.address
             }
         })
-        
-        return interactions.filter((v,i,a)=>a.findIndex(t=>(t.ticker === v.ticker))===i)
+
+        return interactions.filter((v, i, a) => a.findIndex(t => (t.ticker === v.ticker)) === i)
     }
 
     formatFLData = async (data) => {
@@ -187,6 +187,7 @@ class Web3Connection {
         if (!data?.decodedTX) return false
         if (!FL_SIGS.includes(data.tx.input.substring(0, 10))) return false
 
+        const TOKEN_DECIMALS = 3 //fractions of a token accounted for
         let borrowData = []
 
         // args[1] = assets, args[2] = amounts
@@ -195,7 +196,11 @@ class Web3Connection {
                 const amountBN = data.decodedTX.args[2][i]
                 const address = ethers.BigNumber.from(data.decodedTX.args[1][i]).toHexString()
                 const decimals = getTokenData(address).decimals
-                const tokensBorrowed = ethers.BigNumber.from(amountBN).div(ethers.BigNumber.from(10).pow(decimals)).toNumber()
+
+                const tokensBorrowed = ethers.BigNumber.from(amountBN)
+                    .div(ethers.BigNumber.from(10).pow(decimals - TOKEN_DECIMALS))
+                    .toNumber() / Math.pow(10, TOKEN_DECIMALS)
+
                 const tokenValue = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids='
                     + getTokenData(address).coinGeckoID
                     + '&vs_currencies=usd').then(res => {

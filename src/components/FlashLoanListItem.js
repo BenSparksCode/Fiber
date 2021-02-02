@@ -83,7 +83,7 @@ export const FlashLoanListItem = (props) => {
 
             <div className='FLCardSubcontainer FLCardSubcontainer4'>
                 <div className='FLFromAddrContainer' >
-                    <p className='FLCardTextLeft'>From:<a href={"https://etherscan.io/address/" + data.from}> {shortenHash(data.from)} </a></p>
+                    <p className='FLCardTextLeft'>From: <a href={"https://etherscan.io/address/" + data.from}> {shortenHash(data.from)} </a></p>
                 </div>
                 <div className='InteractionsContainer'>
                     {getIconArray(data.interactions)}
@@ -95,8 +95,8 @@ export const FlashLoanListItem = (props) => {
                     onClick={() => {
                         window.open('https://etherscan.io/address/'
                             + ((data.version == 2)
-                            ? "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9"
-                            : "0x398eC7346DcD622eDc5ae82352F02bE94C62d119"),'_blank')
+                                ? "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9"
+                                : "0x398eC7346DcD622eDc5ae82352F02bE94C62d119"), '_blank')
                     }}
                 >
                     <p className='VersionTag'>V{data.version}</p>
