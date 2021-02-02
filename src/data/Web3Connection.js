@@ -51,7 +51,6 @@ class Web3Connection {
                 'logs',
                 {
                     address: src.contract,
-                    //  fromBlock: 11746847
                 },
                 (err, eventRes) => {
                     if (!err) {
@@ -142,10 +141,9 @@ class Web3Connection {
 
     formatFLData = async (data) => {
         let tempBorrowData = null
-        if(!data.hasOwnProperty("borrowData")){
-            console.log("Looking up borrow data...");
+        if (!data.hasOwnProperty("borrowData")) {
             tempBorrowData = await this.getBorrowData(data)
-        } 
+        }
         return {
             // dateCreated - added on server
             date: data.dateCreated ? data.dateCreated.toDate() : new Date(),
@@ -166,16 +164,8 @@ class Web3Connection {
     }
 
     getBorrowData = async (data) => {
-        if (!data?.decodedTX) return 0
-
-        // DELEET SOON SER PLZ
-        if (!["0x5cffe9de", "0xab9c4b5d"].includes(data.tx.input.substring(0, 10))) return [{
-            "asset": "0x514910771AF9Ca656af840dff83E8264EcF986CA",
-            "ticker": "LINK",
-            "tokensBorrowed": 50,
-            "tokenValue": 22.39,
-            "valueBorrowed": 1119.5
-        }]
+        if (!data?.decodedTX) return false
+        if (!FL_SIGS.includes(data.tx.input.substring(0, 10))) return false
 
         let borrowData = []
 
