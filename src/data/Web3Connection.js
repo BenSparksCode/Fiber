@@ -51,6 +51,7 @@ class Web3Connection {
                 'logs',
                 {
                     address: src.contract,
+                    // fromBlock: 
                 },
                 (err, eventRes) => {
                     if (!err) {

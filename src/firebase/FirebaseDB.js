@@ -5,7 +5,7 @@ class FirebaseDB {
 
     async storeFlashLoan(data) {
         // data = {...FL}
-        if (!data.tx || !data.block || !data.decodedTX || !data.events || !data.version) {
+        if (!data.tx || !data.block || !data.decodedTX || !data.logs || !data.version) {
             console.log("ERROR in FIREBASE DB: Missing data in storeFlashLoan()")
             return null
         }

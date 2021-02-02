@@ -204,7 +204,24 @@ export const getTokenData = (address) => {
             decimals: 18,
             coinGeckoID: "aave-mkr",
             version: 2,
-        }
+        },
+        "0XDD974D5C2E2928DEA5F71B9825B8B646686BD200": {
+            ticker: "KNC",
+            decimals: 18,
+            coinGeckoID: "kyber-network",
+        },
+        "0X9D91BE44C06D373A8A226E1F3B146956083803EB": {
+            ticker: "aKNC",
+            decimals: 18,
+            coinGeckoID: "aave-knc",
+            version: 1,
+        },
+        "0X39C6B3E42D6A679D7D776778FE880BC9487C2EDA": {
+            ticker: "aKNC",
+            decimals: 18,
+            coinGeckoID: "aave-knc",
+            version: 2,
+        },
         // "":"ENJ",
         // "":"KNC",
         // "":"MANA",
