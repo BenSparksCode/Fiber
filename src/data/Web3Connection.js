@@ -126,20 +126,10 @@ class Web3Connection {
             // get full logs from Tx Receipt
             this.websocket.eth.getTransactionReceipt(eventData.transactionHash, (err, res) => {
                 if (!err) {
-                    console.log("TX Receipt", res);
                     this.txEvents[eventData.transactionHash].logs = res.logs
                 }
             })
         }
-    }
-
-    getTxLogs = async (tx) => {
-        // get full logs from Tx Receipt
-        return await this.websocket.eth.getTransactionReceipt(tx, (err, res) => {
-            if (!err) {
-                return res.logs
-            }
-        })
     }
 
     decodeTx = (tx, src) => {
@@ -157,7 +147,15 @@ class Web3Connection {
     }
 
     getTxLogInteractions = (data) => {
-        return [...new Set(data?.logs.map(e => getTokenData(e.address).ticker))]
+
+        const interactions = data?.logs.map(e => {
+            return {
+                ticker: getTokenData(e.address).ticker,
+                asset: e.address
+            }
+        })
+        
+        return interactions.filter((v,i,a)=>a.findIndex(t=>(t.ticker === v.ticker))===i)
     }
 
     formatFLData = async (data) => {

@@ -10,29 +10,39 @@ import { formatBlockNum, shortenHash, getCardDate, getCardTime, currencyFormat }
 export const FlashLoanListItem = (props) => {
     const { data } = props
 
-    const getIconArray = (iconArray) => {
+    const getIconArray = (tokensData) => {
         const MAX_ICONS_SHOWN = 4
+
+        const iconArray = tokensData
 
         if (!iconArray || iconArray.length == 0) return <img className="CoinIcon" src={getCoinIconURL("???")} />
         if (iconArray.length > MAX_ICONS_SHOWN) {
-            let icons = iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
+
+            let icons = iconArray.map(i =>
+                <a href={"https://etherscan.io/address/" + i.asset}>
+                    <img className="CoinIcon" src={getCoinIconURL(i.ticker)} />
+                </a>)
+
             let circle = <div className='CoinIcon additionalInteractionsIcon'>
                 <p className='CoinIconText'>{"+" + Math.min(iconArray.length - MAX_ICONS_SHOWN, 99)}</p>
             </div>
 
             return [...icons.slice(0, MAX_ICONS_SHOWN), circle]
         } else
-            return iconArray?.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
+            return iconArray?.map(i =>
+                <a href={"https://etherscan.io/address/" + i.asset}>
+                    <img className="CoinIcon" src={getCoinIconURL(i.ticker)} />
+                </a>)
     }
 
     const calcTotalBorrowed = (borrowData) => {
-        if(!borrowData || borrowData.length === 0) return 0
+        if (!borrowData || borrowData.length === 0) return 0
         let acc = 0
         for (let i = 0; i < borrowData.length; i++) {
             const token = borrowData[i];
             acc += token.valueBorrowed ? token.valueBorrowed : 0
         }
-        return acc 
+        return acc
     }
 
     const openFlashLoanView = () => {
@@ -48,12 +58,6 @@ export const FlashLoanListItem = (props) => {
         <div className='FlashLoanListItem'
             id={data.txHash}>
 
-            {/* <div className='FlashLoanVersionTag'>
-                <Button shape="circle" type="secondary">
-                    {AaveVersion(data.version)}
-                </Button>
-            </div> */}
-
             <div className='FLCardSubcontainer FLCardSubcontainer1' >
                 <p className='FLCardTextLeft'>{getCardTime(data.date)}</p>
                 <p className='FLCardTextLeft'>{getCardDate(data.date)}</p>
@@ -64,7 +68,7 @@ export const FlashLoanListItem = (props) => {
                     <h2 className='FLDollarText FLCardTextLeft'>{currencyFormat(calcTotalBorrowed(data.borrowData), "USD")}</h2>
                 </div>
                 <div className='FLBorrowedTokensContainer'>
-                    <p className='FLCardTextLeft'> in {getIconArray(data.borrowData.map(i=>i.ticker))} </p>
+                    <p className='FLCardTextLeft'> in {getIconArray(data.borrowData)} </p>
                 </div>
             </div>
 
@@ -88,7 +92,7 @@ export const FlashLoanListItem = (props) => {
 
             <div className='FlashLoanViewButton'>
                 <Button onClick={() => openFlashLoanView()} type="primary" shape="circle">
-                    <PlusOutlined />
+                    <p className='VersionTag'>V{data.version}</p>
                 </Button>
             </div>
 

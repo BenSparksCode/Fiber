@@ -195,6 +195,11 @@ code {
   white-space: nowrap;
 }
 
+.VersionTag {
+ font-size: 14px;
+ font-weight: 500;
+}
+
 .CoinIcon {
   height: 35px;
   margin-left: 2px;
