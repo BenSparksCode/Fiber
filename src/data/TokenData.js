@@ -39,6 +39,11 @@ export const getTokenData = (address) => {
             decimals: 6,
             coinGeckoID: "aave-usdt",
         },
+        "0X0000000000085D4780B73119B644AE5ECD22B376": {
+            ticker: "TUSD",
+            decimals: 18,
+            coinGeckoID: "true-usd",
+        },
         "0X085D4780B73119B644AE5ECD22B376": {
             ticker: "TUSD",
             decimals: 18,
