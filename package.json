@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.10.3",
+    "axios": "^0.21.1",
     "currency.js": "^2.0.3",
     "ethers": "^5.0.26",
     "firebase": "^8.2.5",

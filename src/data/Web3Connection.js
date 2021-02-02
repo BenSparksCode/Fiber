@@ -6,6 +6,8 @@ import DataConstants from './DataConstants.json'
 import { getTokenData } from './TokenData'
 import { LENDING_POOL_V1, LENDING_POOL_V2 } from './ABIs'
 
+const axios = require('axios');
+
 
 const API_KEY = process.env.REACT_APP_ALCHEMY_API
 
@@ -172,75 +174,142 @@ class Web3Connection {
         }
     }
 
-    convertFLToCardFormat = (data) => {
+    formatFLData = async (data) => {
+        let tempBorrowData = null
+        if(!data.hasOwnProperty("borrowData")){
+            console.log("Looking up borrow data...");
+            tempBorrowData = await this.getBorrowData(data)
+        } 
         return {
+            // dateCreated - added on server
+            date: data.dateCreated ? data.dateCreated.toDate() : new Date(),
             txHash: data.tx.hash,
-            blockNum: data.block,
-            date: new Date(),
-            amountBorrowedUSD: this.getBorrowedValue(data),
-            tokensBorrowed: this.getTokensBorrowedFromTx(data),
             from: data.tx.from,
-            version: data.src.version,
-            interactions: this.getInteractionsFromTx(data) //todo
+            block: data.block,
+            version: data.src ? data.src.version : data.version,
+            tx: data.tx,
+            decodedTX: data.decodedTX,
+            events: data.events,
+            borrowData: tempBorrowData ? tempBorrowData : data.borrowData,
+            interactions: this.getInteractionsFromTx(data) //todo - add back for SERVER
         }
     }
 
-    convertFirebaseFLToCardFormat = (data) => {
-        return {
-            txHash: data.tx.hash,
-            blockNum: data.block,
-            date: data.dateCreated.toDate(),
-            amountBorrowedUSD: this.getBorrowedValue(data),
-            tokensBorrowed: this.getTokensBorrowedFromTx(data),
-            from: data.tx.from,
-            version: data.src.version,
-            interactions: this.getInteractionsFromTx(data) //todo
-        }
-    }
+    // convertFLToCardFormat = (data) => {
+    //     return {
+    //         txHash: data.tx.hash,
+    //         blockNum: data.block,
+    //         date: new Date(),
+    //         amountBorrowedUSD: this.getBorrowedValue(data),
+    //         // borrowedData: this.getBorrowedData(data),
+    //         tokensBorrowed: this.getTokensBorrowedFromTx(data),
+    //         from: data.tx.from,
+    //         version: data.src.version,
+    //         interactions: this.getInteractionsFromTx(data) //todo
+    //     }
+    // }
+
+    // convertFirebaseFLToCardFormat = (data) => {
+    //     return {
+    //         txHash: data.tx.hash,
+    //         blockNum: data.block,
+    //         date: data.dateCreated.toDate(),
+    //         amountBorrowedUSD: this.getBorrowedValue(data),
+    //         // borrowedData: this.getBorrowedData(data),
+    //         tokensBorrowed: this.getTokensBorrowedFromTx(data),
+    //         from: data.tx.from,
+    //         version: data.src.version,
+    //         interactions: this.getInteractionsFromTx(data) //todo
+    //     }
+    // }
 
     clearFLs = () => {
         this.flashLoans = []
     }
 
-    getBorrowedValue = (data) => {
+    getBorrowData = async (data) => {
         if (!data?.decodedTX) return 0
 
-        // TODO - add V1 FLs logic
+        // DELEET SOON SER PLZ
+        if (!["0x5cffe9de", "0xab9c4b5d"].includes(data.tx.input.substring(0, 10))) return [{
+            "asset": "0x514910771AF9Ca656af840dff83E8264EcF986CA",
+            "ticker": "LINK",
+            "tokensBorrowed": 50,
+            "tokenValue": 22.39,
+            "valueBorrowed": 1119.5
+        }]
 
-        // delet ser
-        if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return 1
+        let borrowData = []
 
-        let borrowed = 0
-
+        // args[1] = assets, args[2] = amounts
         for (let i = 0; i < data.decodedTX.args[2].length; i++) {
-            try{
-                const amount = data.decodedTX.args[2][i]
+            try {
+                const amountBN = data.decodedTX.args[2][i]
                 const address = ethers.BigNumber.from(data.decodedTX.args[1][i]).toHexString()
                 const decimals = getTokenData(address).decimals
-                const borrowedUSD = ethers.BigNumber.from(amount).div(ethers.BigNumber.from(10).pow(decimals)).toNumber()
-    
-                console.log("from getBorrowedValue:", amount, address, decimals, borrowedUSD);
-    
-                borrowed += borrowedUSD
-            } catch(err) {
-                console.log("getBorrowedValue Error at func input", i, err);
+                const tokensBorrowed = ethers.BigNumber.from(amountBN).div(ethers.BigNumber.from(10).pow(decimals)).toNumber()
+                const tokenValue = await axios.get('https://api.coingecko.com/api/v3/simple/price?ids='
+                    + getTokenData(address).coinGeckoID
+                    + '&vs_currencies=usd').then(res => {
+                        return res.data[getTokenData(address).coinGeckoID].usd
+                    });
+
+                console.log(getTokenData(address).ticker, tokensBorrowed, tokenValue);
+
+                borrowData.push({
+                    asset: address,
+                    ticker: getTokenData(address).ticker,
+                    tokensBorrowed,
+                    tokenValue,
+                    valueBorrowed: tokenValue * tokensBorrowed
+                })
+            } catch (err) {
+                console.log("getBorrowData Error at func input", i, err);
             }
         }
-        return borrowed
+        console.log("Borrow Data:", borrowData);
+        return borrowData
     }
 
-    getTokensBorrowedFromTx = (data) => {
-        if (!data?.decodedTX) return []
+    // getBorrowedValue = (data) => {
+    //     if (!data?.decodedTX) return 0
 
-        // TODO - add V1 FLs logic
+    //     // TODO - add V1 FLs logic
 
-        // delet ser
-        if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return ["USDT"]
+    //     // delet ser
+    //     if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return 1
 
-        return data.decodedTX.args[1].map(
-            asset => getTokenData(ethers.BigNumber.from(asset).toHexString()).ticker
-        );
-    }
+    //     let borrowed = 0
+
+    //     for (let i = 0; i < data.decodedTX.args[2].length; i++) {
+    //         try {
+    //             const amount = data.decodedTX.args[2][i]
+    //             const address = ethers.BigNumber.from(data.decodedTX.args[1][i]).toHexString()
+    //             const decimals = getTokenData(address).decimals
+    //             const borrowedUSD = ethers.BigNumber.from(amount).div(ethers.BigNumber.from(10).pow(decimals)).toNumber()
+
+    //             console.log("from getBorrowedValue:", amount, address, decimals, borrowedUSD);
+
+    //             borrowed += borrowedUSD
+    //         } catch (err) {
+    //             console.log("getBorrowedValue Error at func input", i, err);
+    //         }
+    //     }
+    //     return borrowed
+    // }
+
+    // getTokensBorrowedFromTx = (data) => {
+    //     if (!data?.decodedTX) return []
+
+    //     // TODO - add V1 FLs logic
+
+    //     // delet ser
+    //     if (data.tx.input.substring(0, 10) !== "0xab9c4b5d") return ["USDT"]
+
+    //     return data.decodedTX.args[1].map(
+    //         asset => getTokenData(ethers.BigNumber.from(asset).toHexString()).ticker
+    //     );
+    // }
 
     getInteractionsFromTx = (data) => {
         // TODO
