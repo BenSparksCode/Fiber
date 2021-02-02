@@ -13,6 +13,7 @@ export const FlashLoanListItem = (props) => {
     const getIconArray = (iconArray) => {
         const MAX_ICONS_SHOWN = 4
 
+        if (!iconArray || iconArray.length == 0) return <img className="CoinIcon" src={getCoinIconURL("???")} />
         if (iconArray.length > MAX_ICONS_SHOWN) {
             let icons = iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
             let circle = <div className='CoinIcon additionalInteractionsIcon'>
@@ -21,7 +22,17 @@ export const FlashLoanListItem = (props) => {
 
             return [...icons.slice(0, MAX_ICONS_SHOWN), circle]
         } else
-            return iconArray.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
+            return iconArray?.map(icon => <img className="CoinIcon" src={getCoinIconURL(icon)} />)
+    }
+
+    const calcTotalBorrowed = (borrowData) => {
+        if(!borrowData || borrowData.length === 0) return 0
+        let acc = 0
+        for (let i = 0; i < borrowData.length; i++) {
+            const token = borrowData[i];
+            acc += token.valueBorrowed ? token.valueBorrowed : 0
+        }
+        return acc 
     }
 
     const openFlashLoanView = () => {
@@ -50,10 +61,10 @@ export const FlashLoanListItem = (props) => {
 
             <div className='FLCardSubcontainer FLCardSubcontainer2'>
                 <div className='FLLoanAmountContainer'>
-                    <h2 className='FLDollarText FLCardTextLeft'>{currencyFormat(data.amountBorrowedUSD, "USD")}</h2>
+                    <h2 className='FLDollarText FLCardTextLeft'>{currencyFormat(calcTotalBorrowed(data.borrowData), "USD")}</h2>
                 </div>
                 <div className='FLBorrowedTokensContainer'>
-                    <p className='FLCardTextLeft'> in {getIconArray(data.tokensBorrowed)} </p>
+                    <p className='FLCardTextLeft'> in {getIconArray(data.borrowData.map(i=>i.ticker))} </p>
                 </div>
             </div>
 
@@ -62,7 +73,7 @@ export const FlashLoanListItem = (props) => {
                     <p className='FLCardTextLeft'>TX: <a href={"https://etherscan.io/tx/" + data.txHash}>{shortenHash(data.txHash)}</a></p>
                 </div>
                 <div className='FLBlockContainer' >
-                    <p className='FLCardTextLeft'>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{formatBlockNum(data.blockNum)}</a></p>
+                    <p className='FLCardTextLeft'>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{formatBlockNum(data.block)}</a></p>
                 </div>
             </div>
 
@@ -71,7 +82,7 @@ export const FlashLoanListItem = (props) => {
                     <p className='FLCardTextLeft'>From:<a href={"https://etherscan.io/address/" + data.from}> {shortenHash(data.from)} </a></p>
                 </div>
                 <div className='InteractionsContainer'>
-                    {getIconArray(data.interactions.map(i => i.entity))}
+                    {getIconArray(data.interactions?.map(i => i.entity))}
                 </div>
             </div>
 

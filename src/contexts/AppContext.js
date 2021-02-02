@@ -67,43 +67,58 @@ class AppContextProvider extends Component {
         // FIREBASE DATA
         this.loadFLsFromFirebase()
 
-
-
         // WEB3 LISTENERS
         // Set up newBlockListener
-        // const sub = web3.subscribeToNewBlocks((err, res) => {
-        //     if (err) return
-        //     this.setState({
-        //         connectedToMainnet: true,
-        //         latestBlockNum: res.number
-        //     })
-        // })
-        // // Set up FL event listeners
-        // const eventSubs = web3.subscribeToFLLogs()
-        // // Save subs to state for unsubbing later
-        // this.setState({
-        //     newBlocksSub: sub,
-        //     FLEventSubs: eventSubs
-        // })
-
-
+        const sub = web3.subscribeToNewBlocks((err, res) => {
+            if (err) return
+            this.setState({
+                connectedToMainnet: true,
+                latestBlockNum: res.number
+            })
+        })
+        // Set up FL event listeners
+        const eventSubs = web3.subscribeToFLLogs()
+        // Save subs to state for unsubbing later
+        this.setState({
+            newBlocksSub: sub,
+            FLEventSubs: eventSubs
+        })
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    async componentDidUpdate(prevProps, prevState) {
         if (prevState.latestBlockNum != this.state.latestBlockNum) {
             if (web3.flashLoans.length === 0) return
 
-            const newFLs = web3.flashLoans.map(fl => {
+            let newFLs = []
+
+            for (let i = 0; i <  web3.flashLoans.length; i++) {
+                let tempFL =  web3.flashLoans[i];
+                tempFL = await web3.formatFLData(tempFL)
 
                 // Store FL in Firebase --------
-                if (["0x5cffe9de", "0xab9c4b5d"].includes(fl.tx.input.substring(0, 10))) {
-                    // this.storeFLInFirebase(fl)
-                    console.log("DISABLED - WOULD HAVE SAVED TO DB HERE");
+                if (["0x5cffe9de", "0xab9c4b5d"].includes(tempFL.tx.input.substring(0, 10))) {
+                    this.storeFLInFirebase(tempFL)
+                    // console.log("DISABLED - WOULD HAVE SAVED TO DB HERE");
                 }
                 // -----------------------------
 
-                return web3.convertFLToCardFormat(fl)
-            })
+                newFLs.push(tempFL)
+            }
+
+            // const newFLs = await web3.flashLoans.map(async fl => {
+
+            //     fl = await web3.formatFLData(fl)
+
+            //     // Store FL in Firebase --------
+            //     if (["0x5cffe9de", "0xab9c4b5d"].includes(fl.tx.input.substring(0, 10))) {
+            //         // this.storeFLInFirebase(fl)
+            //         console.log("DISABLED - WOULD HAVE SAVED TO DB HERE");
+            //     }
+            //     // -----------------------------
+
+            //     return fl
+            // })
+
             web3.clearFLs()
 
             this.setState({
@@ -135,16 +150,23 @@ class AppContextProvider extends Component {
     loadFLsFromFirebase = async () => {
         // Get raw FLs - still stringified
         const rawFLs = await firebaseDB.getAllFlashLoans()
-        // Process raw FLs into card format
-        const processedFLs = rawFLs.map(fl => {
+        let processedFLs = []
+
+        for (let i = 0; i < rawFLs.length; i++) {
+            const fl = rawFLs[i];
+
             fl.decodedTX = JSON.parse(fl.decodedTX)
             fl.events = JSON.parse(fl.events)
             fl.tx = JSON.parse(fl.tx)
-            fl.src = { version: fl.version }
-            return web3.convertFirebaseFLToCardFormat(fl)
-        })
-            // sort FLs with latest at top
-            .sort((a, b) => (a.date > b.date) ? -1 : 1)
+            fl.borrowData = JSON.parse(fl.borrowData)
+
+            const tempFL = await web3.formatFLData(fl)
+            processedFLs.push(tempFL)
+        }
+
+        // sort FLs with latest at top
+        processedFLs = processedFLs.sort((a, b) => (a.date > b.date) ? -1 : 1)
+        console.log("PROCESSED FLs", processedFLs);
 
         this.setState({
             FLs: processedFLs,
