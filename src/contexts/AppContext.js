@@ -13,7 +13,7 @@ class AppContextProvider extends Component {
         latestBlockNum: null,
         connectedToMainnet: false,
         FLs: [],
-        selectedFL: null
+        selectedFL: null,
     }
 
     async componentDidMount() {
@@ -26,20 +26,20 @@ class AppContextProvider extends Component {
 
         // WEB3 LISTENERS
         // Set up newBlockListener
-        // const sub = web3.subscribeToNewBlocks((err, res) => {
-        //     if (err) return
-        //     this.setState({
-        //         connectedToMainnet: true,
-        //         latestBlockNum: res.number
-        //     })
-        // })
-        // // Set up FL event listeners
-        // const eventSubs = web3.subscribeToFLLogs()
-        // // Save subs to state for unsubbing later
-        // this.setState({
-        //     newBlocksSub: sub,
-        //     FLEventSubs: eventSubs
-        // })
+        const sub = web3.subscribeToNewBlocks((err, res) => {
+            if (err) return
+            this.setState({
+                connectedToMainnet: true,
+                latestBlockNum: res.number
+            })
+        })
+        // Set up FL event listeners
+        const eventSubs = web3.subscribeToFLLogs()
+        // Save subs to state for unsubbing later
+        this.setState({
+            newBlocksSub: sub,
+            FLEventSubs: eventSubs
+        })
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -99,7 +99,7 @@ class AppContextProvider extends Component {
             const fl = rawFLs[i];
 
             fl.decodedTX = JSON.parse(fl.decodedTX)
-            fl.events = JSON.parse(fl.events)
+            fl.logs = JSON.parse(fl.logs)
             fl.tx = JSON.parse(fl.tx)
             fl.borrowData = JSON.parse(fl.borrowData)
 
@@ -122,6 +122,8 @@ class AppContextProvider extends Component {
                 ...this.state,
                 setSelectedFL: this.setSelectedFL,
                 killNewBlocksSub: this.killNewBlocksSub,
+                setTempFLs: this.setTempFLs,
+                setTempFLIndex: this.setTempFLIndex,
             }}>
                 { this.props.children}
             </AppContext.Provider >

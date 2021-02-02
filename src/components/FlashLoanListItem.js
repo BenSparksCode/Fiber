@@ -82,7 +82,7 @@ export const FlashLoanListItem = (props) => {
                     <p className='FLCardTextLeft'>From:<a href={"https://etherscan.io/address/" + data.from}> {shortenHash(data.from)} </a></p>
                 </div>
                 <div className='InteractionsContainer'>
-                    {getIconArray(data.interactions?.map(i => i.entity))}
+                    {getIconArray(data.interactions)}
                 </div>
             </div>
 

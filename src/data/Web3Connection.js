@@ -102,7 +102,7 @@ class Web3Connection {
         if (!eventData) return
 
         if (!this.txEvents.hasOwnProperty(eventData.transactionHash)) {
-            this.txEvents[eventData.transactionHash] = { src, tx: null, isFL: false, block: null, queried: false, events: [] }
+            this.txEvents[eventData.transactionHash] = { src, tx: null, isFL: false, block: null, queried: false, events: [], logs: [] }
         }
         this.txEvents[eventData.transactionHash].events.push(eventData)
 
@@ -122,7 +122,25 @@ class Web3Connection {
                     }
                 }
             })
+
+            // get full logs from Tx Receipt
+            this.websocket.eth.getTransactionReceipt(eventData.transactionHash, (err, res) => {
+                if (!err) {
+                    console.log("TX Receipt", res);
+                    this.txEvents[eventData.transactionHash].logs = res.logs
+                }
+            })
         }
+    }
+
+    getTxLogs = async (tx) => {
+        // get full logs from Tx Receipt
+        return await this.websocket.eth.getTransactionReceipt(tx, (err, res) => {
+            if (!err) {
+                console.log("TX Receipt", res);
+                return res.logs
+            }
+        })
     }
 
     decodeTx = (tx, src) => {
@@ -139,6 +157,11 @@ class Web3Connection {
         }
     }
 
+    getTxLogInteractions = (data) => {
+        console.log("INTERACTIONS:", [...new Set(data?.logs.map(e => getTokenData(e.address).ticker))])
+        return [...new Set(data?.logs.map(e => getTokenData(e.address).ticker))]
+    }
+
     formatFLData = async (data) => {
         let tempBorrowData = null
         if (!data.hasOwnProperty("borrowData")) {
@@ -153,9 +176,9 @@ class Web3Connection {
             version: data.src ? data.src.version : data.version,
             tx: data.tx,
             decodedTX: data.decodedTX,
-            events: data.events,
+            logs: data.logs,
             borrowData: tempBorrowData ? tempBorrowData : data.borrowData,
-            interactions: this.getInteractionsFromTx(data) //todo - add back for SERVER
+            interactions: data.interactions ? data.interactions : this.getTxLogInteractions(data)
         }
     }
 
@@ -197,16 +220,6 @@ class Web3Connection {
         }
         console.log("Borrow Data:", borrowData);
         return borrowData
-    }
-
-    getInteractionsFromTx = (data) => {
-        // TODO
-        return [
-            { entity: "ETH" },
-            { entity: "UNI" },
-            { entity: "USDC" },
-            { entity: "CRV" }
-        ]
     }
 }
 
