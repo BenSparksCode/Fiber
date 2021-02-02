@@ -17,7 +17,7 @@ export const getTokenData = (address) => {
         "0XC02AAA39B223FE8D0A0E5C4F27EAD9083C756CC2": {
             ticker: "WETH",
             decimals: 18,
-            coinGeckoID: "weth",
+            coinGeckoID: "ethereum",
         },
         "0XA0B86991C6218B36C1D19D4A2E9EB0CE3606EB48": {
             ticker: "USDC",

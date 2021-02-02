@@ -11,7 +11,7 @@ export const formatBlockNum = (blockNum) => {
 }
 
 export const currencyFormat = (amount) => {
-    if (!amount) return null
+    if (!amount) amount = 0
     return currency(amount, { symbol: "$", separator: " ", precision: 0 }).format()
 }
 
