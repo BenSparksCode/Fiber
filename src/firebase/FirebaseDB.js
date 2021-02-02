@@ -9,7 +9,7 @@ class FirebaseDB {
             console.log("ERROR in FIREBASE DB: Missing data in storeFlashLoan()")
             return null
         }
-        const collectionRef = await auth.db.collection('flashLoans3')
+        const collectionRef = await auth.db.collection('flashLoans')
         try {
             const res = await collectionRef.add({
                 txHash: data.txHash,
@@ -32,7 +32,7 @@ class FirebaseDB {
     async getAllFlashLoans() {
         if (!auth.isUserSignedIn()) return null
         let FLs = []
-        const colRef = auth.db.collection('flashLoans3')
+        const colRef = auth.db.collection('flashLoans')
 
         return colRef
             .orderBy('dateCreated', 'desc').limit(10)
