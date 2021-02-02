@@ -54,8 +54,8 @@ class AppContextProvider extends Component {
 
                 // Store FL in Firebase --------
                 if (["0x5cffe9de", "0xab9c4b5d"].includes(tempFL.tx.input.substring(0, 10))) {
-                    // this.storeFLInFirebase(tempFL)
-                    console.log("DISABLED - WOULD HAVE SAVED TO DB HERE");
+                    this.storeFLInFirebase(tempFL)
+                    // console.log("DISABLED - WOULD HAVE SAVED TO DB HERE");
                 }
                 // -----------------------------
 

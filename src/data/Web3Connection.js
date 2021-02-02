@@ -137,7 +137,6 @@ class Web3Connection {
         // get full logs from Tx Receipt
         return await this.websocket.eth.getTransactionReceipt(tx, (err, res) => {
             if (!err) {
-                console.log("TX Receipt", res);
                 return res.logs
             }
         })
@@ -158,7 +157,6 @@ class Web3Connection {
     }
 
     getTxLogInteractions = (data) => {
-        console.log("INTERACTIONS:", [...new Set(data?.logs.map(e => getTokenData(e.address).ticker))])
         return [...new Set(data?.logs.map(e => getTokenData(e.address).ticker))]
     }
 

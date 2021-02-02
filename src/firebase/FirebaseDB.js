@@ -1,9 +1,6 @@
 import firebase from 'firebase'
 import auth from './FirebaseAuth'
 
-// delete after adding logs
-// import web3 from '../data/Web3Connection'
-
 class FirebaseDB {
 
     async storeFlashLoan(data) {
