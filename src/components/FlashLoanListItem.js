@@ -11,7 +11,9 @@ export const FlashLoanListItem = (props) => {
     const { data } = props
 
     const getIconArray = (tokensData) => {
-        const MAX_ICONS_SHOWN = 4
+        const MAX_ICONS_SHOWN = 6
+
+        // TODO - remove icons that point to duplicate images (e.g. same ticker)
 
         const iconArray = tokensData
 
@@ -86,13 +88,12 @@ export const FlashLoanListItem = (props) => {
                     <p className='FLCardTextLeft'>From: <a href={"https://etherscan.io/address/" + data.from}> {shortenHash(data.from)} </a></p>
                 </div>
                 <div className='InteractionsContainer'>
-                    {getIconArray(data.interactions.map(addr =>{
-                        console.log(getTokenData(addr))
+                    {getIconArray(data.interactions.map(addr => {
                         return {
                             asset: addr,
                             ticker: getTokenData(addr).ticker
                         }
-                        }))}
+                    }))}
                 </div>
             </div>
 

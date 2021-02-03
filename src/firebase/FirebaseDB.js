@@ -37,11 +37,11 @@ class FirebaseDB {
     async getAllFlashLoans() {
         if (!auth.isUserSignedIn()) return null
         let FLs = []
-        const colRef = auth.db.collection('flashLoans2')
+        const colRef = auth.db.collection('flashLoans')
 
         return colRef
             .orderBy('dateCreated', 'desc')
-            .limit(20)
+            .limit(5)
             .get()
             .then(snapshot => {
                 snapshot.forEach(doc => {
@@ -61,8 +61,8 @@ class FirebaseDB {
     // USE FUNCTION BELOW TO TRANSFER ITEMS BETWEEN FIREBASE COLLECTIONS
 
     async moveFLToNewCollection() {
-        const from = 'flashLoans'
-        const to = 'flashLoans2'
+        const from = 'flashLoans2'
+        const to = 'flashLoans'
 
         if (!auth.isUserSignedIn()) return null
         let FLs = []

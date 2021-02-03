@@ -9,7 +9,7 @@ export const getCoinIconURL = (coinTicker) => {
         "USDC": "https://aave.com/static/media/usdc.8dd9681c.svg",
         "aUSDC": "https://aave.com/static/media/aUSDC.e260d492.svg",
         "USDT": "https://aave.com/static/media/usdt.49e25172.svg",
-        "aUSDT": "https://aave.com/static/media/usdt.49e25172.svg",
+        "aUSDT": "https://aave.com/static/media/aUSDT.78f5faae.svg",
         "TUSD": "https://aave.com/static/media/tusd.a9e1a2e9.svg",
         "aTUSD":"https://aave.com/static/media/aTUSD.08592b49.svg",
         "sUSD": "https://aave.com/static/media/susd.f14c0307.svg",
