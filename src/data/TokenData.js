@@ -114,6 +114,18 @@ export const getTokenData = (address) => {
             decimals: 18,
             coinGeckoID: "uniswap",
         },
+        "0XB9D7CB55F463405CDFBE4E90A6D2DF01C2B92BF1": {
+            ticker: "aUNI",
+            decimals: 18,
+            coinGeckoID: "uniswap",
+            versionL: 2
+        },
+        "0XB124541127A0A657F056D9DD06188C4F1B0E5AAB": {
+            ticker: "aUNI",
+            decimals: 18,
+            coinGeckoID: "uniswap",
+            version: 1
+        },
         "0X0BC529C00C6401AEF6D220BE8C6EA1667F6AD93E": {
             ticker: "YFI",
             decimals: 18,
