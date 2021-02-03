@@ -57,6 +57,33 @@ class FirebaseDB {
             })
     }
 
+    async searchFLsByInteractionAddress(address) {
+        if (!auth.isUserSignedIn()) return null
+        if (!address) {
+            console.log("ERROR in FIREBASE DB: No address given in searchFLsByInteractionAddress()")
+            return null
+        }
+        let FLs = []
+        const colRef = auth.db.collection('flashLoans')
+
+        return colRef
+            .orderBy('dateCreated', 'desc')
+            .where('interactions', 'array-contains', address)
+            .get()
+            .then(snapshot => {
+                snapshot.forEach(doc => {
+                    const flObj = { ...doc.data() }
+                    FLs.push(flObj)
+                })
+            })
+            .then(() => {
+                return FLs
+            })
+            .catch(err => {
+                console.log("ERROR in FIREBASE DB: Error in searchFLsByInteractionAddress", err);
+            })
+    }
+
 
     // USE FUNCTION BELOW TO TRANSFER ITEMS BETWEEN FIREBASE COLLECTIONS
 

@@ -8,7 +8,7 @@ import { ContentPanel } from './StyledComponents'
 import { FlashLoanListItem } from './FlashLoanListItem'
 
 export const FlashLoanFeed = () => {
-    const { FLs } = useContext(AppContext)
+    const { FLs, filteredFLs } = useContext(AppContext)
 
     const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
@@ -16,22 +16,24 @@ export const FlashLoanFeed = () => {
         <ContentPanel className='FLFeedContainer'>
 
             {
-                FLs?.length > 0
-                    ?
-                    FLs.map(FL => <FlashLoanListItem
-                        data={FL}
-                        key={FL.txHash}
-                    />)
-                    :
-                    <div className='FLFeedLoadingContainer'>
-                        <p>Listening for flash loans...</p>
-                        <Spin className='StatsIndicator' indicator={antIcon} />
-                    </div>
-
+                (filteredFLs?.length > 0) ?
+                    (
+                        filteredFLs.map(FL => <FlashLoanListItem data={FL} key={FL.txHash} />)
+                    ) : (
+                        (FLs?.length > 0) ?
+                            (
+                                FLs.map(FL => <FlashLoanListItem
+                                    data={FL}
+                                    key={FL.txHash}
+                                />)
+                            ) : (
+                                <div className='FLFeedLoadingContainer'>
+                                    <p>Listening for flash loans...</p>
+                                    <Spin className='StatsIndicator' indicator={antIcon} />
+                                </div>
+                            )
+                    )
             }
-
-
-
         </ContentPanel>
     )
 }

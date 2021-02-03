@@ -22,8 +22,12 @@ class AppContextProvider extends Component {
         // email: data@data.com
         // password: d@t@123
         await firebaseAuth.login("data@data.com", "d@t@123")
+
         // FIREBASE DATA
-        this.loadFLsFromFirebase()
+        const newFLs = await firebaseDB.getAllFlashLoans()
+        this.setState({
+            FLs: await this.convertFirebaseFLs(newFLs),
+        })
 
         // firebaseDB.moveFLToNewCollection()
 
@@ -94,16 +98,24 @@ class AppContextProvider extends Component {
     }
 
     runSearchRequest = async (address) => {
-        console.log("running from Context", address);
+        console.log("Running search from Context:", address);
+        const res = await firebaseDB.searchFLsByInteractionAddress(address)
+        this.setState({
+            filteredFLs: await this.convertFirebaseFLs(res),
+        })
     }
 
-    loadFLsFromFirebase = async () => {
-        // Get raw FLs - still stringified
-        const rawFLs = await firebaseDB.getAllFlashLoans()
+    convertFirebaseFLs = async (firebaseFLs) => {
+        // firebaseFLs - still stringified
+        if(!firebaseFLs || firebaseFLs.length === 0){
+            console.log("ERROR: firebaseFLs passed into convertFirebaseFLs is not valid");
+            return []
+        }
+        
         let processedFLs = []
 
-        for (let i = 0; i < rawFLs.length; i++) {
-            const fl = rawFLs[i];
+        for (let i = 0; i < firebaseFLs.length; i++) {
+            const fl = firebaseFLs[i];
 
             fl.decodedTX = JSON.parse(fl.decodedTX)
             fl.logs = JSON.parse(fl.logs)
@@ -118,9 +130,7 @@ class AppContextProvider extends Component {
         processedFLs = processedFLs.sort((a, b) => (a.date > b.date) ? -1 : 1)
         console.log("PROCESSED FLs", processedFLs);
 
-        this.setState({
-            FLs: processedFLs,
-        })
+        return processedFLs
     }
 
     render() {
