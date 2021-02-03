@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 
 import { getCoinIconURL } from '../images/CoinIcons'
+import { getTokenData } from '../data/TokenData'
 import { formatBlockNum, shortenHash, getCardDate, getCardTime, currencyFormat } from '../utils/utils'
 
 
@@ -86,7 +86,13 @@ export const FlashLoanListItem = (props) => {
                     <p className='FLCardTextLeft'>From: <a href={"https://etherscan.io/address/" + data.from}> {shortenHash(data.from)} </a></p>
                 </div>
                 <div className='InteractionsContainer'>
-                    {getIconArray(data.interactions)}
+                    {getIconArray(data.interactions.map(addr =>{
+                        console.log(getTokenData(addr))
+                        return {
+                            asset: addr,
+                            ticker: getTokenData(addr).ticker
+                        }
+                        }))}
                 </div>
             </div>
 

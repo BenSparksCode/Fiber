@@ -149,14 +149,9 @@ class Web3Connection {
 
     getTxLogInteractions = (data) => {
 
-        const interactions = data?.logs.map(e => {
-            return {
-                ticker: getTokenData(e.address).ticker,
-                asset: e.address
-            }
-        })
-
-        return interactions.filter((v, i, a) => a.findIndex(t => (t.ticker === v.ticker)) === i)
+        const interactions = data?.logs.map(e => e.address)
+        
+        return [...new Set(interactions)]
     }
 
     formatFLData = async (data) => {
