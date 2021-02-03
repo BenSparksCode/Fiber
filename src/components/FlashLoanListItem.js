@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button } from 'antd';
 
 import { getCoinIconURL } from '../images/CoinIcons'
@@ -9,8 +9,19 @@ import { formatBlockNum, shortenHash, getCardDate, getCardTime, currencyFormat }
 export const FlashLoanListItem = (props) => {
     const { data } = props
 
+    useEffect(() => {
+        const thisFL = document.getElementById(data.txHash);
+
+        setTimeout(()=>{
+            thisFL.classList.remove("NewFL")
+            console.log("TIMEOUT DONE");
+        }, 1000);
+
+    }, [])
+
     const getIconArray = (tokensData) => {
-        const MAX_ICONS_SHOWN = 6
+
+        const MAX_ICONS_SHOWN = 99
         // TODO - remove icons that point to duplicate images (e.g. same ticker)
 
         if (!tokensData || tokensData.length == 0) return <img className="CoinIcon" src={getCoinIconURL("???")} />
@@ -18,7 +29,7 @@ export const FlashLoanListItem = (props) => {
         let icons = tokensData.map(i => {
             let srcImg = null
 
-            if(svgs.hasOwnProperty(i.ticker)){
+            if (svgs.hasOwnProperty(i.ticker)) {
                 srcImg = svgs[i.ticker]
             } else {
                 srcImg = getCoinIconURL(i.ticker)
@@ -50,17 +61,8 @@ export const FlashLoanListItem = (props) => {
         return acc
     }
 
-    const openFlashLoanView = () => {
-        console.log("Opening FL:", data.tx);
-    }
-
-    const AaveVersion = (version) => {
-        return "V" + version
-    }
-
-
     return (
-        <div className='FlashLoanListItem'
+        <div className='FlashLoanListItem NewFL'
             id={data.txHash}>
 
             <div className='FLCardSubcontainer FLCardSubcontainer1' >

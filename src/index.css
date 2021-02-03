@@ -125,12 +125,21 @@ code {
   box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.2);
   border: 1px solid white;
   border-radius: 8px;
+  /* transition: background 1s ease; */
 }
 
 .FlashLoanListItem:hover {
   box-shadow: 2px 8px 16px 2px rgb(9, 109, 217, 0.3);
   border: 1px solid #1890ff;
   transition: 0.2s;
+}
+
+.NewFL{
+  /* color: #1890ff; */
+  /* background-color: #1890ff; */
+  box-shadow: 2px 8px 16px 2px rgb(9, 109, 217, 0.3);
+  border: 1px solid #1890ff;
+  /* transition: 1.2s; */
 }
 
 .FLCardSubcontainer {
