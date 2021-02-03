@@ -29,20 +29,20 @@ class AppContextProvider extends Component {
 
         // WEB3 LISTENERS
         // Set up newBlockListener
-        const sub = web3.subscribeToNewBlocks((err, res) => {
-            if (err) return
-            this.setState({
-                connectedToMainnet: true,
-                latestBlockNum: res.number
-            })
-        })
-        // Set up FL event listeners
-        const eventSubs = web3.subscribeToFLLogs()
-        // Save subs to state for unsubbing later
-        this.setState({
-            newBlocksSub: sub,
-            FLEventSubs: eventSubs
-        })
+        // const sub = web3.subscribeToNewBlocks((err, res) => {
+        //     if (err) return
+        //     this.setState({
+        //         connectedToMainnet: true,
+        //         latestBlockNum: res.number
+        //     })
+        // })
+        // // Set up FL event listeners
+        // const eventSubs = web3.subscribeToFLLogs()
+        // // Save subs to state for unsubbing later
+        // this.setState({
+        //     newBlocksSub: sub,
+        //     FLEventSubs: eventSubs
+        // })
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -51,14 +51,14 @@ class AppContextProvider extends Component {
 
             let newFLs = []
 
-            for (let i = 0; i <  web3.flashLoans.length; i++) {
-                let tempFL =  web3.flashLoans[i];
+            for (let i = 0; i < web3.flashLoans.length; i++) {
+                let tempFL = web3.flashLoans[i];
                 tempFL = await web3.formatFLData(tempFL)
 
                 // Store FL in Firebase --------
                 if (["0x5cffe9de", "0xab9c4b5d"].includes(tempFL.tx.input.substring(0, 10))) {
-                    this.storeFLInFirebase(tempFL)
-                    // console.log("FL STORING DISABLED - WOULD HAVE SAVED TO DB HERE");
+                    // this.storeFLInFirebase(tempFL)
+                    console.log("FL STORING DISABLED - WOULD HAVE SAVED TO DB HERE");
                 }
                 // -----------------------------
 
@@ -93,6 +93,10 @@ class AppContextProvider extends Component {
         console.log("FL Saved.");
     }
 
+    runSearchRequest = async (address) => {
+        console.log("running from Context", address);
+    }
+
     loadFLsFromFirebase = async () => {
         // Get raw FLs - still stringified
         const rawFLs = await firebaseDB.getAllFlashLoans()
@@ -125,8 +129,7 @@ class AppContextProvider extends Component {
                 ...this.state,
                 setSelectedFL: this.setSelectedFL,
                 killNewBlocksSub: this.killNewBlocksSub,
-                setTempFLs: this.setTempFLs,
-                setTempFLIndex: this.setTempFLIndex,
+                runSearchRequest: this.runSearchRequest,
             }}>
                 { this.props.children}
             </AppContext.Provider >

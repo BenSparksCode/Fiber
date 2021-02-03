@@ -1,31 +1,25 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../contexts/AppContext'
 import { ContentPanel } from './StyledComponents'
-import { Menu, Dropdown, Button, message, Space, Input } from 'antd';
+import { Menu, Dropdown, Button, Space, Input } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 
-const FILTER_OPTIONS = ["Sender Address", "TX Hash"]
+const FILTER_OPTIONS = ["Contract Address"]
 
 export const SearchAndFilterControls = () => {
+  const { runSearchRequest } = useContext(AppContext)
 
-  const [chosenFilter, setChosenFilter] = useState("Sender Address")
-
-  const [defaultSearch, setdefaultSearch] = useState("Sender Address / Txn Hash")
-
+  const [chosenFilter, setChosenFilter] = useState("Contract Address")
 
   const { Search } = Input;
   const onSearch = (value) => {
-    // TODO - search logic here
-    console.log(defaultSearch)
     console.log(value);
-  }
 
-  // const handleMenuSearch= (e) => {  
-  //   if (!e.key) return
-  //   console.log(e);
-  //   setdefaultSearch("")
-  // }
+    // TODO - input validation
+
+    runSearchRequest(value)
+  }
 
 
   const handleMenuClick = (e) => {
@@ -38,11 +32,8 @@ export const SearchAndFilterControls = () => {
     <div className='allFilter'>
       <Menu onClick={handleMenuClick}>
         <Menu.Item key="1" >
-          Sender Address
-      </Menu.Item>
-        <Menu.Item key="2" >
-          Tx Hash
-      </Menu.Item>
+          Contract Address
+        </Menu.Item>
       </Menu>
     </div>
   );
@@ -54,10 +45,8 @@ export const SearchAndFilterControls = () => {
         <div className='SearchDropdownContainer filterBar'>
           <Space wrap>
             <Dropdown placeholder="Search" overlay={menu} trigger={['click']} size={'large'}  >
-              <Button onClick={handleMenuClick} size="medium" style={{ width: "140px" }}>
-
+              <Button onClick={handleMenuClick} size="medium" style={{ width: "180px" }}>
                 {chosenFilter}
-
                 <DownOutlined />
               </Button>
             </Dropdown>
@@ -65,7 +54,7 @@ export const SearchAndFilterControls = () => {
         </div>
 
         <div className='SearchBarContainer'>
-          <Search placeholder={defaultSearch} style={{ width: "100%" }} allowClear onSearch={onSearch} enterButton />
+          <Search placeholder='Search by contract address' style={{ width: "100%" }} allowClear onSearch={onSearch} enterButton />
         </div>
       </div>
     </ContentPanel>
