@@ -14,14 +14,12 @@ export const FlashLoanListItem = (props) => {
 
         setTimeout(()=>{
             thisFL.classList.remove("NewFL")
-            console.log("TIMEOUT DONE");
-        }, 1000);
-
+        }, 3100);
     }, [])
 
     const getIconArray = (tokensData) => {
 
-        const MAX_ICONS_SHOWN = 99
+        const MAX_ICONS_SHOWN = 6
         // TODO - remove icons that point to duplicate images (e.g. same ticker)
 
         if (!tokensData || tokensData.length == 0) return <img className="CoinIcon" src={getCoinIconURL("???")} />
