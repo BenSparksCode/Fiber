@@ -1,6 +1,11 @@
 import firebase from 'firebase'
 import auth from './FirebaseAuth'
 
+// For transforming data in batches
+// import web3 from '../data/Web3Connection'
+// import { ethers } from 'ethers'
+// import { getTokenData } from '../data/TokenData'
+
 class FirebaseDB {
 
     async storeFlashLoan(data) {
@@ -32,34 +37,11 @@ class FirebaseDB {
     async getAllFlashLoans() {
         if (!auth.isUserSignedIn()) return null
         let FLs = []
-        const colRef = auth.db.collection('flashLoans')
+        const colRef = auth.db.collection('flashLoans2')
 
         return colRef
             .orderBy('dateCreated', 'desc')
-            // .limit(10)
-            .get()
-            .then(snapshot => {
-                snapshot.forEach(doc => {
-                    const flObj = { ...doc.data(), ...{ id: doc.id } }
-                    FLs.push(flObj)
-                })
-            })
-            .then(() => {
-                return FLs
-            })
-            .catch(err => {
-                console.log("ERROR in FIREBASE DB: Error in getAllFlashLoans", err);
-            })
-    }
-
-    async getAllFlashLoans() {
-        if (!auth.isUserSignedIn()) return null
-        let FLs = []
-        const colRef = auth.db.collection('flashLoans')
-
-        return colRef
-            .orderBy('dateCreated', 'desc')
-            // .limit(10)
+            .limit(20)
             .get()
             .then(snapshot => {
                 snapshot.forEach(doc => {
@@ -87,7 +69,8 @@ class FirebaseDB {
         const colRef = auth.db.collection(from)
 
         return colRef
-            // .orderBy('dateCreated', 'desc').limit(2)
+            .orderBy('dateCreated', 'desc')
+            // .limit(2)
             .get()
             .then(snapshot => {
                 snapshot.forEach(doc => {
@@ -96,9 +79,44 @@ class FirebaseDB {
                 })
             })
             // MUTATE FLs before re-uploading
-            .then(() => {
-                
-            })
+            // .then(() => {
+            //     for (let i = 0; i < FLs.length; i++) {
+            //         let tempFL = { ...FLs[i] }
+
+            //         tempFL.decodedTX = JSON.parse(tempFL.decodedTX)
+            //         tempFL.borrowData = JSON.parse(tempFL.borrowData)
+
+            //         // Delete old IDs
+            //         delete tempFL.id
+
+            //         // Re-calc token amounts
+            //         for (let j = 0; j < tempFL.borrowData.length; j++) {
+
+            //             const amountBN = tempFL.decodedTX?.args[2][j]
+            //             const address = ethers.BigNumber.from(tempFL.decodedTX.args[1][j]).toHexString()
+            //             const decimals = getTokenData(address).decimals
+
+            //             const tokensBorrowed = ethers.BigNumber.from(amountBN)
+            //                 .div(ethers.BigNumber.from(10).pow(decimals - 3))
+            //                 .toNumber() / Math.pow(10, 3)
+
+            //             tempFL.borrowData[j].tokensBorrowed = tokensBorrowed
+            //             tempFL.borrowData[j].valueBorrowed = tokensBorrowed * tempFL.borrowData[j].tokenValue
+            //         }
+
+            //         tempFL.decodedTX = JSON.stringify(tempFL.decodedTX)
+            //         tempFL.borrowData = JSON.stringify(tempFL.borrowData)
+
+            //         // Add interactions address array
+
+            //         tempFL.interactions = [...new Set(JSON.parse(tempFL.logs).map(lg => lg.address))]
+
+            //         console.log("INTERACTIONS:", tempFL.interactions);
+                    
+            //         // Add mutated data back to FL array
+            //         FLs[i] = tempFL
+            //     }
+            // })
             .then(async () => {
                 const collectionRef = await auth.db.collection(to)
                 try {
