@@ -2,39 +2,42 @@ import React from 'react'
 import { Button } from 'antd';
 
 import { getCoinIconURL } from '../images/CoinIcons'
+import { getIconByAddress, svgs } from '../images/InteractionIcons'
 import { getTokenData } from '../data/TokenData'
 import { formatBlockNum, shortenHash, getCardDate, getCardTime, currencyFormat } from '../utils/utils'
-
-
 
 export const FlashLoanListItem = (props) => {
     const { data } = props
 
     const getIconArray = (tokensData) => {
         const MAX_ICONS_SHOWN = 6
-
         // TODO - remove icons that point to duplicate images (e.g. same ticker)
 
-        const iconArray = tokensData
+        if (!tokensData || tokensData.length == 0) return <img className="CoinIcon" src={getCoinIconURL("???")} />
 
-        if (!iconArray || iconArray.length == 0) return <img className="CoinIcon" src={getCoinIconURL("???")} />
-        if (iconArray.length > MAX_ICONS_SHOWN) {
+        let icons = tokensData.map(i => {
+            let srcImg = null
 
-            let icons = iconArray.map(i =>
-                <a href={"https://etherscan.io/address/" + i.asset}>
-                    <img className="CoinIcon" src={getCoinIconURL(i.ticker)} />
-                </a>)
+            if(svgs.hasOwnProperty(i.ticker)){
+                srcImg = svgs[i.ticker]
+            } else {
+                srcImg = getCoinIconURL(i.ticker)
+            }
 
+            return (<a href={"https://etherscan.io/address/" + i.asset}>
+                <img className="CoinIcon" src={srcImg} />
+            </a>)
+        })
+
+        if (tokensData.length > MAX_ICONS_SHOWN) {
             let circle = <div className='CoinIcon additionalInteractionsIcon'>
-                <p className='CoinIconText'>{"+" + Math.min(iconArray.length - MAX_ICONS_SHOWN, 99)}</p>
+                <p className='CoinIconText'>{"+" + Math.min(tokensData.length - MAX_ICONS_SHOWN, 99)}</p>
             </div>
 
             return [...icons.slice(0, MAX_ICONS_SHOWN), circle]
-        } else
-            return iconArray?.map(i =>
-                <a href={"https://etherscan.io/address/" + i.asset}>
-                    <img className="CoinIcon" src={getCoinIconURL(i.ticker)} />
-                </a>)
+        } else {
+            return icons
+        }
     }
 
     const calcTotalBorrowed = (borrowData) => {
@@ -89,9 +92,16 @@ export const FlashLoanListItem = (props) => {
                 </div>
                 <div className='InteractionsContainer'>
                     {getIconArray(data.interactions.map(addr => {
-                        return {
-                            asset: addr,
-                            ticker: getTokenData(addr).ticker
+                        if (getIconByAddress(addr) !== "???") {
+                            return {
+                                asset: addr,
+                                ticker: getIconByAddress(addr)
+                            }
+                        } else {
+                            return {
+                                asset: addr,
+                                ticker: getTokenData(addr).ticker
+                            }
                         }
                     }))}
                 </div>

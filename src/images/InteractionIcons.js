@@ -1,22 +1,28 @@
+import UNI_POOL_USDC  from './uni-pool-images/uniswap_pool_usdc.svg'
+import UNI_POOL_DAI  from './uni-pool-images/uniswap_pool_dai.svg'
 
+
+export const svgs = {
+    "UNI-POOL-USDC": UNI_POOL_USDC,
+    "UNI-POOL-DAI": UNI_POOL_DAI,
+}
 
 export const getIconByAddress = (address) => {
     const addressIconMap = {
-        "???": "https://www.freepnglogos.com/uploads/thinking-png/thinking-speaking-emoji-draper-inc-blog-site-4.png",
         "0x7FBa4B8Dc5E7616e59622806932DBea72537A56b" : "UNI-POOL-USDC",
         "0xB4e16d0168e52d35CaCD2c6185b44281Ec28C9Dc" : "UNI-POOL-USDC",
         "0x3dA1313aE46132A397D90d95B1424A9A7e3e0fCE" : "UNI-POOL-CRV", 
         "0xDFC14d2Af169B0D36C4EFF567Ada9b2E0CAE044f" : "UNI-POOL-AAVE",
         "0xa2107FA5B38d9bbd2C461D6EDf11B11A50F6b974": " UNI-POOL-LINK",
         "0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11": " UNI-POOL-DAI",
-        "0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852": " UNI-POOL-USDT",
-        "0x5ac13261c181a9c3938BfE1b649E65D10F98566B": " UNI-POOL-USDT",
+        // "0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852": " UNI-POOL-USDT",
+        // "0x5ac13261c181a9c3938BfE1b649E65D10F98566B": " UNI-POOL-USDT",
         "0xf80758aB42C3B07dA84053Fd88804bCB6BAA4b5c": " UNI-POOL-SUSD",
         "0xd3d2E2692501A5c9Ca623199D38826e513033a17": " UNI-POOL-UNI",
         "0xBb2b8038a1640196FbE3e38816F3e67Cba72D940": " UNI-POOL-WBTC",
         "0xf49C43Ae0fAf37217bDcB00DF478cF793eDd6687": " UNI-POOL-KNC",
         "0xb4d0d9df2738abE81b87b66c80851292492D1404": " UNI-POOL-TUSD",
-        "0x61247D8aCa1C485A50728E1336d9b26c8339e701": " UNI-POOL-GUSD",
+        // "0x61247D8aCa1C485A50728E1336d9b26c8339e701": " UNI-POOL-GUSD",
 
         "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9": "AAVE-LP-2",
         "0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3": "AAVE-LP-1",
@@ -46,11 +52,7 @@ export const getIconByAddress = (address) => {
         "0x531842cEbbdD378f8ee36D171d6cC9C4fcf475Ec": "USDT-DEBT-BEARING",
         "0xF63B34710400CAd3e044cFfDcAb00a0f32E33eCf": "WETH-DEBT-BEARING",
         "0x6C3c78838c761c6Ac7bE9F59fe808ea2A6E4379d": "DAI-DEBT-BEARING",
-
-        "0xF629cBd94d3791C9250152BD8dfBDF380E2a3B9c": "ENJ coin",
-        "0x6B175474E89094C44Da98b954EedeAC495271d0F": "DAI coin",
-
     }
 
-    return coinIconMap.hasOwnProperty(coinTicker) ? coinIconMap[coinTicker] : coinIconMap["???"]
+    return addressIconMap.hasOwnProperty(address) ? addressIconMap[address] : "???"
 }

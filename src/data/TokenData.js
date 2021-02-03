@@ -277,6 +277,17 @@ export const getTokenData = (address) => {
             coinGeckoID: "augur",
             version: 1,
         },
+        "0XF629CBD94D3791C9250152BD8DFBDF380E2A3B9C": {
+            ticker: "ENJ",
+            decimals: 18,
+            coinGeckoID: "enjin-coin",
+        },
+        "0XAC6DF26A590F08DCC95D5A4705AE8ABBC88509EF": {
+            ticker: "aENJ",
+            decimals: 18,
+            coinGeckoID: "enjin-coin",
+            version: 1,
+        },
         // "":"ENJ",
         // "":"COMP",
         // "":"1INCH",
