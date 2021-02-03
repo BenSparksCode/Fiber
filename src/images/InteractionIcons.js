@@ -5,6 +5,17 @@ import UNI_POOL_USDC from './uni-pool-images/uniswap_pool_usdc.svg'
 import UNI_POOL_DAI from './uni-pool-images/uniswap_pool_dai.svg'
 import UNI_POOL_USDT from './uni-pool-images/uniswap_pool_usdt.svg'
 import UNI_POOL_CRV from './uni-pool-images/uniswap_pool_crv.svg'
+import UNI_POOL_AAVE from './uni-pool-images/uniswap_pool_aave.svg'
+import UNI_POOL_LINK from './uni-pool-images/uniswap_pool_link.svg'
+import UNI_POOL_SUSD from './uni-pool-images/uniswap_pool_susd.svg'
+import UNI_POOL_WBTC from './uni-pool-images/uniswap_pool_wbtc.svg'
+import UNI_POOL_KNC from './uni-pool-images/uniswap_pool_knc.svg'
+import UNI_POOL_TUSD from './uni-pool-images/uniswap_pool_tusd.svg'
+import UNI_POOL_GUSD from './uni-pool-images/uniswap_pool_gusd.svg'
+import UNI_POOL_ETH from './uni-pool-images/uniswap_pool_eth.svg'
+
+
+
 
 import AAVE_LP_2 from './aave-version-images/AAVE_V2_logo.svg'
 import AAVE_LP_1 from './aave-version-images/AAVE_V1_logo.svg'
@@ -14,6 +25,14 @@ export const svgs = {
     "UNI-POOL-DAI": UNI_POOL_DAI,
     "UNI-POOL-USDT": UNI_POOL_USDT,
     "UNI-POOL-CRV": UNI_POOL_CRV,
+    "UNI-POOL-AAVE": UNI_POOL_AAVE,
+    "UNI-POOL-LINK":UNI_POOL_LINK,
+    "UNI-POOL-SUSD":UNI_POOL_SUSD,
+    "UNI-POOL-WBTC":UNI_POOL_WBTC,
+    "UNI-POOL-KNC":UNI_POOL_KNC,
+    "UNI-POOL-TUSD":UNI_POOL_TUSD,
+    "UNI-POOL-GUSD": UNI_POOL_GUSD,
+    "UNI-POOL-ETH": UNI_POOL_ETH,
 
 
     "AAVE-LP-2": AAVE_LP_2,
@@ -31,11 +50,12 @@ export const getIconByAddress = (address) => {
         "0x0d4a11d5EEaaC28EC3F61d100daF4d40471f1852": "UNI-POOL-USDT",
         "0x5ac13261c181a9c3938BfE1b649E65D10F98566B": "UNI-POOL-USDT",
         "0xf80758aB42C3B07dA84053Fd88804bCB6BAA4b5c": "UNI-POOL-SUSD",
-        "0xd3d2E2692501A5c9Ca623199D38826e513033a17": "UNI-POOL-UNI",
+        "0xd3d2E2692501A5c9Ca623199D38826e513033a17": "UNI-POOL-ETH",
         "0xBb2b8038a1640196FbE3e38816F3e67Cba72D940": "UNI-POOL-WBTC",
         "0xf49C43Ae0fAf37217bDcB00DF478cF793eDd6687": "UNI-POOL-KNC",
         "0xb4d0d9df2738abE81b87b66c80851292492D1404": "UNI-POOL-TUSD",
         "0x61247D8aCa1C485A50728E1336d9b26c8339e701": " UNI-POOL-GUSD",
+
 
         "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9": "AAVE-LP-2",
         "0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3": "AAVE-LP-1",
@@ -44,6 +64,7 @@ export const getIconByAddress = (address) => {
         "0xba728eAd5e496BE00DCF66F650b6d7758eCB50f8": "MKR-INTEREST-BEARING",
         "0xF63B34710400CAd3e044cFfDcAb00a0f32E33eCf": "WETH-INTEREST-BEARING",
         "0x101cc05f4A51C0319f570d5E146a8C625198e636": "TUSD-INTEREST-BEARING",
+        "0x71fc860F7D3A592A4a98740e39dB31d25db65ae8": "TUSD-INTEREST-BEARING",
         "0xBcca60bB61934080951369a648Fb03DF4F96263C": "USDC-INTEREST-BEARING",
         "0x5165d24277cD063F5ac44Efd447B27025e888f37": "YFI-INTEREST-BEARING",
         "0xFFC97d72E13E01096502Cb8Eb52dEe56f74DAD7B": "AAVE-INTEREST-BEARING",
@@ -55,6 +76,10 @@ export const getIconByAddress = (address) => {
         "0xaC6Df26a590F08dcC95D5a4705ae8abbc88509Ef": "ENJ-INTEREST-BEARING",
         "0x8dAE6Cb04688C62d939ed9B68d32Bc62e49970b1": "CRV-INTEREST-BEARING",
         "0xD37EE7e4f452C6638c96536e68090De8cBcdb583": "GUSD-INTEREST-BEARING",
+        "0xA361718326c15715591c299427c62086F69923D9": "BUSD-INTEREST-BEARING",
+        "0x39C6b3e42d6A679d7D776778Fe880BC9487C2EDA": "KNC-INTEREST-BEARING",
+        "0x35f6B052C598d933D69A4EEC4D04c73A191fE6c2": "SNX-INTEREST-BEARING",
+
 
         "0x619beb58998eD2278e08620f97007e1116D5D25b": "USDC-DEBT-BEARING",
         "0xE4922afAB0BbaDd8ab2a88E0C79d884Ad337fcA6": "USDC-DEBT-BEARING",
@@ -65,6 +90,10 @@ export const getIconByAddress = (address) => {
         "0x531842cEbbdD378f8ee36D171d6cC9C4fcf475Ec": "USDT-DEBT-BEARING",
         "0xF63B34710400CAd3e044cFfDcAb00a0f32E33eCf": "WETH-DEBT-BEARING",
         "0x6C3c78838c761c6Ac7bE9F59fe808ea2A6E4379d": "DAI-DEBT-BEARING",
+        "0xbA429f7011c9fa04cDd46a2Da24dc0FF0aC6099c": "BUSD-DEBT-BEARING",
+        "0x6B05D1c608015Ccb8e205A690cB86773A96F39f1": "KNC-DEBT-BEARING",
+        "0xba728eAd5e496BE00DCF66F650b6d7758eCB50f8": "MKR-DEBT-BEARING",
+
     }
 
     return addressIconMap.hasOwnProperty(address) ? addressIconMap[address] : "???"
