@@ -5,6 +5,7 @@ export const getCoinIconURL = (coinTicker) => {
         "ETH": "https://ethereum.org/static/a183661dd70e0e5c70689a0ec95ef0ba/16c7d/eth-diamond-purple.png",
         "aETH": "https://aave.com/static/media/aETH.6f2c0bbe.svg",
         "WETH": "https://aave.com/static/media/weth.3502a1ea.svg",
+        "aWETH": "https://aave.com/static/media/aWETH.8bcd3ba4.svg",
         "USDC": "https://aave.com/static/media/usdc.8dd9681c.svg",
         "aUSDC": "https://aave.com/static/media/aUSDC.e260d492.svg",
         "USDT": "https://aave.com/static/media/usdt.49e25172.svg",

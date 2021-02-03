@@ -12,10 +12,15 @@ export const getTokenData = (address) => {
         "0X3A3A65AAB0DD2A17E3F1947BA16138CD37D08C04": {
             ticker: "aETH",
             decimals: 18,
-            coinGeckoID: "aave-eth",
+            coinGeckoID: "ethereum",
         },
         "0XC02AAA39B223FE8D0A0E5C4F27EAD9083C756CC2": {
             ticker: "WETH",
+            decimals: 18,
+            coinGeckoID: "ethereum",
+        },
+        "0X030BA81F1C18D280636F32AF80B9AAD02CF0854E": {
+            ticker: "aWETH",
             decimals: 18,
             coinGeckoID: "ethereum",
         },

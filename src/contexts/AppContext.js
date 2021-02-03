@@ -25,6 +25,8 @@ class AppContextProvider extends Component {
         // FIREBASE DATA
         this.loadFLsFromFirebase()
 
+        // firebaseDB.moveFLToNewCollection()
+
         // WEB3 LISTENERS
         // Set up newBlockListener
         // const sub = web3.subscribeToNewBlocks((err, res) => {
