@@ -18,9 +18,10 @@ export const FlashLoanListItem = (props) => {
     }, [])
 
     const getIconArray = (tokensData) => {
-
         const MAX_ICONS_SHOWN = 6
-        // TODO - remove icons that point to duplicate images (e.g. same ticker)
+
+        // Reducing array to not show duplicate images (no duplicate tickers)
+        tokensData = tokensData.filter((v,i,a)=>a.findIndex(t=>(t.ticker === v.ticker))===i)
 
         if (!tokensData || tokensData.length == 0) return <img className="CoinIcon" src={getCoinIconURL("???")} />
 

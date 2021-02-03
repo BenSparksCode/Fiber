@@ -1,6 +1,3 @@
-
-
-
 import UNI_POOL_USDC from './uni-pool-images/uniswap_pool_usdc.svg'
 import UNI_POOL_DAI from './uni-pool-images/uniswap_pool_dai.svg'
 import UNI_POOL_USDT from './uni-pool-images/uniswap_pool_usdt.svg'
@@ -13,9 +10,6 @@ import UNI_POOL_KNC from './uni-pool-images/uniswap_pool_knc.svg'
 import UNI_POOL_TUSD from './uni-pool-images/uniswap_pool_tusd.svg'
 import UNI_POOL_GUSD from './uni-pool-images/uniswap_pool_gusd.svg'
 import UNI_POOL_ETH from './uni-pool-images/uniswap_pool_eth.svg'
-
-
-
 
 import AAVE_LP_2 from './aave-version-images/AAVE_V2_logo.svg'
 import AAVE_LP_1 from './aave-version-images/AAVE_V1_logo.svg'
@@ -33,7 +27,6 @@ export const svgs = {
     "UNI-POOL-TUSD":UNI_POOL_TUSD,
     "UNI-POOL-GUSD": UNI_POOL_GUSD,
     "UNI-POOL-ETH": UNI_POOL_ETH,
-
 
     "AAVE-LP-2": AAVE_LP_2,
     "AAVE-LP-1": AAVE_LP_1,
@@ -55,7 +48,6 @@ export const getIconByAddress = (address) => {
         "0xf49C43Ae0fAf37217bDcB00DF478cF793eDd6687": "UNI-POOL-KNC",
         "0xb4d0d9df2738abE81b87b66c80851292492D1404": "UNI-POOL-TUSD",
         "0x61247D8aCa1C485A50728E1336d9b26c8339e701": " UNI-POOL-GUSD",
-
 
         "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9": "AAVE-LP-2",
         "0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3": "AAVE-LP-1",
@@ -79,7 +71,6 @@ export const getIconByAddress = (address) => {
         "0xA361718326c15715591c299427c62086F69923D9": "BUSD-INTEREST-BEARING",
         "0x39C6b3e42d6A679d7D776778Fe880BC9487C2EDA": "KNC-INTEREST-BEARING",
         "0x35f6B052C598d933D69A4EEC4D04c73A191fE6c2": "SNX-INTEREST-BEARING",
-
 
         "0x619beb58998eD2278e08620f97007e1116D5D25b": "USDC-DEBT-BEARING",
         "0xE4922afAB0BbaDd8ab2a88E0C79d884Ad337fcA6": "USDC-DEBT-BEARING",
