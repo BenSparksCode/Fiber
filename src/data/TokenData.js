@@ -51,6 +51,11 @@ export const getTokenData = (address) => {
             decimals: 6,
             coinGeckoID: "aave-usdt",
         },
+        "0X71FC860F7D3A592A4A98740E39DB31D25DB65AE8": {
+            ticker: "aUSDT",
+            decimals: 6,
+            coinGeckoID: "aave-usdt",
+        },
         "0X0000000000085D4780B73119B644AE5ECD22B376": {
             ticker: "TUSD",
             decimals: 18,
@@ -66,12 +71,22 @@ export const getTokenData = (address) => {
             decimals: 18,
             coinGeckoID: "aave-tusd",
         },
+        "0X101CC05F4A51C0319F570D5E146A8C625198E636": {
+            ticker: "aTUSD",
+            decimals: 18,
+            coinGeckoID: "aave-tusd",
+        },
         "0X57AB1EC28D129707052DF4DF418D58A2D46D5F51": {
             ticker: "sUSD",
             decimals: 18,
             coinGeckoID: "susd",
         },
         "0X625AE63000F46200499120B906716420BD059240": {
+            ticker: "aSUSD",
+            decimals: 18,
+            coinGeckoID: "aave-susd",
+        },
+        "0X6C5024CD4F8A59110119C56F8933403A539555EB": {
             ticker: "aSUSD",
             decimals: 18,
             coinGeckoID: "aave-susd",
@@ -86,7 +101,17 @@ export const getTokenData = (address) => {
             decimals: 18,
             coinGeckoID: "aave-busd",
         },
+        "0XA361718326C15715591C299427C62086F69923D9": {
+            ticker: "aBUSD",
+            decimals: 18,
+            coinGeckoID: "aave-busd",
+        },
         "0X056FD409E1D7A124BD7017459DFEA2F387B6D5CD": {
+            ticker: "GUSD",
+            decimals: 2,
+            coinGeckoID: "gemini-dollar",
+        },
+        "0XD37EE7E4F452C6638C96536E68090DE8CBCDB583": {
             ticker: "GUSD",
             decimals: 2,
             coinGeckoID: "gemini-dollar",
@@ -101,8 +126,18 @@ export const getTokenData = (address) => {
             decimals: 18,
             coinGeckoID: "aave-dai",
         },
+        "0XFC1E690F61EFD961294B3E1CE3313FBD8AA4F85D": {
+            ticker: "aDAI",
+            decimals: 18,
+            coinGeckoID: "aave-dai",
+        },
         "0X7FC66500C84A76AD7E9C93437BFC5AC33E2DDAE9": {
             ticker: "AAVE",
+            decimals: 18,
+            coinGeckoID: "aave",
+        },
+        "0XFFC97D72E13E01096502CB8EB52DEE56F74DAD7B": {
+            ticker: "aAAVE",
             decimals: 18,
             coinGeckoID: "aave",
         },
@@ -139,6 +174,11 @@ export const getTokenData = (address) => {
             coinGeckoID: "yearn-finance",
         },
         "0X12E51E77DAAA58AA0E9247DB7510EA4B46F9BEAD": {
+            ticker: "aYFI",
+            decimals: 18,
+            coinGeckoID: "ayfi",
+        },
+        "0X5165D24277CD063F5AC44EFD447B27025E888F37": {
             ticker: "aYFI",
             decimals: 18,
             coinGeckoID: "ayfi",
@@ -180,6 +220,11 @@ export const getTokenData = (address) => {
             decimals: 18,
             coinGeckoID: "curve-dao-token",
         },
+        "0X8DAE6CB04688C62D939ED9B68D32BC62E49970B1": {
+            ticker: "aCRV",
+            decimals: 18,
+            coinGeckoID: "curve-dao-token",
+        },
         "0X2260FAC5E5542A773AA44FBCFEDF7C193BC2C599": {
             ticker: "WBTC",
             decimals: 8,
@@ -218,6 +263,11 @@ export const getTokenData = (address) => {
             coinGeckoID: "synthetix-network-token",
         },
         "0X328C4C80BC7ACA0834DB37E6600A6C49E12DA4DE": {
+            ticker: "aSNX",
+            decimals: 18,
+            coinGeckoID: "aave-snx",
+        },
+        "0X35F6B052C598D933D69A4EEC4D04C73A191FE6C2": {
             ticker: "aSNX",
             decimals: 18,
             coinGeckoID: "aave-snx",
@@ -307,6 +357,12 @@ export const getTokenData = (address) => {
             coinGeckoID: "enjin-coin",
         },
         "0XAC6DF26A590F08DCC95D5A4705AE8ABBC88509EF": {
+            ticker: "aENJ",
+            decimals: 18,
+            coinGeckoID: "enjin-coin",
+            version: 1,
+        },
+        "0X712DB54DAA836B53EF1ECBB9C6BA3B9EFB073F40": {
             ticker: "aENJ",
             decimals: 18,
             coinGeckoID: "enjin-coin",
