@@ -24,11 +24,6 @@
             ]
         }
     ],
-    "spottedFLs": [
-        "0xd82957b7cfcd85f05cd2113e1381df8b6a1e1f7d40b9231a209f6afab9fbb5fc",
-        "0x770de1319f97f177aada656a55cf91f35d00cd13c407307eb64a1dcd5fd4e36d",
-        "0xa1fe3f763c8e97f2e401b10033de7061b740ecbe72e5ff1c09fefd435871c566"
-    ],
     "AAVE_CONTRACTS": {
         "LendingPoolV1": {
             "address": "0x398eC7346DcD622eDc5ae82352F02bE94C62d119",
@@ -39,10 +34,5 @@
             "address": "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9",
             "FLSig": "0xab9c4b5d"
         }
-    },
-    "explanation": "v1 sig 1 = execute(). sig 2 = batchExec(). others unknown:",
-    "0xbbc54e72": "14",
-    "0xead35cae": "3",
-    "0x98a3f265": "2",
-    "0xaa3ec501": "2"
+    }
 }
