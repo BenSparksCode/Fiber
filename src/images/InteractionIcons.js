@@ -50,7 +50,7 @@ export const getIconByAddress = (address) => {
         "0x61247D8aCa1C485A50728E1336d9b26c8339e701": " UNI-POOL-GUSD",
 
         "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9": "AAVE-LP-2",
-        "0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3": "AAVE-LP-1",
+        // "0x3dfd23A6c5E8BbcFc9581d2E864a68feb6a076d3": "AAVE-LP-1", don't need core contract for now
         "0x398eC7346DcD622eDc5ae82352F02bE94C62d119": "AAVE-LP-1",
         
     }

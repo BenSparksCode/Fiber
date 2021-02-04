@@ -60,7 +60,7 @@ class AppContextProvider extends Component {
                 tempFL = await web3.formatFLData(tempFL)
 
                 // Store FL in Firebase --------
-                if (["0x5cffe9de", "0xab9c4b5d"].includes(tempFL.tx.input.substring(0, 10))) {
+                if (["0xab9c4b5d"].includes(tempFL.tx.input.substring(0, 10))) {
                     // this.storeFLInFirebase(tempFL)
                     // console.log("FL STORING DISABLED - WOULD HAVE SAVED TO DB HERE");
                 }
