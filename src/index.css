@@ -10,6 +10,38 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.site-layout {
+
+  /* background: linear-gradient(246deg, #1890ff, #da45bd); */
+  background-size: 400% 400%;
+
+  -webkit-animation: BackgroundColors 8s ease infinite;
+  animation: BackgroundColors 8s ease infinite;
+}
+
+@-webkit-keyframes BackgroundColors {
+  0% {
+    background: rgba(15, 128, 248, 0.08);
+  }
+  50% {
+    background: rgba(219, 44, 178, 0.08);
+  }
+  100% {
+    background: rgba(15, 128, 248, 0.08);
+  }
+}
+@keyframes BackgroundColors {
+  0% {
+    background: rgba(15, 128, 248, 0.08);
+  }
+  50% {
+    background: rgba(219, 44, 178, 0.08);
+  }
+  100% {
+    background: rgba(15, 128, 248, 0.08);
+  }
+}
+
 .App {
   max-height: 86vh;
   min-height: 86vh;
@@ -97,14 +129,14 @@ code {
   width: 3px;
   border-radius: 2px;
 }
- 
+
 .FLFeedContainer::-webkit-scrollbar-thumb {
   background-color: rgb(9, 109, 217, 0.5);
   border-radius: 1.5px;
 }
 
-.FLFeedLoadingContainer{
-  height:100%;
+.FLFeedLoadingContainer {
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -134,45 +166,44 @@ code {
 }
 
 .NewFL {
-  -webkit-animation: AaveColors 3s ease ;
-  animation: AaveColors 3s ease ;
+  -webkit-animation: AaveColors 2s linear;
+  animation: AaveColors 2s linear;
 }
 
 @-webkit-keyframes AaveColors {
-  0%{
-    background:  rgba(15, 128, 248, 0.3);
-    box-shadow: 2px 14px 18px 2px  rgba(219, 44, 178, 0.5);
-    border: 1px solid #1890ff;
+  0% {
+    background: rgba(17, 89, 223, 0.3);
+    box-shadow: 2px 14px 18px 2px rgba(219, 44, 178, 0.5);
+    border: 1px solid #083ef0;
   }
-  50%{
-    background:  rgba(219, 44, 178, 0.3);
-    box-shadow: 2px 8px 12px 2px  rgba(15, 128, 248, 0.5);
-    border: 1px solid #1890ff;
+  50% {
+    background: rgba(219, 23, 174, 0.3);
+    box-shadow: 2px 8px 12px 2px rgba(15, 128, 248, 0.5);
+    border: 1px solid #ff1dff;
   }
-  100%{
+  100% {
     background: white;
     box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.2);
     border: 1px solid white;
   }
 }
 @keyframes AaveColors {
-  0%{
-    background:  rgba(15, 128, 248, 0.3);
-    box-shadow: 2px 14px 18px 2px  rgba(219, 44, 178, 0.5);
-    border: 1px solid #1890ff;
+  0% {
+    background: rgba(17, 89, 223, 0.3);
+    box-shadow: 2px 14px 18px 2px rgba(219, 44, 178, 0.5);
+    border: 1px solid #083ef0;
   }
-  50%{
-    background:  rgba(219, 44, 178, 0.3);
-    box-shadow: 2px 8px 12px 2px  rgba(15, 128, 248, 0.5);
-    border: 1px solid #1890ff;
+  50% {
+    background: rgba(219, 23, 174, 0.3);
+    box-shadow: 2px 8px 12px 2px rgba(15, 128, 248, 0.5);
+    border: 1px solid #ff1dff;
   }
-  100%{
+  100% {
     background: white;
     box-shadow: 1px 2px 4px 1px rgba(0, 0, 0, 0.2);
     border: 1px solid white;
   }
 }
-
 
 .FLCardSubcontainer {
   flex-grow: 1;
@@ -237,8 +268,8 @@ code {
 }
 
 .VersionTag {
- font-size: 14px;
- font-weight: 500;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .CoinIcon {
