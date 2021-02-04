@@ -6,7 +6,7 @@ export const ContentPanel = styled(Card)`
     width: 100%;
     border-radius: 8px;
     align-self: center;
-    box-shadow: 0 2px 8px 0 rgb(9, 109, 217, 0.3);
+    box-shadow: 0 4px 16px 0 rgb(9, 109, 217, 0.3);
     margin-bottom: 26px;
   `
 

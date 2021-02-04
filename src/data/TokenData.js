@@ -33,6 +33,13 @@ export const getTokenData = (address) => {
             ticker: "aUSDC",
             decimals: 6,
             coinGeckoID: "aave-usdc",
+            version: 1,
+        },
+        "0XBCCA60BB61934080951369A648FB03DF4F96263C": {
+            ticker: "aUSDC",
+            decimals: 6,
+            coinGeckoID: "aave-usdc",
+            version: 2,
         },
         "0XDAC17F958D2EE523A2206206994597C13D831EC7": {
             ticker: "USDT",
@@ -179,6 +186,11 @@ export const getTokenData = (address) => {
             coinGeckoID: "wrapped-bitcoin",
         },
         "0XFC4B8ED459E00E5400BE803A9BB3954234FD50E3": {
+            ticker: "aWBTC",
+            decimals: 8,
+            coinGeckoID: "aave-wbtc",
+        },
+        "0X9FF58F4FFB29FA2266AB25E75E2A8B3503311656": {
             ticker: "aWBTC",
             decimals: 8,
             coinGeckoID: "aave-wbtc",
