@@ -34,6 +34,8 @@ export const getCoinIconURL = (coinTicker) => {
         "aENJ": "",
         "KNC": "https://aave.com/static/media/knc.35b14575.svg",
         "aKNC": "",
+        "REP": "",
+        "aREP": "",
         "LINK": "https://aave.com/static/media/link.83c397b4.svg",
         "aLINK": "https://aave.com/static/media/aLINK.412c6589.svg",
         "MANA": "https://aave.com/static/media/mana.7a12a13f.svg",
