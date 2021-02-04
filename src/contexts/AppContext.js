@@ -29,39 +29,39 @@ class AppContextProvider extends Component {
             FLs: await this.convertFirebaseFLs(newFLs),
         })
 
-        // firebaseDB.moveFLToNewCollection()
-
         // WEB3 LISTENERS
         // Set up newBlockListener
-        // const sub = web3.subscribeToNewBlocks((err, res) => {
-        //     if (err) return
-        //     this.setState({
-        //         connectedToMainnet: true,
-        //         latestBlockNum: res.number
-        //     })
-        // })
-        // // Set up FL event listeners
-        // const eventSubs = web3.subscribeToFLLogs()
-        // // Save subs to state for unsubbing later
-        // this.setState({
-        //     newBlocksSub: sub,
-        //     FLEventSubs: eventSubs
-        // })
+        const sub = web3.subscribeToNewBlocks((err, res) => {
+            if (err) return
+            this.setState({
+                connectedToMainnet: true,
+                latestBlockNum: res.number
+            })
+        })
+        // Set up FL event listeners
+        const eventSubs = web3.subscribeToFLLogs()
+        // Save subs to state for unsubbing later
+        this.setState({
+            newBlocksSub: sub,
+            FLEventSubs: eventSubs
+        })
     }
 
     async componentDidUpdate(prevProps, prevState) {
         if (prevState.latestBlockNum != this.state.latestBlockNum) {
             if (web3.flashLoans.length === 0) return
 
+            const latestFLs = web3.flashLoans.filter((v,i,a)=>a.findIndex(t=>(t.tx.hash === v.tx.hash))===i)
+
             let newFLs = []
 
-            for (let i = 0; i < web3.flashLoans.length; i++) {
-                let tempFL = web3.flashLoans[i];
+            for (let i = 0; i < latestFLs.length; i++) {
+                let tempFL = latestFLs[i];
                 tempFL = await web3.formatFLData(tempFL)
 
                 // Store FL in Firebase --------
                 if (["0x5cffe9de", "0xab9c4b5d"].includes(tempFL.tx.input.substring(0, 10))) {
-                    // this.storeFLInFirebase(tempFL)
+                    this.storeFLInFirebase(tempFL)
                     // console.log("FL STORING DISABLED - WOULD HAVE SAVED TO DB HERE");
                 }
                 // -----------------------------

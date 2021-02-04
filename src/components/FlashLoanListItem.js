@@ -34,13 +34,13 @@ export const FlashLoanListItem = (props) => {
                 srcImg = getCoinIconURL(i.ticker)
             }
 
-            return (<a href={"https://etherscan.io/address/" + i.asset}>
+            return (<a key={i.asset} href={"https://etherscan.io/address/" + i.asset}>
                 <img className="CoinIcon" src={srcImg} />
             </a>)
         })
 
         if (tokensData.length > MAX_ICONS_SHOWN) {
-            let circle = <div className='CoinIcon additionalInteractionsIcon'>
+            let circle = <div key={"extraInteractions"} className='CoinIcon additionalInteractionsIcon'>
                 <p className='CoinIconText'>{"+" + Math.min(tokensData.length - MAX_ICONS_SHOWN, 99)}</p>
             </div>
 
