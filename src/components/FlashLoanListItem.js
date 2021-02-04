@@ -116,13 +116,10 @@ export const FlashLoanListItem = (props) => {
             <div className='FlashLoanViewButton'>
                 <Button type="primary" shape="circle"
                     onClick={() => {
-                        window.open('https://etherscan.io/address/'
-                            + ((data.version == 2)
-                                ? "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9"
-                                : "0x398eC7346DcD622eDc5ae82352F02bE94C62d119"), '_blank')
+                        window.open('https://etherscan.io/address/0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9', '_blank')
                     }}
                 >
-                    <p className='VersionTag'>V{data.version}</p>
+                    <p className='VersionTag'>V2</p>
                 </Button>
             </div>
 

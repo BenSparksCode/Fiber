@@ -10,13 +10,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.site-layout {
+.ant-layout-content{
+  margin: 0px !important;
 
-  /* background: linear-gradient(246deg, #1890ff, #da45bd); */
-  background-size: 400% 400%;
-
-  -webkit-animation: BackgroundColors 8s ease infinite;
-  animation: BackgroundColors 8s ease infinite;
+  -webkit-animation: BackgroundColors 7s ease infinite;
+  animation: BackgroundColors 7s ease infinite;
 }
 
 @-webkit-keyframes BackgroundColors {
