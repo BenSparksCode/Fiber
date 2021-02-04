@@ -62,7 +62,12 @@ export const FlashLoanListItem = (props) => {
 
     return (
         <div className='FlashLoanListItem NewFL'
-            id={data.txHash}>
+            id={data.txHash}
+
+            onClick={() => {
+                window.open('https://etherscan.io/tx/'+data.txHash, '_blank')
+            }}
+            >
 
             <div className='FLCardSubcontainer FLCardSubcontainer1' >
                 <p className='FLCardTextLeft'>{getCardTime(data.date)}</p>
@@ -83,7 +88,7 @@ export const FlashLoanListItem = (props) => {
                     <p className='FLCardTextLeft'>TX: <a href={"https://etherscan.io/tx/" + data.txHash}>{shortenHash(data.txHash)}</a></p>
                 </div>
                 <div className='FLBlockContainer' >
-                    <p className='FLCardTextLeft'>Block: <a href={"https://etherscan.io/block/" + data.blockNum}>{formatBlockNum(data.block)}</a></p>
+                    <p className='FLCardTextLeft'>Block: <a href={"https://etherscan.io/block/" + data.block}>{formatBlockNum(data.block)}</a></p>
                 </div>
             </div>
 
