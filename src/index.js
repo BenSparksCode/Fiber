@@ -10,9 +10,10 @@ import {
 import AppContextProvider from './contexts/AppContext'
 import { DashboardLayout } from './layouts/DashboardLayout'
 
-import {Settings} from './pages/Settings'
+import {V1Page} from './pages/V1Page'
+import {V2Page} from './pages/V2Page'
+import {SignUpPage} from './pages/SignUpPage'
 import {FlashLoanStream} from './pages/FlashLoanStream'
-import App from './pages/App';
 
 import './index.css';
 import 'antd/dist/antd.css';
@@ -22,12 +23,14 @@ ReactDOM.render(
     <BrowserRouter>
       <DashboardLayout>
         <Switch>
+        
 
-          <Route path="/" exact component={App}/>
-          <Route path="/stream" component={FlashLoanStream} />
-          <Route path="/settings" component={Settings} />
+          <Route path="/v2" exact component={V2Page}/>
+          <Route path="/v1" component={V1Page} />
+          <Route path="/sign-up" component={SignUpPage} />
+          {/* <Route path="/stream" component={FlashLoanStream} /> */}
           
-          <Redirect from="*" to="/" />
+          <Redirect from="*" to="/v2" />
         </Switch>
       </DashboardLayout>
     </BrowserRouter>

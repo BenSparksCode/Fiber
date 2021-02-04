@@ -4,7 +4,7 @@ import { SearchAndFilterControls } from '../components/SearchAndFilterControls';
 import { FlashLoanFeed } from '../components/FlashLoanFeed'
 
 
-function App() {
+export const V2Page = () => {
   return (
     <div className="App">
       <TitleAndStatsCard />
@@ -15,5 +15,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

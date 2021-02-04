@@ -4,9 +4,8 @@ import {
 } from "react-router-dom";
 import { Layout, Menu } from 'antd';
 import {
-    DesktopOutlined,
-    SettingOutlined,
-    ExperimentOutlined
+    ThunderboltOutlined,
+    MailOutlined
 } from '@ant-design/icons';
 
 
@@ -28,11 +27,14 @@ export const DashboardLayout = (props) => {
     return (
         <Layout style={{ minHeight: '100vh' }}>
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="horizontal">
-                <Menu.Item key="1" icon={<DesktopOutlined />}>
-                    <Link to="/">Live Flash Loans</Link>
+                <Menu.Item key="1" icon={<ThunderboltOutlined />}>
+                    <Link to="/v2">Aave v2</Link>
                 </Menu.Item>
-                <Menu.Item key="2" icon={<SettingOutlined />}>
-                    <Link to="/settings">Settings</Link>
+                <Menu.Item key="2" icon={<ThunderboltOutlined />}>
+                    <Link to="/v1">Aave v1 (Coming Soon)</Link>
+                </Menu.Item>
+                <Menu.Item key="3" icon={<MailOutlined />}>
+                    <Link to="/sign-up">Sign Up</Link>
                 </Menu.Item>
                 {/* <Menu.Item key="3" icon={<ExperimentOutlined />}>
                     <Link to="/stream">Data Stream Test</Link>
