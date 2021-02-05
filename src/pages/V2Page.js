@@ -2,6 +2,7 @@
 import { TitleAndStatsCard } from '../components/TitleAndStatsCard';
 import { SearchAndFilterControls } from '../components/SearchAndFilterControls';
 import { FlashLoanFeed } from '../components/FlashLoanFeed'
+import { PaginationControls } from '../components/PaginationControls'
 
 
 export const V2Page = () => {
@@ -12,6 +13,8 @@ export const V2Page = () => {
       <SearchAndFilterControls />
 
       <FlashLoanFeed />
+
+      <PaginationControls />
     </div>
   );
 }
