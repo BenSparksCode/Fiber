@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { AppContext } from '../contexts/AppContext'
 import { ContentPanel } from './StyledComponents'
-import { Menu, Dropdown, Button, Space, Input } from 'antd';
+import { Menu, Dropdown, Button, Space, Input, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 
@@ -11,20 +11,50 @@ export const SearchAndFilterControls = () => {
   const { runSearchRequest } = useContext(AppContext)
 
   const [chosenFilter, setChosenFilter] = useState("Contract Address")
+  const [searchText, setSearchText] = useState("")
+  const [resultCnt, setResultCnt] = useState(0)
+  const [showResults, setShowResults] = useState(false)
 
   const { Search } = Input;
-  const onSearch = (value) => {
-    console.log(value);
+  const onSearch = () => {
+    if (!searchText) {
+      message.error("Please enter a valid smart contract address.");
+      return null
+    }
+    // checks if input is Ethereum address
+    if (/^(0x)?[0-9a-f]{40}$/i.test(searchText)) {
 
-    // TODO - input validation
+      setShowResults(true)
+      // TODO - input validation
+      runSearchRequest(searchText)
 
-    runSearchRequest(value)
+    } else {
+      message.error("Please enter a valid smart contract address.");
+    }
+  }
+
+  const onChange = (e) => {
+    if (e.type === 'click') {
+      console.log("clear icon clicked");
+      setSearchText("")
+      setResultCnt(0)
+      setShowResults(false)
+      return false
+    } else {
+      setSearchText(e.target.value)
+    }
   }
 
 
   const handleMenuClick = (e) => {
     if (!e.key) return
     setChosenFilter(FILTER_OPTIONS[e.key - 1])
+  }
+
+  const resetSearchClicked = () => {
+    setSearchText("")
+    setResultCnt(0)
+    setShowResults(false)
   }
 
 
@@ -54,9 +84,25 @@ export const SearchAndFilterControls = () => {
         </div>
 
         <div className='SearchBarContainer'>
-          <Search placeholder='Search by contract address' style={{ width: "100%" }} allowClear onSearch={onSearch} enterButton />
+          <Search placeholder='Search by contract address'
+            style={{ width: "100%" }}
+            value={searchText}
+            onChange={(e) => onChange(e)}
+            onSearch={onSearch}
+            enterButton
+          />
         </div>
       </div>
+      {showResults
+        ?
+        <div className='SearchResultsContainer'>
+          <div style={{ width: "65px" }}></div>
+          <h3 className='SearchResultsText'>{resultCnt} flash loan{resultCnt == 1 ? "" : "s"} found</h3>
+          <Button onClick={resetSearchClicked}>Reset</Button>
+        </div>
+        :
+        <div></div>
+      }
     </ContentPanel>
   )
 }

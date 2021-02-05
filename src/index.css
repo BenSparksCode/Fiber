@@ -316,6 +316,19 @@ code {
   width: calc(100% - 140px);
 }
 
+.SearchResultsContainer{
+  margin-top: 8px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+}
+.SearchResultsText{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .FlashLoanViewButton {
   top: 0;
   margin-right: -6px;
