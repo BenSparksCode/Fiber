@@ -61,7 +61,7 @@ export const FlashLoanListItem = (props) => {
     }
 
     return (
-        <div className='FlashLoanListItem NewFL'
+        <div className='FlashLoanListItem NewFL CardGrid'
             id={data.txHash}
 
             onClick={() => {
@@ -83,16 +83,9 @@ export const FlashLoanListItem = (props) => {
                 </div>
             </div>
 
-            <div className='FLCardSubcontainer FLCardSubcontainer3'>
-                <div className='FLTxContainer'>
-                    <p className='FLCardTextLeft'>TX: <a href={"https://etherscan.io/tx/" + data.txHash}>{shortenHash(data.txHash)}</a></p>
-                </div>
-                <div className='FLBlockContainer' >
-                    <p className='FLCardTextLeft'>Block: <a href={"https://etherscan.io/block/" + data.block}>{formatBlockNum(data.block)}</a></p>
-                </div>
-            </div>
+            
 
-            <div className='FLCardSubcontainer FLCardSubcontainer4'>
+            <div className='FLCardSubcontainer FLCardSubcontainer3'>
                 <div className='FLFromAddrContainer' >
                     <p className='FLCardTextLeft'>From: <a href={"https://etherscan.io/address/" + data.from}> {shortenHash(data.from)} </a></p>
                 </div>
@@ -113,7 +106,17 @@ export const FlashLoanListItem = (props) => {
                 </div>
             </div>
 
-            <div className='FlashLoanViewButton'>
+            <div className='FLCardSubcontainer FLCardSubcontainer4'>
+                <div className='FLTxContainer'>
+                    <p className='FLCardTextLeft'>TX: <a href={"https://etherscan.io/tx/" + data.txHash}>{shortenHash(data.txHash)}</a></p>
+                </div>
+                <div className='FLBlockContainer' >
+                    <p className='FLCardTextLeft'>Block: <a href={"https://etherscan.io/block/" + data.block}>{formatBlockNum(data.block)}</a></p>
+                </div>
+            </div>
+
+            {/* Removing until v1 also supported */}
+            {/* <div className='FlashLoanViewButton'>
                 <Button type="primary" shape="circle"
                     onClick={() => {
                         window.open('https://etherscan.io/address/0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9', '_blank')
@@ -121,7 +124,7 @@ export const FlashLoanListItem = (props) => {
                 >
                     <p className='VersionTag'>V2</p>
                 </Button>
-            </div>
+            </div> */}
 
         </div>
     )

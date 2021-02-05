@@ -11,7 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.ant-layout-content{
+.ant-layout-content {
   margin: 0px !important;
 
   -webkit-animation: BackgroundColors 7s ease infinite;
@@ -48,7 +48,6 @@ code {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  
 }
 
 .AppTitle {
@@ -144,12 +143,13 @@ code {
   align-items: center;
   font-size: 16px;
   font-weight: 500;
+  scroll-padding: 50px 0 0 50px;
 }
 
 .FlashLoanListItem {
   position: relative;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  overflow: hidden;
   margin-top: 20px;
   max-width: 100%;
   min-height: 96px;
@@ -159,6 +159,41 @@ code {
   border-radius: 8px;
   cursor: pointer;
 }
+
+.CardGrid {
+  grid-template-columns: 2fr 2fr 2fr 2fr;
+}
+
+@media (max-width: 1300px) {
+  .CardGrid {
+    grid-template-columns: 1fr 1fr 2fr 1fr;
+  }
+}
+
+@media (max-width: 1060px) {
+  .CardGrid {
+    grid-template-columns: 1fr 1fr 2fr 1fr;
+  }
+}
+
+@media (max-width: 970px) {
+  .CardGrid {
+    grid-template-columns: 1fr 2fr 2fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .CardGrid {
+    grid-template-columns: 200px 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  .CardGrid {
+    grid-template-columns: 120px 1fr;
+  }
+}
+
 
 .FlashLoanListItem:hover {
   box-shadow: 2px 8px 16px 2px rgb(9, 109, 217, 0.3);
@@ -207,7 +242,7 @@ code {
 }
 
 .FLCardSubcontainer {
-  flex-grow: 1;
+  /* flex-grow: 1; */
   font-size: 16px;
   font-weight: 500;
   justify-content: flex-start;
@@ -215,22 +250,32 @@ code {
 
 .FLCardSubcontainer1 {
   /* Date container fixed width to not resize others */
-  min-width: 120px;
-  max-width: 15%;
+  /* min-width: 120px;
+  max-width: 15%; */
   padding-left: 10px;
+  padding-right: 5px;
   padding-top: 10px;
 }
 
 .FLCardSubcontainer2 {
   /* This contains the Loan USD amount - will change size based on this*/
-  min-width: 185px;
-  max-width: 22%;
+  /* min-width: 185px;
+  max-width: 22%; */
   padding-top: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
-.FLCardSubcontainer3,
+.FLCardSubcontainer3{
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 .FLCardSubcontainer4 {
   padding-top: 10px;
+  padding-left: 5px;
+  padding-right: 10px;
 }
 
 .FLDollarText {
@@ -242,8 +287,8 @@ code {
 }
 
 .FLLoanAmountContainer {
-  min-width: 185px;
-  max-width: 185px;
+  /* min-width: 185px; */
+  /* max-width: 185px; */
 }
 
 .FLCardTextLeft {
@@ -316,7 +361,7 @@ code {
   width: calc(100% - 140px);
 }
 
-.SearchResultsContainer{
+.SearchResultsContainer {
   margin-top: 8px;
   display: flex;
   width: 100%;
@@ -324,7 +369,7 @@ code {
   justify-content: space-between;
   text-align: center;
 }
-.SearchResultsText{
+.SearchResultsText {
   margin-top: auto;
   margin-bottom: auto;
 }
