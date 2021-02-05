@@ -4,6 +4,7 @@ body {
     "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-y: hidden;
 }
 
 code {
@@ -41,12 +42,13 @@ code {
 }
 
 .App {
-  max-height: 86vh;
-  min-height: 86vh;
+  max-height: 87vh;
+  min-height: 87vh;
   text-align: center;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  
 }
 
 .AppTitle {
@@ -320,14 +322,20 @@ code {
   margin-top: -6px;
 }
 
-.footer {
-  background: rgba(0, 0, 0, 0.2);
-  padding: 10px;
-}
-
 .FlashLoanVersionTag {
   top: 0;
   margin-left: -6px;
   margin-top: -6px;
   font-weight: 800;
+}
+
+.PaginationContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* font-size: 16px;
+  font-weight: 500; */
 }
