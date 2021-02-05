@@ -26,7 +26,7 @@ class Web3Connection {
         this.LP1Interface = new ethers.utils.Interface(LENDING_POOL_V1)
         this.LP2Interface = new ethers.utils.Interface(LENDING_POOL_V2)
 
-        
+
         // const testData = {
         //     decodedTX: {
         //         args: [
@@ -50,7 +50,7 @@ class Web3Connection {
             'newBlockHeaders', {},
             (err, res) => {
                 if (!err) {
-
+                    console.log("Block ", res.number);
                     this.handleNewBlock(res.number)
                     return callback(err, res)
                 }
@@ -63,7 +63,7 @@ class Web3Connection {
         const FLSources = DataConstants.FLSources
 
         return FLSources.map(src => {
-            this.websocket.eth.subscribe(
+            return this.websocket.eth.subscribe(
                 'logs',
                 {
                     address: src.contract,
@@ -71,10 +71,8 @@ class Web3Connection {
                 },
                 (err, eventRes) => {
                     if (!err) {
-                        console.log("Event from", src.provider + " " + src.version);
                         console.log(eventRes);
                         this.groupEventsToTx(eventRes, src)
-                        // return callback(err, eventRes, src)
                     }
                 })
         })
@@ -91,9 +89,7 @@ class Web3Connection {
         // update block num
         this.latestBlock = blockNum
         // add compiled FL objects from last block to flashLoans
-        console.log("INSPECT", this.txEvents, Object.values(this.txEvents).filter(
-            i => i.isFL && i.block < this.latestBlock && Object.values(i).length > 0
-        ));
+
         this.flashLoans = [
             ...this.flashLoans,
             ...Object.values(this.txEvents).filter(
@@ -107,7 +103,6 @@ class Web3Connection {
             }
         }
 
-        console.log(blockNum, this.flashLoans, this.txEvents);
         if (this.flashLoans.length > 0) {
             console.log("FOUND A FLASH LOAN IN THE WILD!!!!\n")
             console.log(this.flashLoans);
@@ -166,7 +161,7 @@ class Web3Connection {
     getTxLogInteractions = (data) => {
 
         const interactions = data?.logs.map(e => e.address)
-        
+
         return [...new Set(interactions)]
     }
 
@@ -176,7 +171,6 @@ class Web3Connection {
             tempBorrowData = await this.getBorrowData(data)
         }
         return {
-            // dateCreated - added on server
             date: data.dateCreated ? data.dateCreated.toDate() : new Date(),
             txHash: data.tx.hash,
             from: data.tx.from,
@@ -218,20 +212,17 @@ class Web3Connection {
                         return res.data[getTokenData(address).coinGeckoID].usd
                     });
 
-                console.log(getTokenData(address).ticker, tokensBorrowed, tokenValue);
-
                 borrowData.push({
                     asset: address,
                     ticker: getTokenData(address).ticker,
                     tokensBorrowed,
                     tokenValue,
-                    valueBorrowed: tokenValue * tokensBorrowed
+                    valueBorrowed: (tokenValue || 1) * tokensBorrowed
                 })
             } catch (err) {
                 console.log("getBorrowData Error at func input", i, err);
             }
         }
-        console.log("Borrow Data:", (borrowData));
         return borrowData
     }
 }

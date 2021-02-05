@@ -13,7 +13,7 @@ export const TitleAndStatsCard = () => {
 
     return (
         <ContentPanel>
-            <div className='TitleAndStatsContainer'>
+            <div className='TitleAndStatsContainer TitleCardGrid'>
                 <div className='TitleContainer'>
                     <h1 className='AppTitle'> FIBER </h1>
                 </div>

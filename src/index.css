@@ -65,17 +65,36 @@ code {
   min-width: 380px;
   min-height: 46px;
   max-height: 46px;
-  display: flex;
-  flex-direction: row;
+  display: grid;
   max-height: 40px;
 }
 
+.TitleCardGrid {
+  grid-template-columns: 1fr 6fr 230px;
+}
+
+@media (max-width: 720px) {
+  .TitleCardGrid {
+    grid-template-columns: 120px 1fr 210px;
+  }
+}
+
+@media (max-width: 480px) {
+  .TitleCardGrid {
+    grid-template-columns: 120px 1px 210px;
+  }
+}
+
 .TitleContainer {
+  grid-column-start: 1;
+  grid-row-start: 1;
   flex-grow: 1;
-  min-width: 120px;
+  /* min-width: 120px; */
 }
 
 .StatsContainer {
+  grid-column-start: 3;
+  grid-row-start: 1;
   margin-top: -4px;
   flex-grow: 1;
   max-width: 250px;
