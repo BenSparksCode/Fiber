@@ -3,18 +3,47 @@ import styled from 'styled-components'
 
 
 export const ContentPanel = styled(Card)`
+
+    -webkit-animation: BorderColors 7s ease infinite;
+    animation: BorderColors 7s ease infinite;
+
     width: 100%;
     border-radius: 8px;
     align-self: center;
     box-shadow: 0 4px 16px 0 rgb(9, 109, 217, 0.3);
-    margin-bottom: 26px;
+    margin-bottom: 24px;
+
+    @-webkit-keyframes BorderColors {
+      0% {
+        border: rgba(219, 44, 178, 0.5) 1px solid;
+      }
+      50% {
+        border: rgba(15, 128, 248, 0.5) 1px solid;
+      }
+      100% {
+        border: rgba(219, 44, 178, 0.5) 1px solid;
+      }
+    }
+    @keyframes BorderColors {
+      0% {
+        border: rgba(219, 44, 178, 0.5) 1px solid;
+      }
+      50% {
+        border: rgba(15, 128, 248, 0.5) 1px solid;
+      }
+      100% {
+        border: rgba(219, 44, 178, 0.5) 1px solid;
+      }
+    }
   `
 
-export const BlueContentPanel = styled(Card)`
+export const PaginationPanel = styled(Card)`
+  -webkit-animation: BorderColors 7s ease infinite;
+  animation: BorderColors 7s ease infinite;
+
   width: 100%;
   border-radius: 8px;
   align-self: center;
-  box-shadow: 0 8px 16px 0 linear-gradient(90deg, rgba(46,186,198,1) 15%, rgba(25,75,255,1) 50%, rgba(182,80,158,1) 85%);
-  margin-bottom: 40px;
-  background: linear-gradient(45deg, #ffaf00,#bb02ff);
+  box-shadow: 0 4px 16px 0 rgb(9, 109, 217, 0.3);
+  margin-bottom: 2px;
 `
