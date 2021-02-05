@@ -25,6 +25,22 @@ class Web3Connection {
         );
         this.LP1Interface = new ethers.utils.Interface(LENDING_POOL_V1)
         this.LP2Interface = new ethers.utils.Interface(LENDING_POOL_V2)
+
+        
+        // const testData = {
+        //     decodedTX: {
+        //         args: [
+        //             "0x63a3f444E97d14e671E7Ee323C4234c8095E3516",
+        //             ["0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"],
+        //             ["0x05d0c66760"],
+        //             ["0x00"]
+        //         ]
+        //     },
+        //     tx: {
+        //         input: "0xab9c4b5d"
+        //     }
+        // }
+        // const res = this.getBorrowData(testData) 
     }
 
     subscribeToNewBlocks = (callback) => {
@@ -215,7 +231,7 @@ class Web3Connection {
                 console.log("getBorrowData Error at func input", i, err);
             }
         }
-        console.log("Borrow Data:", borrowData);
+        console.log("Borrow Data:", (borrowData));
         return borrowData
     }
 }
