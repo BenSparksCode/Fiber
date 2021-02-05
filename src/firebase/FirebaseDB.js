@@ -84,6 +84,24 @@ class FirebaseDB {
             })
     }
 
+    async storeEmail(email) {
+        if (!email) {
+            console.log("ERROR in FIREBASE DB: Missing data in storeEmail()")
+            return null
+        }
+        const collectionRef = await auth.db.collection('SignUps')
+        try {
+            const res = await collectionRef.add({
+                email: email,
+                dateSignedUp: firebase.firestore.FieldValue.serverTimestamp(),
+            })
+            return res
+        } catch (err) {
+            console.log("ERROR in FIREBASE DB: Error in storeEmail", err);
+            return null
+        }
+    }
+
 
     // USE FUNCTION BELOW TO TRANSFER ITEMS BETWEEN FIREBASE COLLECTIONS
 

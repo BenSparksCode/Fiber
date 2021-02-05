@@ -31,20 +31,20 @@ class AppContextProvider extends Component {
 
         // WEB3 LISTENERS
         // Set up newBlockListener
-        const sub = web3.subscribeToNewBlocks((err, res) => {
-            if (err) return
-            this.setState({
-                connectedToMainnet: true,
-                latestBlockNum: res.number
-            })
-        })
-        // Set up FL event listeners
-        const eventSubs = web3.subscribeToFLLogs()
-        // Save subs to state for unsubbing later
-        this.setState({
-            newBlocksSub: sub,
-            FLEventSubs: eventSubs
-        })
+        // const sub = web3.subscribeToNewBlocks((err, res) => {
+        //     if (err) return
+        //     this.setState({
+        //         connectedToMainnet: true,
+        //         latestBlockNum: res.number
+        //     })
+        // })
+        // // Set up FL event listeners
+        // const eventSubs = web3.subscribeToFLLogs()
+        // // Save subs to state for unsubbing later
+        // this.setState({
+        //     newBlocksSub: sub,
+        //     FLEventSubs: eventSubs
+        // })
     }
 
     async componentDidUpdate(prevProps, prevState) {

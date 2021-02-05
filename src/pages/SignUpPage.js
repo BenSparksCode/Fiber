@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Input, message } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
 
+import firebaseDB from '../firebase/FirebaseDB'
+
 import { ContentPanel } from '../components/StyledComponents'
 
 const { Search } = Input;
@@ -16,7 +18,7 @@ export const SignUpPage = () => {
         if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
             message.success("Thanks! We've added you to our list! 🎉");
 
-            // TODO - add Firebase email save
+            firebaseDB.storeEmail(email)
 
             setSubmitted(true)
         } else {
@@ -36,7 +38,6 @@ export const SignUpPage = () => {
                         submitted ?
                             <p style={{ textAlign: "center", alignItems: "center" }}>Email recieved! 🎉</p> :
                             <Search placeholder="ape@aave.com"
-                                // value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 onSearch={onSubmitEmail}
                                 enterButton={<SendOutlined />}
