@@ -6,6 +6,23 @@ import firebaseDB from '../firebase/FirebaseDB'
 
 export const AppContext = createContext()
 
+// const tempData = {
+//             date: new Date(),
+//             txHash: "0x23ab345cdb234",
+//             from: "0x23ab345cdb234",
+//             block: 123456789,
+//             version: 2,
+//             // tx: data.tx,
+//             // decodedTX: {
+
+//             // },
+//             // logs: data.logs,
+//             borrowData: [{
+
+//             }],
+//             interactions: ["0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9"]
+// }
+
 class AppContextProvider extends Component {
     state = {
         newBlocksSub: null,
@@ -14,7 +31,7 @@ class AppContextProvider extends Component {
         connectedToMainnet: false,
         FLs: [],
         filteredFLs: [],
-        selectedFL: null,
+        expandSearch: false,
     }
 
     async componentDidMount() {
@@ -102,6 +119,14 @@ class AppContextProvider extends Component {
         const res = await firebaseDB.searchFLsByInteractionAddress(address)
         this.setState({
             filteredFLs: await this.convertFirebaseFLs(res),
+            expandSearch: true,
+        })
+    }
+
+    clearSearchFilterResults = () => {
+        this.setState({
+            filteredFLs: [],
+            expandSearch: false,
         })
     }
 
@@ -140,6 +165,7 @@ class AppContextProvider extends Component {
                 setSelectedFL: this.setSelectedFL,
                 killNewBlocksSub: this.killNewBlocksSub,
                 runSearchRequest: this.runSearchRequest,
+                clearSearchFilterResults: this.clearSearchFilterResults,
             }}>
                 { this.props.children}
             </AppContext.Provider >

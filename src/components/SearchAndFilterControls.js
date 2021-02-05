@@ -1,21 +1,28 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { AppContext } from '../contexts/AppContext'
 import { ContentPanel } from './StyledComponents'
 import { Menu, Dropdown, Button, Space, Input, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
+const { Search } = Input;
 
 const FILTER_OPTIONS = ["Contract Address"]
 
 export const SearchAndFilterControls = () => {
-  const { runSearchRequest } = useContext(AppContext)
+  const { runSearchRequest, filteredFLs, expandSearch, clearSearchFilterResults } = useContext(AppContext)
 
   const [chosenFilter, setChosenFilter] = useState("Contract Address")
+  const [searchLoading, setSearchLoading] = useState(false)
   const [searchText, setSearchText] = useState("")
   const [resultCnt, setResultCnt] = useState(0)
-  const [showResults, setShowResults] = useState(false)
 
-  const { Search } = Input;
+  useEffect(() => {
+    if(filteredFLs && filteredFLs.length > 0){
+      setSearchLoading(false)
+      setResultCnt(filteredFLs.length)
+    }
+  }, [filteredFLs])
+
   const onSearch = () => {
     if (!searchText) {
       message.error("Please enter a valid smart contract address.");
@@ -23,26 +30,15 @@ export const SearchAndFilterControls = () => {
     }
     // checks if input is Ethereum address
     if (/^(0x)?[0-9a-f]{40}$/i.test(searchText)) {
-
-      setShowResults(true)
-      // TODO - input validation
+      setSearchLoading(true)
       runSearchRequest(searchText)
-
     } else {
-      message.error("Please enter a valid smart contract address.");
+      message.error('Please enter a valid smart contract address.')
     }
   }
 
   const onChange = (e) => {
-    if (e.type === 'click') {
-      console.log("clear icon clicked");
-      setSearchText("")
-      setResultCnt(0)
-      setShowResults(false)
-      return false
-    } else {
       setSearchText(e.target.value)
-    }
   }
 
 
@@ -52,9 +48,9 @@ export const SearchAndFilterControls = () => {
   }
 
   const resetSearchClicked = () => {
+    clearSearchFilterResults()
     setSearchText("")
     setResultCnt(0)
-    setShowResults(false)
   }
 
 
@@ -67,7 +63,6 @@ export const SearchAndFilterControls = () => {
       </Menu>
     </div>
   );
-
 
   return (
     <ContentPanel>
@@ -90,14 +85,15 @@ export const SearchAndFilterControls = () => {
             onChange={(e) => onChange(e)}
             onSearch={onSearch}
             enterButton
+            loading={searchLoading}
           />
         </div>
       </div>
-      {showResults
+      {expandSearch
         ?
         <div className='SearchResultsContainer'>
           <div style={{ width: "65px" }}></div>
-          <h3 className='SearchResultsText'>{resultCnt} flash loan{resultCnt == 1 ? "" : "s"} found</h3>
+          <h3 className='SearchResultsText'>{resultCnt} flash loan{resultCnt === 1 ? "" : "s"} found</h3>
           <Button onClick={resetSearchClicked}>Reset</Button>
         </div>
         :
@@ -106,7 +102,3 @@ export const SearchAndFilterControls = () => {
     </ContentPanel>
   )
 }
-
-
-
-// onChange={(e) => {allowClear} =true }

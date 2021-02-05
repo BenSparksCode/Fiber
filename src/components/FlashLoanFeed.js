@@ -14,7 +14,6 @@ export const FlashLoanFeed = () => {
 
     return (
         <ContentPanel className='FLFeedContainer'>
-
             {
                 (filteredFLs?.length > 0) ?
                     (
