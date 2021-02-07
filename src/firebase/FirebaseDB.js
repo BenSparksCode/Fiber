@@ -15,6 +15,7 @@ class FirebaseDB {
             return null
         }
         const collectionRef = await auth.db.collection('flashLoans')
+ 
         try {
             const res = await collectionRef.add({
                 txHash: data.txHash,
@@ -41,7 +42,7 @@ class FirebaseDB {
 
         return colRef
             .orderBy('dateCreated', 'desc')
-            // .limit(20)
+            .limit(50)
             .get()
             .then(snapshot => {
                 snapshot.forEach(doc => {

@@ -12,13 +12,11 @@ export const AppContext = createContext()
 //             from: "0x23ab345cdb234",
 //             block: 123456789,
 //             version: 2,
-//             // tx: data.tx,
-//             // decodedTX: {
-
-//             // },
-//             // logs: data.logs,
+//             tx: data.tx,
+//             decodedTX: {
+//             },
+//             logs: data.logs,
 //             borrowData: [{
-
 //             }],
 //             interactions: ["0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9"]
 // }
@@ -32,6 +30,9 @@ class AppContextProvider extends Component {
         FLs: [],
         filteredFLs: [],
         expandSearch: false,
+        // pagination
+        currentPage: 1,
+        itemsPerPage: 10,
     }
 
     async componentDidMount() {
@@ -68,7 +69,7 @@ class AppContextProvider extends Component {
         if (prevState.latestBlockNum != this.state.latestBlockNum) {
             if (web3.flashLoans.length === 0) return
 
-            const latestFLs = web3.flashLoans.filter((v,i,a)=>a.findIndex(t=>(t.tx.hash === v.tx.hash))===i)
+            const latestFLs = web3.flashLoans.filter((v, i, a) => a.findIndex(t => (t.tx.hash === v.tx.hash)) === i)
 
             let newFLs = []
 
@@ -78,7 +79,7 @@ class AppContextProvider extends Component {
 
                 // Store FL in Firebase --------
                 if (["0xab9c4b5d"].includes(tempFL.tx.input.substring(0, 10))) {
-                    // this.storeFLInFirebase(tempFL)
+                    this.storeFLInFirebase(tempFL)
                     // console.log("FL STORING DISABLED - WOULD HAVE SAVED TO DB HERE");
                 }
                 // -----------------------------
@@ -130,13 +131,29 @@ class AppContextProvider extends Component {
         })
     }
 
+    setItemsPerPage = (numItems) => {
+        if (numItems < 1 || numItems > 100) return null
+
+        this.setState({
+            itemsPerPage: numItems
+        })
+    }
+
+    nextPage = () => {
+
+    }
+
+    prevPage = () => {
+
+    }
+
     convertFirebaseFLs = async (firebaseFLs) => {
         // firebaseFLs - still stringified
-        if(!firebaseFLs || firebaseFLs.length === 0){
+        if (!firebaseFLs || firebaseFLs.length === 0) {
             console.log("ERROR: firebaseFLs passed into convertFirebaseFLs is not valid");
             return []
         }
-        
+
         let processedFLs = []
 
         for (let i = 0; i < firebaseFLs.length; i++) {
