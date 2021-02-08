@@ -36,9 +36,9 @@ export const DashboardLayout = (props) => {
                 <Menu.Item key="3" icon={<MailOutlined />}>
                     <Link to="/sign-up">Sign Up</Link>
                 </Menu.Item>
-                {/* <Menu.Item key="3" icon={<ExperimentOutlined />}>
+                <Menu.Item key="3" icon={<ThunderboltOutlined />}>
                     <Link to="/stream">Data Stream Test</Link>
-                </Menu.Item> */}
+                </Menu.Item>
             </Menu>
             <Layout className="site-layout">
                 <Content style={{ margin: '0 16px' }}>
@@ -46,7 +46,6 @@ export const DashboardLayout = (props) => {
                         {props.children}
                     </div>
                 </Content>
-                {/* <Footer theme='dark' style={{ textAlign: 'center' }}>Fiber &copy;{new Date().getFullYear()} </Footer> */}
             </Layout>
         </Layout>
     );

@@ -179,6 +179,7 @@ class AppContextProvider extends Component {
         return (
             <AppContext.Provider value={{
                 ...this.state,
+                storeFLInFirebase: this.storeFLInFirebase,
                 setSelectedFL: this.setSelectedFL,
                 killNewBlocksSub: this.killNewBlocksSub,
                 runSearchRequest: this.runSearchRequest,

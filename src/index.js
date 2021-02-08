@@ -30,7 +30,7 @@ ReactDOM.render(
           <Route path="/v2" exact component={V2Page}/>
           <Route path="/v1" component={V1Page} />
           <Route path="/sign-up" component={SignUpPage} />
-          {/* <Route path="/stream" component={FlashLoanStream} /> */}
+          <Route path="/stream" component={FlashLoanStream} />
           
           <Redirect from="*" to="/v2" />
         </Switch>
