@@ -20,10 +20,7 @@ class FirebaseDB {
             .where('txHash', '==', data.txHash)
             .get()
             .then(snapshot => {
-                console.log("Check txHash snap:", snapshot);
-                snapshot.forEach(doc => {
-                    const flObj = { ...doc.data(), ...{ id: doc.id } }
-                    console.log("Check txHash - setting alreadyAdded to TRUE:", flObj);
+                snapshot.forEach(() => {
                     txAlreadyAdded = true
                 })
             })
@@ -108,18 +105,35 @@ class FirebaseDB {
             console.log("ERROR in FIREBASE DB: Missing data in storeEmail()")
             return null
         }
+        let emailAlreadyAdded = false
         const collectionRef = await auth.db.collection('SignUps')
-        try {
-            const res = await collectionRef.add({
-                email: email,
-                dateSignedUp: firebase.firestore.FieldValue.serverTimestamp(),
+        const finalRes = await collectionRef
+            .where('email', '==', email)
+            .get()
+            .then(snapshot => {
+                snapshot.forEach(() => {
+                    emailAlreadyAdded = true
+                })
             })
-            return res
-        } catch (err) {
-            console.log("ERROR in FIREBASE DB: Error in storeEmail", err);
-            return null
-        }
+            .then(() => {
+                if (emailAlreadyAdded) {
+                    console.log("Cancelling Firebase save. This email already added:", email);
+                    return null
+                }
+                console.log("No duplicate email found in DB. Attempting to save...", email);
+                try {
+                    return collectionRef.add({
+                        email: email,
+                        dateSignedUp: firebase.firestore.FieldValue.serverTimestamp(),
+                    })
+                } catch (err) {
+                    console.log("ERROR in FIREBASE DB: Error in storeEmail", err);
+                    return null
+                }
+            })
+        return finalRes
     }
+
 
 
     // USE FUNCTION BELOW TO TRANSFER ITEMS BETWEEN FIREBASE COLLECTIONS
