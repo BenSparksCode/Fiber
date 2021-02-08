@@ -14,25 +14,40 @@ class FirebaseDB {
             console.log("ERROR in FIREBASE DB: Missing data in storeFlashLoan()")
             return null
         }
+        let txAlreadyAdded = false
         const collectionRef = await auth.db.collection('flashLoans')
- 
-        try {
-            const res = await collectionRef.add({
-                txHash: data.txHash,
-                from: data.from,
-                block: data.block,
-                version: data.version,
-                tx: JSON.stringify(data.tx),
-                decodedTX: JSON.stringify(data.decodedTX),
-                borrowData: JSON.stringify(data.borrowData),
-                logs: JSON.stringify(data.logs),
-                dateCreated: firebase.firestore.FieldValue.serverTimestamp(),
+        const finalRes = await collectionRef
+            .where('txHash', '==', data.txHash)
+            .get()
+            .then(snapshot => {
+                snapshot.forEach(() => {
+                    txAlreadyAdded = true
+                })
             })
-            return res
-        } catch (err) {
-            console.log("ERROR in FIREBASE DB: Error in storeFlashLoan", err);
-            return null
-        }
+            .then(() => {
+                if (txAlreadyAdded) {
+                    console.log("Cancelling Firebase save. This tx already added:", data);
+                    return null
+                }
+                console.log("No duplicate FL found in Firebase. Attempting to save...", data);
+                try {
+                    return collectionRef.add({
+                        txHash: data.txHash,
+                        from: data.from,
+                        block: data.block,
+                        version: data.version,
+                        tx: JSON.stringify(data.tx),
+                        decodedTX: JSON.stringify(data.decodedTX),
+                        borrowData: JSON.stringify(data.borrowData),
+                        logs: JSON.stringify(data.logs),
+                        dateCreated: firebase.firestore.FieldValue.serverTimestamp(),
+                    })
+                } catch (err) {
+                    console.log("ERROR in FIREBASE DB: Error in storeFlashLoan", err);
+                    return null
+                }
+            })
+        return finalRes
     }
 
     async getAllFlashLoans() {
@@ -90,17 +105,33 @@ class FirebaseDB {
             console.log("ERROR in FIREBASE DB: Missing data in storeEmail()")
             return null
         }
+        let emailAlreadyAdded = false
         const collectionRef = await auth.db.collection('SignUps')
-        try {
-            const res = await collectionRef.add({
-                email: email,
-                dateSignedUp: firebase.firestore.FieldValue.serverTimestamp(),
+        const finalRes = await collectionRef
+            .where('email', '==', email)
+            .get()
+            .then(snapshot => {
+                snapshot.forEach(() => {
+                    emailAlreadyAdded = true
+                })
             })
-            return res
-        } catch (err) {
-            console.log("ERROR in FIREBASE DB: Error in storeEmail", err);
-            return null
-        }
+            .then(() => {
+                if (emailAlreadyAdded) {
+                    console.log("Cancelling Firebase save. This email already added:", email);
+                    return null
+                }
+                console.log("No duplicate email found in DB. Attempting to save...", email);
+                try {
+                    return collectionRef.add({
+                        email: email,
+                        dateSignedUp: firebase.firestore.FieldValue.serverTimestamp(),
+                    })
+                } catch (err) {
+                    console.log("ERROR in FIREBASE DB: Error in storeEmail", err);
+                    return null
+                }
+            })
+        return finalRes
     }
 
 
