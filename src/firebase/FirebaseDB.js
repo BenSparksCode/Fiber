@@ -14,25 +14,43 @@ class FirebaseDB {
             console.log("ERROR in FIREBASE DB: Missing data in storeFlashLoan()")
             return null
         }
+        let txAlreadyAdded = false
         const collectionRef = await auth.db.collection('flashLoans')
- 
-        try {
-            const res = await collectionRef.add({
-                txHash: data.txHash,
-                from: data.from,
-                block: data.block,
-                version: data.version,
-                tx: JSON.stringify(data.tx),
-                decodedTX: JSON.stringify(data.decodedTX),
-                borrowData: JSON.stringify(data.borrowData),
-                logs: JSON.stringify(data.logs),
-                dateCreated: firebase.firestore.FieldValue.serverTimestamp(),
+        const finalRes = await collectionRef
+            .where('txHash', '==', data.txHash)
+            .get()
+            .then(snapshot => {
+                console.log("Check txHash snap:", snapshot);
+                snapshot.forEach(doc => {
+                    const flObj = { ...doc.data(), ...{ id: doc.id } }
+                    console.log("Check txHash - setting alreadyAdded to TRUE:", flObj);
+                    txAlreadyAdded = true
+                })
             })
-            return res
-        } catch (err) {
-            console.log("ERROR in FIREBASE DB: Error in storeFlashLoan", err);
-            return null
-        }
+            .then(() => {
+                if (txAlreadyAdded) {
+                    console.log("Cancelling Firebase save. This tx already added:", data);
+                    return null
+                }
+                console.log("No duplicate FL found in Firebase. Attempting to save...", data);
+                try {
+                    return collectionRef.add({
+                        txHash: data.txHash,
+                        from: data.from,
+                        block: data.block,
+                        version: data.version,
+                        tx: JSON.stringify(data.tx),
+                        decodedTX: JSON.stringify(data.decodedTX),
+                        borrowData: JSON.stringify(data.borrowData),
+                        logs: JSON.stringify(data.logs),
+                        dateCreated: firebase.firestore.FieldValue.serverTimestamp(),
+                    })
+                } catch (err) {
+                    console.log("ERROR in FIREBASE DB: Error in storeFlashLoan", err);
+                    return null
+                }
+            })
+        return finalRes
     }
 
     async getAllFlashLoans() {
@@ -158,7 +176,7 @@ class FirebaseDB {
             //         tempFL.interactions = [...new Set(JSON.parse(tempFL.logs).map(lg => lg.address))]
 
             //         console.log("INTERACTIONS:", tempFL.interactions);
-                    
+
             //         // Add mutated data back to FL array
             //         FLs[i] = tempFL
             //     }
