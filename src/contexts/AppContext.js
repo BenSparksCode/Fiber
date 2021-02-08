@@ -29,6 +29,7 @@ class AppContextProvider extends Component {
         connectedToMainnet: false,
         FLs: [],
         filteredFLs: [],
+        pageChosenFLs: [],
         expandSearch: false,
         // pagination
         currentPage: 1,
@@ -42,27 +43,37 @@ class AppContextProvider extends Component {
         await firebaseAuth.login("data@data.com", "d@t@123")
 
         // FIREBASE DATA
-        const newFLs = await firebaseDB.getAllFlashLoans()
-        this.setState({
-            FLs: await this.convertFirebaseFLs(newFLs),
+        // const newFLs = await firebaseDB.getAllFlashLoans()
+        // this.setState({
+        //     FLs: await this.convertFirebaseFLs(newFLs),
+        // })
+
+        // FIREBASE - STREAM CONNECTION MODE
+        await firebaseDB.subToNewFlashLoans(async (newFL)=>{
+            const newConvertedFL = await this.convertFirebaseFLs([newFL])
+            if(newConvertedFL && newConvertedFL.length > 0){
+                this.setState({
+                    FLs: [newConvertedFL[0], ...this.state.FLs],
+                })
+            }
         })
 
         // WEB3 LISTENERS
         // Set up newBlockListener
-        const sub = web3.subscribeToNewBlocks((err, res) => {
-            if (err) return
-            this.setState({
-                connectedToMainnet: true,
-                latestBlockNum: res.number
-            })
-        })
-        // Set up FL event listeners
-        const eventSubs = web3.subscribeToFLLogs()
-        // Save subs to state for unsubbing later
-        this.setState({
-            newBlocksSub: sub,
-            FLEventSubs: eventSubs
-        })
+        // const sub = web3.subscribeToNewBlocks((err, res) => {
+        //     if (err) return
+        //     this.setState({
+        //         connectedToMainnet: true,
+        //         latestBlockNum: res.number
+        //     })
+        // })
+        // // Set up FL event listeners
+        // const eventSubs = web3.subscribeToFLLogs()
+        // // Save subs to state for unsubbing later
+        // this.setState({
+        //     newBlocksSub: sub,
+        //     FLEventSubs: eventSubs
+        // })
     }
 
     async componentDidUpdate(prevProps, prevState) {
@@ -79,7 +90,7 @@ class AppContextProvider extends Component {
 
                 // Store FL in Firebase --------
                 if (["0xab9c4b5d"].includes(tempFL.tx.input.substring(0, 10))) {
-                    this.storeFLInFirebase(tempFL)
+                    // this.storeFLInFirebase(tempFL)
                     // console.log("FL STORING DISABLED - WOULD HAVE SAVED TO DB HERE");
                 }
                 // -----------------------------

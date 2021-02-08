@@ -7,6 +7,10 @@ import auth from './FirebaseAuth'
 // import { getTokenData } from '../data/TokenData'
 
 class FirebaseDB {
+    constructor() {
+        this.appStartTime = new Date()
+    }
+
 
     async storeFlashLoan(data) {
         // data = {...FL}
@@ -50,28 +54,45 @@ class FirebaseDB {
         return finalRes
     }
 
-    async getAllFlashLoans() {
+    async subToNewFlashLoans(onNewFlashLoan) {
+        // onNewFlashLoan = callback fn
         if (!auth.isUserSignedIn()) return null
-        let FLs = []
-        const colRef = auth.db.collection('flashLoans')
 
-        return colRef
-            .orderBy('dateCreated', 'desc')
-            .limit(50)
-            .get()
-            .then(snapshot => {
-                snapshot.forEach(doc => {
-                    const flObj = { ...doc.data(), ...{ id: doc.id } }
-                    FLs.push(flObj)
-                })
-            })
-            .then(() => {
-                return FLs
-            })
-            .catch(err => {
-                console.log("ERROR in FIREBASE DB: Error in getAllFlashLoans", err);
-            })
+        return await auth.db.collection('flashLoans')
+            // TODO - check if this works on non GMT + 2 machines
+            .where('dateCreated', '>', this.appStartTime)
+            .onSnapshot(querySnapshot => {
+                querySnapshot.docChanges().forEach(change => {
+                    if (change.type === 'added') {
+                        const flObj = { ...change.doc.data() }
+                        onNewFlashLoan(flObj)
+                    }
+                });
+            });
     }
+
+    // async getAllFlashLoans() {
+    //     if (!auth.isUserSignedIn()) return null
+    //     let FLs = []
+    //     const colRef = auth.db.collection('flashLoans')
+
+    //     return colRef
+    //         .orderBy('dateCreated', 'desc')
+    //         .limit(1)
+    //         .get()
+    //         .then(snapshot => {
+    //             snapshot.forEach(doc => {
+    //                 const flObj = { ...doc.data(), ...{ id: doc.id } }
+    //                 FLs.push(flObj)
+    //             })
+    //         })
+    //         .then(() => {
+    //             return FLs
+    //         })
+    //         .catch(err => {
+    //             console.log("ERROR in FIREBASE DB: Error in getAllFlashLoans", err);
+    //         })
+    // }
 
     async searchFLsByInteractionAddress(address) {
         if (!auth.isUserSignedIn()) return null
