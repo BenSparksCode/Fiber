@@ -57,7 +57,7 @@ class FirebaseDB {
 
         return colRef
             .orderBy('dateCreated', 'desc')
-            .limit(50)
+            // .limit(50)
             .get()
             .then(snapshot => {
                 snapshot.forEach(doc => {
