@@ -7,7 +7,7 @@ A Flash Loan analytics web app built during the 2021 MarketMake DeFi Hackathon.
 
 ## Features:
 
-- Shows flash loans in real-time
+- Shows flash loans in real-time, as they happen on Ethereum mainnet
 - Currently only Aave v2 flash loans (more sources coming soon)
 - Flash loan cards show:
   - Date and time of flash loan
@@ -15,3 +15,4 @@ A Flash Loan analytics web app built during the 2021 MarketMake DeFi Hackathon.
   - Links to the block number, transaction hash, and sender address on Etherscan
   - Smart contracts that the flash loan interacted with, shown by logos
 - Search by smart contract address to see flash loans that interacted with it
+- Scales to all screen sizes (mobile included)
