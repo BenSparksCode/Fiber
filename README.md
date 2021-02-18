@@ -1,7 +1,7 @@
 # Fiber
 A Flash Loan analytics web app built during the 2021 MarketMake DeFi Hackathon.
 
-![Fiber Screenshot](/images/fiber-screenshot.jpg)
+![Fiber Screenshot](/images/fiber-screenshot.jpeg)
 
 [Fiber MarketMake Demo Video](https://youtu.be/xmsVs8smzbU)
 
