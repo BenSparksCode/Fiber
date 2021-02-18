@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "flashLoans",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "interactions",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "dateCreated",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
