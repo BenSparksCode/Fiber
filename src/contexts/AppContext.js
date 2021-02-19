@@ -4,22 +4,10 @@ import web3 from '../data/Web3Connection'
 import firebaseAuth from '../firebase/FirebaseAuth'
 import firebaseDB from '../firebase/FirebaseDB'
 
-export const AppContext = createContext()
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
-// const tempData = {
-//             date: new Date(),
-//             txHash: "0x23ab345cdb234",
-//             from: "0x23ab345cdb234",
-//             block: 123456789,
-//             version: 2,
-//             tx: data.tx,
-//             decodedTX: {
-//             },
-//             logs: data.logs,
-//             borrowData: [{
-//             }],
-//             interactions: ["0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9"]
-// }
+
+export const AppContext = createContext()
 
 class AppContextProvider extends Component {
     state = {
@@ -42,21 +30,30 @@ class AppContextProvider extends Component {
         // password: d@t@123
         await firebaseAuth.login("data@data.com", "d@t@123")
 
-        // FIREBASE DATA
+        // FIREBASE DATA - V1
         // const newFLs = await firebaseDB.getAllFlashLoans()
         // this.setState({
         //     FLs: await this.convertFirebaseFLs(newFLs),
         // })
 
-        // FIREBASE - STREAM CONNECTION MODE
-        await firebaseDB.subToNewFlashLoans(async (newFL)=>{
-            const newConvertedFL = await this.convertFirebaseFLs([newFL])
-            if(newConvertedFL && newConvertedFL.length > 0){
-                this.setState({
-                    FLs: [newConvertedFL[0], ...this.state.FLs],
-                })
-            }
-        })
+        // FIREBASE - STREAM CONNECTION MODE - V2
+        // await firebaseDB.subToNewFlashLoans(async (newFL)=>{
+        //     const newConvertedFL = await this.convertFirebaseFLs([newFL])
+        //     if(newConvertedFL && newConvertedFL.length > 0){
+        //         this.setState({
+        //             FLs: [newConvertedFL[0], ...this.state.FLs],
+        //         })
+        //     }
+        // })
+
+        // FIREBASE - V3 - Hooks in HOC
+        console.log(this.props.flashLoansData);
+        if (this.props.flashLoansData) {
+            this.setState({
+                FLs: await this.convertFirebaseFLs(this.props.flashLoansData)
+            })
+        }
+
 
         // WEB3 LISTENERS
         // Set up newBlockListener
@@ -77,6 +74,7 @@ class AppContextProvider extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState) {
+        // IF BLOCK NUM HAS CHANGED
         if (prevState.latestBlockNum != this.state.latestBlockNum) {
             if (web3.flashLoans.length === 0) return
 
@@ -102,6 +100,12 @@ class AppContextProvider extends Component {
 
             this.setState({
                 FLs: [...newFLs, ...this.state.FLs]
+            })
+        }
+        // IF NEW DATA RECIEVED FROM FIREBASE SUBSCRIPTION
+        else if (prevProps.flashLoansData != this.props.flashLoansData) {
+            this.setState({
+                FLs: await this.convertFirebaseFLs(this.props.flashLoansData)
             })
         }
     }
@@ -165,6 +169,8 @@ class AppContextProvider extends Component {
             return []
         }
 
+        console.log("Running convertFirebaseFL...");
+
         let processedFLs = []
 
         for (let i = 0; i < firebaseFLs.length; i++) {
@@ -202,4 +208,17 @@ class AppContextProvider extends Component {
     }
 }
 
-export default AppContextProvider
+
+export const AppContextWithFirestore = (props) => {
+    const flashLoansRef = firebaseAuth.db.collection('flashLoans')
+    const flashLoansQuery = flashLoansRef.orderBy('dateCreated', 'desc').limit(50)
+
+    const [flashLoansData] = useCollectionData(flashLoansQuery)
+    // const [filteredData] = useCollectionData(query)
+
+    return <AppContextProvider
+        flashLoansData={flashLoansData}
+        {...props}
+    />
+
+}
