@@ -36,7 +36,7 @@ export const DashboardLayout = (props) => {
                 <Menu.Item key="3" icon={<MailOutlined />}>
                     <Link to="/sign-up">Sign Up</Link>
                 </Menu.Item>
-                <Menu.Item key="3" icon={<ThunderboltOutlined />}>
+                <Menu.Item key="4" icon={<ThunderboltOutlined />}>
                     <Link to="/stream">Data Stream Test</Link>
                 </Menu.Item>
             </Menu>
