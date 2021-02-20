@@ -47,7 +47,6 @@ class AppContextProvider extends Component {
         // })
 
         // FIREBASE - V3 - Hooks in HOC
-        console.log(this.props.flashLoansData);
         if (this.props.flashLoansData) {
             this.setState({
                 FLs: await this.convertFirebaseFLs(this.props.flashLoansData)
@@ -211,7 +210,7 @@ class AppContextProvider extends Component {
 
 export const AppContextWithFirestore = (props) => {
     const flashLoansRef = firebaseAuth.db.collection('flashLoans')
-    const flashLoansQuery = flashLoansRef.orderBy('dateCreated', 'desc').limit(50)
+    const flashLoansQuery = flashLoansRef.orderBy('dateCreated', 'desc').limit(20)
 
     const [flashLoansData] = useCollectionData(flashLoansQuery)
     // const [filteredData] = useCollectionData(query)
